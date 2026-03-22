@@ -1,0 +1,364 @@
+2026-02-27 00:38:12 [error]: Error: ⨯ Unable to compile TypeScript:
+src/services/openai.service.ts(334,16): error TS1127: Invalid character.
+src/services/openai.service.ts(390,1): error TS1160: Unterminated template literal.
+
+    at Object.<anonymous> (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\services\openai.service.ts:1:7)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1692:14)
+    at Module._compile (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\RUSHIK~1\AppData\Local\Temp\ts-node-dev-hook-4129330409038534.js:69:33)
+    at node:internal/modules/cjs/loader:1824:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\RUSHIK~1\AppData\Local\Temp\ts-node-dev-hook-4129330409038534.js:114:20)
+    at require.extensions.<computed> (C:\Users\RUSHIK~1\AppData\Local\Temp\ts-node-dev-hook-4129330409038534.js:71:20)
+    at Object.nodeDevHook [as .ts] (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1427:32)
+    at Module._load (node:internal/modules/cjs/loader:1250:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1449:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\services\resume.service.ts:14:1)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1692:14)
+{
+  "error": {},
+  "exception": true,
+  "date": "Fri Feb 27 2026 00:38:12 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 31748,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 108736512,
+      "heapTotal": 62701568,
+      "heapUsed": 36628960,
+      "external": 21930127,
+      "arrayBuffers": 18505957
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 11007.546
+  },
+  "trace": [
+    {
+      "column": 7,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\services\\openai.service.ts",
+      "function": null,
+      "line": 1,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": null,
+      "line": 1692,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 25,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\source-map-support\\source-map-support.js",
+      "function": "Module._compile",
+      "line": 568,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 33,
+      "file": "C:\\Users\\RUSHIK~1\\AppData\\Local\\Temp\\ts-node-dev-hook-4129330409038534.js",
+      "function": "Module.m._compile",
+      "line": 69,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": null,
+      "line": 1824,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\RUSHIK~1\\AppData\\Local\\Temp\\ts-node-dev-hook-4129330409038534.js",
+      "function": "require.extensions..jsx.require.extensions..js",
+      "line": 114,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\RUSHIK~1\\AppData\\Local\\Temp\\ts-node-dev-hook-4129330409038534.js",
+      "function": "require.extensions.<computed>",
+      "line": 71,
+      "method": "<computed>",
+      "native": false
+    },
+    {
+      "column": 13,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\ts-node-dev\\lib\\hook.js",
+      "function": "Object.nodeDevHook [as .ts]",
+      "line": 63,
+      "method": "ts]",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1427,
+      "method": "load",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._load",
+      "line": 1250,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 235,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1449,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 135,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 1,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\services\\resume.service.ts",
+      "function": null,
+      "line": 14,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": null,
+      "line": 1692,
+      "method": null,
+      "native": false
+    }
+  ]
+}
+2026-02-27 00:38:49 [error]: Error: ⨯ Unable to compile TypeScript:
+src/services/openai.service.ts(334,16): error TS1127: Invalid character.
+src/services/openai.service.ts(390,1): error TS1160: Unterminated template literal.
+
+    at Object.<anonymous> (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\services\openai.service.ts:1:7)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1692:14)
+    at Module._compile (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\RUSHIK~1\AppData\Local\Temp\ts-node-dev-hook-792514882205847.js:69:33)
+    at node:internal/modules/cjs/loader:1824:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\RUSHIK~1\AppData\Local\Temp\ts-node-dev-hook-792514882205847.js:114:20)
+    at require.extensions.<computed> (C:\Users\RUSHIK~1\AppData\Local\Temp\ts-node-dev-hook-792514882205847.js:71:20)
+    at Object.nodeDevHook [as .ts] (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1427:32)
+    at Module._load (node:internal/modules/cjs/loader:1250:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1449:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\services\resume.service.ts:14:1)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1692:14)
+{
+  "error": {},
+  "exception": true,
+  "date": "Fri Feb 27 2026 00:38:49 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 30744,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 105099264,
+      "heapTotal": 62701568,
+      "heapUsed": 36849168,
+      "external": 21930127,
+      "arrayBuffers": 18505957
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 11043.953
+  },
+  "trace": [
+    {
+      "column": 7,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\services\\openai.service.ts",
+      "function": null,
+      "line": 1,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": null,
+      "line": 1692,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 25,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\source-map-support\\source-map-support.js",
+      "function": "Module._compile",
+      "line": 568,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 33,
+      "file": "C:\\Users\\RUSHIK~1\\AppData\\Local\\Temp\\ts-node-dev-hook-792514882205847.js",
+      "function": "Module.m._compile",
+      "line": 69,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": null,
+      "line": 1824,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\RUSHIK~1\\AppData\\Local\\Temp\\ts-node-dev-hook-792514882205847.js",
+      "function": "require.extensions..jsx.require.extensions..js",
+      "line": 114,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\RUSHIK~1\\AppData\\Local\\Temp\\ts-node-dev-hook-792514882205847.js",
+      "function": "require.extensions.<computed>",
+      "line": 71,
+      "method": "<computed>",
+      "native": false
+    },
+    {
+      "column": 13,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\ts-node-dev\\lib\\hook.js",
+      "function": "Object.nodeDevHook [as .ts]",
+      "line": 63,
+      "method": "ts]",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1427,
+      "method": "load",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._load",
+      "line": 1250,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 235,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1449,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 135,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 1,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\services\\resume.service.ts",
+      "function": null,
+      "line": 14,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": null,
+      "line": 1692,
+      "method": null,
+      "native": false
+    }
+  ]
+}

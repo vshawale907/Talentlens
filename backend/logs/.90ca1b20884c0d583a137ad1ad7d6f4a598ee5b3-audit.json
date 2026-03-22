@@ -1,0 +1,65 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "logs\\.90ca1b20884c0d583a137ad1ad7d6f4a598ee5b3-audit.json",
+    "files": [
+        {
+            "date": 1772035880987,
+            "name": "logs\\exceptions-2026-02-25.log",
+            "hash": "7808fe6a3259e14057ba407b9688150b24043a2a4301d6c0dcc5b4af7e9005d7"
+        },
+        {
+            "date": 1772045383319,
+            "name": "logs\\exceptions-2026-02-26.log",
+            "hash": "e384ed246997789f208cf16357232c1c926bd8a37cfc9e64474349c8b9fb64d7"
+        },
+        {
+            "date": 1772131142456,
+            "name": "logs\\exceptions-2026-02-27.log",
+            "hash": "c7374b3360013132a1e16b30a2e6d3882eac4e023f170879ffe05ee08d6b2efe"
+        },
+        {
+            "date": 1772224861931,
+            "name": "logs\\exceptions-2026-02-28.log",
+            "hash": "1fa8b4558a52f5c0fa9b7337c93583ba272950983d8b427255a7d9a2096d80ee"
+        },
+        {
+            "date": 1772442130235,
+            "name": "logs\\exceptions-2026-03-02.log",
+            "hash": "ef3c577002d1dfc3e65dbf6ae93a33e150eafe6299960621e3f3e8ad18f34bea"
+        },
+        {
+            "date": 1772477639522,
+            "name": "logs\\exceptions-2026-03-03.log",
+            "hash": "5ace87aad17638a1822d1c0fcf9463ecaa13863ba17fb36f34f63ce74dc7683c"
+        },
+        {
+            "date": 1772692274777,
+            "name": "logs\\exceptions-2026-03-05.log",
+            "hash": "1ba0822cbbdef30cecc713680bf8c886812d86a3e2d4fd2c2d155973b5d3f052"
+        },
+        {
+            "date": 1772786687073,
+            "name": "logs\\exceptions-2026-03-06.log",
+            "hash": "fa85789c70e2648f3737fa64ea122de89fc5145bdacbe5d61a70222bd5e3bad8"
+        },
+        {
+            "date": 1773850993043,
+            "name": "logs\\exceptions-2026-03-18.log",
+            "hash": "8a4bb5ad933cff33523037ae818d6adf7393c042fcbb0b7dcee6a15fff17c003"
+        },
+        {
+            "date": 1773866573293,
+            "name": "logs\\exceptions-2026-03-19.log",
+            "hash": "28cfcd299ca4a493ec4af3f82a1d27d120c21cf935325363ac9aaae4df549b01"
+        },
+        {
+            "date": 1774202726757,
+            "name": "logs\\exceptions-2026-03-22.log",
+            "hash": "86aa6455ae5cc281177ffc5ba1dd3f89f184e36fc98b2ea8427c279eaae25761"
+        }
+    ],
+    "hashType": "sha256"
+}

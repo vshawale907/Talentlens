@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────── */
+@layer base {
+  :root {
+    --scrollbar-bg: #F3F4F6;
+    --scrollbar-thumb: #F59E0B;
+  }
+
+  * { @apply border-border box-border; }
+  html { @apply scroll-smooth; }
+
+  body {
+    @apply bg-background text-text-primary font-sans antialiased min-h-screen;
+    font-size: 15px;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight text-text-primary;
+  }
+
+  p { @apply text-text-secondary; }
+
+  ::-webkit-scrollbar { @apply w-1.5; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); @apply rounded-full; }
+}
+
+/* ─── Components ────────────────────────────────────── */
+@layer components {
+
+  /* ── Buttons ──────────────────────────────────────── */
+  /* Black primary button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover text-text-inverse font-semibold rounded-xl transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none text-base;
+  }
+
+  /* Gold accent button */
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent hover:bg-accent-hover text-white font-semibold rounded-xl transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-base shadow-sm;
+  }
+
+  /* Ghost/outline */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent hover:bg-background-panel border border-border text-text-primary font-semibold rounded-xl transition-all duration-200 active:scale-95 text-base;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-text-secondary hover:text-text-primary hover:bg-background-panel rounded-lg transition-all duration-200 ease-in-out;
+  }
+
+  /* ── Inputs ───────────────────────────────────────── */
+  .input-field {
+    @apply w-full bg-white border border-border rounded-xl px-4 py-3.5 text-text-primary text-base
+           placeholder-text-muted focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20
+           transition-all duration-200;
+  }
+
+  /* ── Cards ────────────────────────────────────────── */
+  .card {
+    @apply bg-background-card border border-border rounded-xl p-6 shadow-card transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply card hover:-translate-y-0.5 hover:shadow-card-md hover:border-gray-300;
+  }
+
+  /* Dark card (for sidebar items, dark sections) */
+  .card-dark {
+    @apply bg-background-darkCard border border-white/10 rounded-xl p-6 transition-all duration-200;
+  }
+
+  /* Gold-accented card */
+  .card-gold {
+    @apply card border-l-4 border-l-accent;
+  }
+
+  /* ── Badges ───────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold uppercase tracking-wider transition-all duration-150;
+  }
+
+  /* Gold / amber badge — main brand accent for keywords, skills */
+  .badge-skill {
+    @apply badge bg-accent-subtle text-amber-700 border border-accent-border hover:bg-amber-100;
+  }
+
+  /* Neutral soft */
+  .badge-soft {
+    @apply badge bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-300;
+  }
+
+  /* Dark badge — on dark backgrounds */
+  .badge-dark {
+    @apply badge bg-white/10 text-text-inverse border border-white/20 hover:bg-white/15;
+  }
+
+  .badge-matched {
+    @apply badge bg-success-light text-success border border-success-border hover:opacity-90;
+  }
+
+  .badge-missing {
+    @apply badge bg-danger-light text-danger border border-danger-border hover:opacity-90;
+  }
+
+  .badge-warn {
+    @apply badge bg-warn-light text-warn border border-warn-border hover:opacity-90;
+  }
+
+  /* ── Score ring ───────────────────────────────────── */
+  .score-ring { @apply relative inline-flex items-center justify-center; }
+  .score-text { @apply text-accent font-bold text-4xl; }
+
+  /* ── Section label ────────────────────────────────── */
+  .section-label {
+    @apply text-xs font-bold uppercase tracking-widest text-accent flex items-center gap-2;
+  }
+
+  /* ── Glow ─────────────────────────────────────────── */
+  .glow-gold {
+    box-shadow: 0 0 28px -4px rgba(245, 158, 11, 0.35);
+  }
+
+  /* ── Gradient text ────────────────────────────────── */
+  .gradient-text {
+    @apply bg-gradient-to-r from-text-primary via-accent to-accent-light bg-clip-text text-transparent;
+  }
+
+  /* ── Sidebar nav link ─────────────────────────────── */
+  /* Note: 'group' is applied via className in JSX, not @apply (postcss restriction) */
+  .nav-link-active {
+    @apply flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-200 border bg-accent text-white border-accent/20 shadow-sm;
+  }
+
+  .nav-link-inactive {
+    @apply flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-200 border border-transparent text-white/60 hover:text-white hover:bg-white/10;
+  }
+}
+
+/* ─── Utilities ─────────────────────────────────────── */
+@layer utilities {
+
+  .animate-in     { animation: slideUp 0.4s ease-out both; }
+  .animate-float  { animation: float 3s ease-in-out infinite; }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, #F3F4F6 25%, #E5E7EB 50%, #F3F4F6 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+
+  /* Dot bounce helpers */
+  .dot-bounce-1 { animation: dotBounce 1.2s ease-in-out 0s   infinite; }
+  .dot-bounce-2 { animation: dotBounce 1.2s ease-in-out 0.2s infinite; }
+  .dot-bounce-3 { animation: dotBounce 1.2s ease-in-out 0.4s infinite; }
+
+  /* Subtle grid background */
+  .thin-grid {
+    background-image:
+      linear-gradient(to right, #F3F4F6 1px, transparent 1px),
+      linear-gradient(to bottom, #F3F4F6 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Dark grid — for dark hero or sidebar */
+  .thin-grid-dark {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Stagger helpers */
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms;   }
+  .stagger-children > *:nth-child(2) { animation-delay: 60ms;  }
+  .stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+}
+
+/* ─── Keyframes ─────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes shimmer {
+  0%   { background-position:  200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes dotBounce {
+  0%, 60%, 100% { transform: translateY(0);    }
+  30%            { transform: translateY(-6px); }
+}
+
+/* ─── Recharts ───────────────────────────────────────── */
+.recharts-tooltip-wrapper { @apply !outline-none; }
+
+/* ─── Autofill fix ───────────────────────────────────── */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset !important;
+  -webkit-text-fill-color: #111827 !important;
+  caret-color: #111827;
+}

@@ -1,0 +1,65 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "logs\\.707dfa3489ccf7e41546a27569962f010d3ec461-audit.json",
+    "files": [
+        {
+            "date": 1772035880990,
+            "name": "logs\\rejections-2026-02-25.log",
+            "hash": "d78ebefddc39f72b9f096e9ef4e3f817dc856e1b720bd324de4716d19d06464d"
+        },
+        {
+            "date": 1772045383322,
+            "name": "logs\\rejections-2026-02-26.log",
+            "hash": "5be59eaf694daf9f0d82cb7cfd79bfa1d29c21f739e27f56f42bb7a00b584119"
+        },
+        {
+            "date": 1772131142459,
+            "name": "logs\\rejections-2026-02-27.log",
+            "hash": "6cca446a80b3627e6198d68cb0e7d26f15348685100fb8fefca3bfe8d0465ee3"
+        },
+        {
+            "date": 1772224861935,
+            "name": "logs\\rejections-2026-02-28.log",
+            "hash": "59c3d937905fc20ae6d23bdc4e76a21c26bd25b674b47d4897cf9dc3465c7c02"
+        },
+        {
+            "date": 1772442130239,
+            "name": "logs\\rejections-2026-03-02.log",
+            "hash": "f1a91717a0a9e1aa5b41d5cd937c89833b60644959883f906c3d6df96925c6a8"
+        },
+        {
+            "date": 1772477639529,
+            "name": "logs\\rejections-2026-03-03.log",
+            "hash": "43010a4582fb6935138b29250d419357ee49d879345e6ad3839c411471239704"
+        },
+        {
+            "date": 1772692274779,
+            "name": "logs\\rejections-2026-03-05.log",
+            "hash": "fce5421bca5c123eca47e99d7b1e71aab7ca650a5bf2b4617754bab97fc8f426"
+        },
+        {
+            "date": 1772786687076,
+            "name": "logs\\rejections-2026-03-06.log",
+            "hash": "d7fb25f269289def1cfeffe0fc6da2a147b9487746aa2c88e882c9086fbf661d"
+        },
+        {
+            "date": 1773850993045,
+            "name": "logs\\rejections-2026-03-18.log",
+            "hash": "43b04bb3f43a96ab87517de1c9fede40ebd698230a59b40f168170be81b05286"
+        },
+        {
+            "date": 1773866573294,
+            "name": "logs\\rejections-2026-03-19.log",
+            "hash": "2ae149cf6069f83165adc8c781534421b4ea9ab36b56b8bb748790f3571e522d"
+        },
+        {
+            "date": 1774202726759,
+            "name": "logs\\rejections-2026-03-22.log",
+            "hash": "1298034b82498db1a27c8c109a4f0862c33af1da4e8143c355fa32608d0504ae"
+        }
+    ],
+    "hashType": "sha256"
+}

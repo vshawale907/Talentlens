@@ -1,0 +1,366 @@
+2026-02-26 14:59:01 [error]: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:570:12)
+    at _write (node:internal/streams/writable:499:10)
+    at Socket.Writable.write (node:internal/streams/writable:508:10)
+    at Console.log (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\lib\winston\transports\console.js:87:23)
+    at Console._write (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston-transport\modern.js:103:17)
+    at doWrite (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston-transport\node_modules\readable-stream\lib\_stream_writable.js:390:139)
+    at writeOrBuffer (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston-transport\node_modules\readable-stream\lib\_stream_writable.js:381:5)
+    at Console.Writable.write (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston-transport\node_modules\readable-stream\lib\_stream_writable.js:302:11)
+    at DerivedLogger.ondata (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_readable.js:629:20)
+    at DerivedLogger.emit (node:events:519:35)
+    at addChunk (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_readable.js:279:12)
+    at readableAddChunk (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_readable.js:262:11)
+    at DerivedLogger.Readable.push (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_readable.js:228:10)
+    at DerivedLogger.Transform.push (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_transform.js:132:32)
+    at DerivedLogger._transform (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\lib\winston\logger.js:337:12)
+{
+  "error": {
+    "errno": -4047,
+    "syscall": "write",
+    "code": "EPIPE"
+  },
+  "exception": true,
+  "date": "Thu Feb 26 2026 14:59:01 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 32368,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 101941248,
+      "heapTotal": 48185344,
+      "heapUsed": 42666648,
+      "external": 22309377,
+      "arrayBuffers": 18485589
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 53709.218
+  },
+  "trace": [
+    {
+      "column": 18,
+      "file": "node:internal/net",
+      "function": "Socket._write",
+      "line": 63,
+      "method": "_write",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/streams/writable",
+      "function": "writeOrBuffer",
+      "line": 570,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/streams/writable",
+      "function": "_write",
+      "line": 499,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/streams/writable",
+      "function": "Socket.Writable.write",
+      "line": 508,
+      "method": "write",
+      "native": false
+    },
+    {
+      "column": 23,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\lib\\winston\\transports\\console.js",
+      "function": "Console.log",
+      "line": 87,
+      "method": "log",
+      "native": false
+    },
+    {
+      "column": 17,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston-transport\\modern.js",
+      "function": "Console._write",
+      "line": 103,
+      "method": "_write",
+      "native": false
+    },
+    {
+      "column": 139,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston-transport\\node_modules\\readable-stream\\lib\\_stream_writable.js",
+      "function": "doWrite",
+      "line": 390,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston-transport\\node_modules\\readable-stream\\lib\\_stream_writable.js",
+      "function": "writeOrBuffer",
+      "line": 381,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 11,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston-transport\\node_modules\\readable-stream\\lib\\_stream_writable.js",
+      "function": "Console.Writable.write",
+      "line": 302,
+      "method": "write",
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_readable.js",
+      "function": "DerivedLogger.ondata",
+      "line": 629,
+      "method": "ondata",
+      "native": false
+    },
+    {
+      "column": 35,
+      "file": "node:events",
+      "function": "DerivedLogger.emit",
+      "line": 519,
+      "method": "emit",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_readable.js",
+      "function": "addChunk",
+      "line": 279,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 11,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_readable.js",
+      "function": "readableAddChunk",
+      "line": 262,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_readable.js",
+      "function": "DerivedLogger.Readable.push",
+      "line": 228,
+      "method": "push",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_transform.js",
+      "function": "DerivedLogger.Transform.push",
+      "line": 132,
+      "method": "push",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\lib\\winston\\logger.js",
+      "function": "DerivedLogger._transform",
+      "line": 337,
+      "method": "_transform",
+      "native": false
+    }
+  ]
+}
+2026-02-26 14:59:01 [error]: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:570:12)
+    at _write (node:internal/streams/writable:499:10)
+    at Socket.Writable.write (node:internal/streams/writable:508:10)
+    at Console.log (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\lib\winston\transports\console.js:87:23)
+    at Console._write (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston-transport\modern.js:103:17)
+    at doWrite (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston-transport\node_modules\readable-stream\lib\_stream_writable.js:390:139)
+    at writeOrBuffer (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston-transport\node_modules\readable-stream\lib\_stream_writable.js:381:5)
+    at Console.Writable.write (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston-transport\node_modules\readable-stream\lib\_stream_writable.js:302:11)
+    at DerivedLogger.ondata (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_readable.js:629:20)
+    at DerivedLogger.emit (node:events:519:35)
+    at addChunk (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_readable.js:279:12)
+    at readableAddChunk (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_readable.js:262:11)
+    at DerivedLogger.Readable.push (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_readable.js:228:10)
+    at DerivedLogger.Transform.push (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\node_modules\readable-stream\lib\_stream_transform.js:132:32)
+    at DerivedLogger._transform (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume\backend\node_modules\winston\lib\winston\logger.js:337:12)
+{
+  "error": {
+    "errno": -4047,
+    "syscall": "write",
+    "code": "EPIPE"
+  },
+  "exception": true,
+  "date": "Thu Feb 26 2026 14:59:01 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 32368,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 101982208,
+      "heapTotal": 48185344,
+      "heapUsed": 42772832,
+      "external": 22316336,
+      "arrayBuffers": 18492508
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 53709.234
+  },
+  "trace": [
+    {
+      "column": 18,
+      "file": "node:internal/net",
+      "function": "Socket._write",
+      "line": 63,
+      "method": "_write",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/streams/writable",
+      "function": "writeOrBuffer",
+      "line": 570,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/streams/writable",
+      "function": "_write",
+      "line": 499,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/streams/writable",
+      "function": "Socket.Writable.write",
+      "line": 508,
+      "method": "write",
+      "native": false
+    },
+    {
+      "column": 23,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\lib\\winston\\transports\\console.js",
+      "function": "Console.log",
+      "line": 87,
+      "method": "log",
+      "native": false
+    },
+    {
+      "column": 17,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston-transport\\modern.js",
+      "function": "Console._write",
+      "line": 103,
+      "method": "_write",
+      "native": false
+    },
+    {
+      "column": 139,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston-transport\\node_modules\\readable-stream\\lib\\_stream_writable.js",
+      "function": "doWrite",
+      "line": 390,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston-transport\\node_modules\\readable-stream\\lib\\_stream_writable.js",
+      "function": "writeOrBuffer",
+      "line": 381,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 11,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston-transport\\node_modules\\readable-stream\\lib\\_stream_writable.js",
+      "function": "Console.Writable.write",
+      "line": 302,
+      "method": "write",
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_readable.js",
+      "function": "DerivedLogger.ondata",
+      "line": 629,
+      "method": "ondata",
+      "native": false
+    },
+    {
+      "column": 35,
+      "file": "node:events",
+      "function": "DerivedLogger.emit",
+      "line": 519,
+      "method": "emit",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_readable.js",
+      "function": "addChunk",
+      "line": 279,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 11,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_readable.js",
+      "function": "readableAddChunk",
+      "line": 262,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_readable.js",
+      "function": "DerivedLogger.Readable.push",
+      "line": 228,
+      "method": "push",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\node_modules\\readable-stream\\lib\\_stream_transform.js",
+      "function": "DerivedLogger.Transform.push",
+      "line": 132,
+      "method": "push",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume\\backend\\node_modules\\winston\\lib\\winston\\logger.js",
+      "function": "DerivedLogger._transform",
+      "line": 337,
+      "method": "_transform",
+      "native": false
+    }
+  ]
+}

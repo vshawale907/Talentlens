@@ -1,0 +1,237 @@
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 21:53:15"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 21:53:15"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 21:53:15"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 21:53:15"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 21:53:15"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 21:53:15"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 21:53:15"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 21:53:16"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 21:53:16"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:00:03"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:00:03"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:00:03"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:00:03"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:00:03"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:00:03"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:00:03"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:00:06"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:00:06"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:00:18"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:00:18"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:00:18"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:00:18"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:00:18"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:00:18"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:00:18"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:00:21"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:00:21"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:00:28"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:00:28"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:00:28"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:00:28"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:00:28"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:00:28"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:00:28"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:00:30"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:00:30"}
+{"ip":"::1","level":"error","message":"jwt expired","method":"GET","stack":"TokenExpiredError: jwt expired\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at authenticate (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\middleware\\auth.middleware.ts:27:25)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at router.process_params (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at router.handle (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9","timestamp":"2026-03-18 22:07:30","url":"/api/v1/users/analytics"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:30 +0000] \"GET /api/v1/users/analytics HTTP/1.1\" 401 66 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:30"}
+{"ip":"::1","level":"error","message":"jwt expired","method":"GET","stack":"TokenExpiredError: jwt expired\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at authenticate (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\middleware\\auth.middleware.ts:27:25)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at router.process_params (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at router.handle (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9","timestamp":"2026-03-18 22:07:30","url":"/api/v1/resumes?page=1&limit=10"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:30 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 401 66 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:30"}
+{"ip":"::1","level":"error","message":"jwt expired","method":"GET","stack":"TokenExpiredError: jwt expired\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at authenticate (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\middleware\\auth.middleware.ts:27:25)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at router.process_params (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at router.handle (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9","timestamp":"2026-03-18 22:07:30","url":"/api/v1/users/analytics"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:30 +0000] \"GET /api/v1/users/analytics HTTP/1.1\" 401 66 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:30"}
+{"ip":"::1","level":"error","message":"jwt expired","method":"GET","stack":"TokenExpiredError: jwt expired\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at authenticate (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\middleware\\auth.middleware.ts:27:25)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at router.process_params (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at router.handle (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9","timestamp":"2026-03-18 22:07:30","url":"/api/v1/resumes?page=1&limit=10"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:30 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 401 66 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:30"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:31 +0000] \"POST /api/v1/auth/refresh HTTP/1.1\" 200 530 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:31"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:31 +0000] \"POST /api/v1/auth/refresh HTTP/1.1\" 200 530 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:31"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:31 +0000] \"POST /api/v1/auth/refresh HTTP/1.1\" 200 530 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:31"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:31 +0000] \"POST /api/v1/auth/refresh HTTP/1.1\" 200 530 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:31"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:31 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 200 - \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:31"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:31 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 200 - \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:31"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:31 +0000] \"GET /api/v1/users/analytics HTTP/1.1\" 200 626 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:31"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:37:31 +0000] \"GET /api/v1/users/analytics HTTP/1.1\" 200 626 \"http://localhost:3000/dashboard\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:07:31"}
+{"level":"info","message":"Forgot password requested for: vaibhavhawale907@gmail.com. Reset token: ac987885eace3deed184e63dae8cd652ad8e6a11e87e7fdf2effe3d28d108182","timestamp":"2026-03-18 22:09:10"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:39:10 +0000] \"POST /api/v1/auth/forgot-password HTTP/1.1\" 200 211 \"http://localhost:3000/forgot-password\" \"LenovoVantage/3.0.0.190\"","timestamp":"2026-03-18 22:09:10"}
+{"level":"http","message":"::1 - - [18/Mar/2026:16:57:13 +0000] \"POST /api/v1/auth/forgot-password HTTP/1.1\" 200 211 \"http://localhost:3000/forgot-password\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 22:27:13"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:28:06"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:28:06"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:28:06"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:28:06"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:28:06"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:28:06"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:28:06"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:28:08"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:28:08"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:28:26"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:28:26"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:28:26"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:28:26"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:28:26"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:28:26"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:28:26"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:28:27"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:28:27"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:28:37"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:28:37"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:28:37"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:28:37"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:28:37"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:28:37"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:28:37"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:28:38"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:28:38"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:46:18"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:46:18"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:46:18"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:46:18"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:46:18"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:46:18"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:46:18"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:46:20"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:47:01"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:47:01"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:47:01"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:47:01"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:47:01"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:47:01"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:47:01"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:47:03"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:47:03"}
+{"level":"info","message":"Forgot password requested for unknown email: vaibhavhawale9075@gmail.com","timestamp":"2026-03-18 22:47:53"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:17:53 +0000] \"POST /api/v1/auth/forgot-password HTTP/1.1\" 200 145 \"http://localhost:3000/forgot-password\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 22:47:53"}
+{"level":"info","message":"Forgot password requested for unknown email: vaibhavhawale9075@gmail.com","timestamp":"2026-03-18 22:48:35"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:18:35 +0000] \"POST /api/v1/auth/forgot-password HTTP/1.1\" 200 145 \"http://localhost:3000/forgot-password\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 22:48:35"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:52:02"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:52:02"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:52:04"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:52:04"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:52:04"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:52:04"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:52:16"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:52:16"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:52:18"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:52:18"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:52:19"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:52:19"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:53:04"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:53:04"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:53:05"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:53:05"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:53:05"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:53:05"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:53:46"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:53:46"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:53:46"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:53:46"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:53:46"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:53:46"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:53:46"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:53:47"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:53:47"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:59:11"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:59:11"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:59:11"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:59:11"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:59:11"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:59:11"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:59:11"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:59:13"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:59:13"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 22:59:20"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 22:59:20"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 22:59:20"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 22:59:20"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 22:59:20"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 22:59:20"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 22:59:20"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 22:59:22"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-18 22:59:22"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-18 23:04:46"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-18 23:04:46"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-18 23:04:46"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-18 23:04:46"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-18 23:04:46"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-18 23:04:46"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-18 23:04:46"}
+{"level":"warn","message":"⚠️  Qdrant unavailable: Not Found. Semantic search will fall back to keyword matching.","timestamp":"2026-03-18 23:04:48"}
+{"level":"info","message":"Forgot password requested for unknown email: vaibhavhawale9075@gmail.com","timestamp":"2026-03-18 23:05:25"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:35:25 +0000] \"POST /api/v1/auth/forgot-password HTTP/1.1\" 200 145 \"http://localhost:3000/forgot-password\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:05:25"}
+{"level":"info","message":"Forgot password requested for unknown email: vaibhavhawale9075@gmail.com","timestamp":"2026-03-18 23:07:31"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:37:31 +0000] \"POST /api/v1/auth/forgot-password HTTP/1.1\" 200 145 \"http://localhost:3000/forgot-password\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:07:31"}
+{"level":"info","message":"Forgot password requested for: vaibhavhawale907@gmail.com","timestamp":"2026-03-18 23:17:40"}
+{"level":"debug","message":"[Email] SMTP config → host: smtp.gmail.com, port: 587, user: \"vaibhavhawale9075@gmail.com\"","timestamp":"2026-03-18 23:17:40"}
+{"level":"info","message":"[Email] ✅ Password reset email sent to: vaibhavhawale907@gmail.com | MessageID: <bd07d877-4e29-ab90-53b2-baf0e50cbbef@gmail.com>","timestamp":"2026-03-18 23:17:44"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:47:44 +0000] \"POST /api/v1/auth/forgot-password HTTP/1.1\" 200 145 \"http://localhost:3000/forgot-password\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:17:44"}
+{"ip":"::1","level":"error","message":"jwt expired","method":"GET","stack":"TokenExpiredError: jwt expired\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at authenticate (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\middleware\\auth.middleware.ts:27:25)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at router.process_params (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at router.handle (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9","timestamp":"2026-03-18 23:18:22","url":"/api/v1/users/analytics"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"GET /api/v1/users/analytics HTTP/1.1\" 401 66 \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"ip":"::1","level":"error","message":"jwt expired","method":"GET","stack":"TokenExpiredError: jwt expired\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at authenticate (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\middleware\\auth.middleware.ts:27:25)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at router.process_params (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at router.handle (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9","timestamp":"2026-03-18 23:18:22","url":"/api/v1/resumes?page=1&limit=10"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 401 66 \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"ip":"::1","level":"error","message":"jwt expired","method":"GET","stack":"TokenExpiredError: jwt expired\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at authenticate (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\middleware\\auth.middleware.ts:27:25)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at router.process_params (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at router.handle (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9","timestamp":"2026-03-18 23:18:22","url":"/api/v1/users/analytics"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"GET /api/v1/users/analytics HTTP/1.1\" 401 66 \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"ip":"::1","level":"error","message":"jwt expired","method":"GET","stack":"TokenExpiredError: jwt expired\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:190:21\n    at getSecret (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:97:14)\n    at Object.module.exports [as verify] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\jsonwebtoken\\verify.js:101:10)\n    at authenticate (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\middleware\\auth.middleware.ts:27:25)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at router.process_params (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at router.handle (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at newFn (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\router\\index.js:286:9","timestamp":"2026-03-18 23:18:22","url":"/api/v1/resumes?page=1&limit=10"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 401 66 \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"POST /api/v1/auth/refresh HTTP/1.1\" 200 548 \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"POST /api/v1/auth/refresh HTTP/1.1\" 200 548 \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"POST /api/v1/auth/refresh HTTP/1.1\" 200 548 \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"POST /api/v1/auth/refresh HTTP/1.1\" 200 548 \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 200 - \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"GET /api/v1/users/analytics HTTP/1.1\" 200 - \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 200 - \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}
+{"level":"http","message":"::1 - - [18/Mar/2026:17:48:22 +0000] \"GET /api/v1/users/analytics HTTP/1.1\" 200 - \"http://localhost:3000/dashboard\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-18 23:18:22"}

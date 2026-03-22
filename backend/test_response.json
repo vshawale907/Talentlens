@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "message": "Registration successful",
+  "data": {
+    "user": {
+      "name": "Test User 3",
+      "email": "test123456@example.com",
+      "role": "user",
+      "subscriptionTier": "free",
+      "isActive": true,
+      "isEmailVerified": false,
+      "language": "en",
+      "theme": "dark",
+      "resumeCount": 0,
+      "analysisCount": 0,
+      "_id": "69bb0ea4718fedc24b3e0ab0",
+      "createdAt": "2026-03-18T20:44:20.966Z",
+      "updatedAt": "2026-03-18T20:44:20.966Z",
+      "__v": 0
+    },
+    "tokens": {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmIwZWE0NzE4ZmVkYzI0YjNlMGFiMCIsImVtYWlsIjoidGVzdDEyMzQ1NkBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzczODY2NjYxLCJleHAiOjE3NzQ0NzE0NjF9.6v008OUaUwMPnnrtbcGwv7cthgcA2ssJeb2uIes0y14",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmIwZWE0NzE4ZmVkYzI0YjNlMGFiMCIsImlhdCI6MTc3Mzg2NjY2MSwiZXhwIjoxNzc2NDU4NjYxfQ.fVLhI-FoIrr58HIIZ243wPMYxyvdPoPNtBDpLG4gbzw"
+    }
+  },
+  "timestamp": "2026-03-18T20:44:21.230Z"
+}

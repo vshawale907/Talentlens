@@ -1,0 +1,665 @@
+2026-03-19 02:17:44 [error]: Error: listen EADDRINUSE: address already in use :::5000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\server.ts:32:28)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+{
+  "error": {
+    "code": "EADDRINUSE",
+    "errno": -4091,
+    "syscall": "listen",
+    "address": "::",
+    "port": 5000
+  },
+  "exception": true,
+  "date": "Thu Mar 19 2026 02:17:44 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 15504,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 160497664,
+      "heapTotal": 115372032,
+      "heapUsed": 67513712,
+      "external": 22469544,
+      "arrayBuffers": 18514299
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 499494.234
+  },
+  "trace": [
+    {
+      "column": 16,
+      "file": "node:net",
+      "function": "Server.setupListenHandle [as _listen2]",
+      "line": 1940,
+      "method": "setupListenHandle [as _listen2]",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:net",
+      "function": "listenInCluster",
+      "line": 1997,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 7,
+      "file": "node:net",
+      "function": "Server.listen",
+      "line": 2102,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\application.js",
+      "function": "app.listen",
+      "line": 635,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\server.ts",
+      "function": "bootstrap",
+      "line": 32,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "node:internal/process/task_queues",
+      "function": "processTicksAndRejections",
+      "line": 105,
+      "method": null,
+      "native": false
+    }
+  ]
+}
+2026-03-19 02:24:09 [error]: Error: listen EADDRINUSE: address already in use :::5000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\server.ts:32:28)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+{
+  "error": {
+    "code": "EADDRINUSE",
+    "errno": -4091,
+    "syscall": "listen",
+    "address": "::",
+    "port": 5000
+  },
+  "exception": true,
+  "date": "Thu Mar 19 2026 02:24:09 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 1692,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 162205696,
+      "heapTotal": 127430656,
+      "heapUsed": 56269824,
+      "external": 22467874,
+      "arrayBuffers": 18512629
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 499878.781
+  },
+  "trace": [
+    {
+      "column": 16,
+      "file": "node:net",
+      "function": "Server.setupListenHandle [as _listen2]",
+      "line": 1940,
+      "method": "setupListenHandle [as _listen2]",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:net",
+      "function": "listenInCluster",
+      "line": 1997,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 7,
+      "file": "node:net",
+      "function": "Server.listen",
+      "line": 2102,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\application.js",
+      "function": "app.listen",
+      "line": 635,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\server.ts",
+      "function": "bootstrap",
+      "line": 32,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "node:internal/process/task_queues",
+      "function": "processTicksAndRejections",
+      "line": 105,
+      "method": null,
+      "native": false
+    }
+  ]
+}
+2026-03-19 02:24:23 [error]: Error: listen EADDRINUSE: address already in use :::5000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\server.ts:32:28)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+{
+  "error": {
+    "code": "EADDRINUSE",
+    "errno": -4091,
+    "syscall": "listen",
+    "address": "::",
+    "port": 5000
+  },
+  "exception": true,
+  "date": "Thu Mar 19 2026 02:24:23 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 1344,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 161525760,
+      "heapTotal": 127692800,
+      "heapUsed": 56209600,
+      "external": 22467856,
+      "arrayBuffers": 18512611
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 499893.265
+  },
+  "trace": [
+    {
+      "column": 16,
+      "file": "node:net",
+      "function": "Server.setupListenHandle [as _listen2]",
+      "line": 1940,
+      "method": "setupListenHandle [as _listen2]",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:net",
+      "function": "listenInCluster",
+      "line": 1997,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 7,
+      "file": "node:net",
+      "function": "Server.listen",
+      "line": 2102,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\application.js",
+      "function": "app.listen",
+      "line": 635,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\server.ts",
+      "function": "bootstrap",
+      "line": 32,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "node:internal/process/task_queues",
+      "function": "processTicksAndRejections",
+      "line": 105,
+      "method": null,
+      "native": false
+    }
+  ]
+}
+2026-03-19 03:04:34 [error]: Error: listen EADDRINUSE: address already in use :::5000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\server.ts:32:28)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+{
+  "error": {
+    "code": "EADDRINUSE",
+    "errno": -4091,
+    "syscall": "listen",
+    "address": "::",
+    "port": 5000
+  },
+  "exception": true,
+  "date": "Thu Mar 19 2026 03:04:34 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 4888,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 164343808,
+      "heapTotal": 126672896,
+      "heapUsed": 56277448,
+      "external": 22468238,
+      "arrayBuffers": 18512993
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 502304.031
+  },
+  "trace": [
+    {
+      "column": 16,
+      "file": "node:net",
+      "function": "Server.setupListenHandle [as _listen2]",
+      "line": 1940,
+      "method": "setupListenHandle [as _listen2]",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:net",
+      "function": "listenInCluster",
+      "line": 1997,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 7,
+      "file": "node:net",
+      "function": "Server.listen",
+      "line": 2102,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\application.js",
+      "function": "app.listen",
+      "line": 635,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\server.ts",
+      "function": "bootstrap",
+      "line": 32,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "node:internal/process/task_queues",
+      "function": "processTicksAndRejections",
+      "line": 105,
+      "method": null,
+      "native": false
+    }
+  ]
+}
+2026-03-19 03:05:04 [error]: Error: listen EADDRINUSE: address already in use :::5000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\server.ts:32:28)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+{
+  "error": {
+    "code": "EADDRINUSE",
+    "errno": -4091,
+    "syscall": "listen",
+    "address": "::",
+    "port": 5000
+  },
+  "exception": true,
+  "date": "Thu Mar 19 2026 03:05:04 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 31420,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 164130816,
+      "heapTotal": 128245760,
+      "heapUsed": 56314016,
+      "external": 22467839,
+      "arrayBuffers": 18512594
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 502333.984
+  },
+  "trace": [
+    {
+      "column": 16,
+      "file": "node:net",
+      "function": "Server.setupListenHandle [as _listen2]",
+      "line": 1940,
+      "method": "setupListenHandle [as _listen2]",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:net",
+      "function": "listenInCluster",
+      "line": 1997,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 7,
+      "file": "node:net",
+      "function": "Server.listen",
+      "line": 2102,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\application.js",
+      "function": "app.listen",
+      "line": 635,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\server.ts",
+      "function": "bootstrap",
+      "line": 32,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "node:internal/process/task_queues",
+      "function": "processTicksAndRejections",
+      "line": 105,
+      "method": null,
+      "native": false
+    }
+  ]
+}
+2026-03-19 03:05:30 [error]: Error: listen EADDRINUSE: address already in use :::5000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\server.ts:32:28)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+{
+  "error": {
+    "code": "EADDRINUSE",
+    "errno": -4091,
+    "syscall": "listen",
+    "address": "::",
+    "port": 5000
+  },
+  "exception": true,
+  "date": "Thu Mar 19 2026 03:05:30 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 9616,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 163401728,
+      "heapTotal": 126935040,
+      "heapUsed": 56243032,
+      "external": 22467870,
+      "arrayBuffers": 18512625
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 502359.734
+  },
+  "trace": [
+    {
+      "column": 16,
+      "file": "node:net",
+      "function": "Server.setupListenHandle [as _listen2]",
+      "line": 1940,
+      "method": "setupListenHandle [as _listen2]",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:net",
+      "function": "listenInCluster",
+      "line": 1997,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 7,
+      "file": "node:net",
+      "function": "Server.listen",
+      "line": 2102,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\application.js",
+      "function": "app.listen",
+      "line": 635,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\server.ts",
+      "function": "bootstrap",
+      "line": 32,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "node:internal/process/task_queues",
+      "function": "processTicksAndRejections",
+      "line": 105,
+      "method": null,
+      "native": false
+    }
+  ]
+}
+2026-03-19 14:38:41 [error]: Error: listen EADDRINUSE: address already in use :::5000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\server.ts:32:28)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+{
+  "error": {
+    "code": "EADDRINUSE",
+    "errno": -4091,
+    "syscall": "listen",
+    "address": "::",
+    "port": 5000
+  },
+  "exception": true,
+  "date": "Thu Mar 19 2026 14:38:41 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 26640,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 162893824,
+      "heapTotal": 115924992,
+      "heapUsed": 68101104,
+      "external": 22468237,
+      "arrayBuffers": 18512992
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 543950.671
+  },
+  "trace": [
+    {
+      "column": 16,
+      "file": "node:net",
+      "function": "Server.setupListenHandle [as _listen2]",
+      "line": 1940,
+      "method": "setupListenHandle [as _listen2]",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:net",
+      "function": "listenInCluster",
+      "line": 1997,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 7,
+      "file": "node:net",
+      "function": "Server.listen",
+      "line": 2102,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\express\\lib\\application.js",
+      "function": "app.listen",
+      "line": 635,
+      "method": "listen",
+      "native": false
+    },
+    {
+      "column": 28,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\server.ts",
+      "function": "bootstrap",
+      "line": 32,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 5,
+      "file": "node:internal/process/task_queues",
+      "function": "processTicksAndRejections",
+      "line": 105,
+      "method": null,
+      "native": false
+    }
+  ]
+}

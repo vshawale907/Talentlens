@@ -1,0 +1,7 @@
+2026-03-05 18:08:35.877 | INFO     | main:lifespan:20 - 🚀 AI Microservice starting up...
+2026-03-05 18:08:35.879 | INFO     | app.core.nlp_engine:__init__:64 - Loading spaCy model en_core_web_sm...
+2026-03-05 18:08:36.720 | INFO     | app.core.nlp_engine:__init__:78 - NLP Engine initialized successfully.
+2026-03-05 18:08:36.721 | INFO     | main:lifespan:23 - ✅ spaCy model loaded: core_web_sm
+2026-03-05 18:15:50.883 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=8 | similarity=0.0%
+2026-03-05 18:15:50.921 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=8 | similarity=13.24%
+2026-03-05 19:13:55.883 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=16 | similarity=0.0%
