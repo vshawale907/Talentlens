@@ -32,7 +32,7 @@ COPY --from=builder /root/nltk_data /root/nltk_data
 COPY . .
 
 # Ensure spaCy is explicitly downloaded in production stage (as requested)
-RUN python -m spacy download en_core_web_sm
+RUN pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
 
 # Create non-root user
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
