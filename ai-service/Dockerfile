@@ -29,6 +29,10 @@ COPY --from=builder /root/nltk_data /root/nltk_data
 
 COPY . .
 
+# Give permission to appuser to run uvicorn
+RUN chmod -R 755 /root/.local
+
+
 # Create non-root user
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 RUN mkdir -p logs && chown -R appuser:appgroup logs
