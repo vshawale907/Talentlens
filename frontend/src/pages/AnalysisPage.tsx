@@ -1,399 +1,596 @@
-import { useEffect, useState, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { RadialBarChart, RadialBar, ResponsiveContainer } from 'recharts';
-import { CheckCircle, XCircle, AlertTriangle, ArrowRight, MessageSquare, FileText, Map, Lightbulb, Target, Sparkles, Award, Clock } from 'lucide-react';
-import { analysisApi, resumeApi } from '../lib/api';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+    ArrowLeft, Download, RefreshCw, Target, Star, Award, GitCompare,
+    CheckCircle2, XCircle, AlertTriangle, Copy, Check, Sparkles, MessageSquare
+} from 'lucide-react';
+import toast from 'react-hot-toast';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
 
-interface Analysis {
-    nlpResult?: { extractedSkills: string[]; softSkills: string[]; experienceYears: number; similarityScore: number; missingSkills: string[]; matchedSkills: string[] };
-    openAIResult?: { atsScore: number; qualityScore: number; overallScore: number; strengths: string[]; weaknesses: string[]; improvements: string[]; summary: string; bulletImpactScores: Array<{ bullet: string; score: number; rewritten: string }> };
+import { api } from '../lib/api';
+import { useResumeStore } from '../stores/resumeStore';
+import {
+    computeSectionCompleteness,
+    countQuantifiedBullets,
+    checkResumeSections,
+    computeReadability,
+    categorizeSkills,
+    ReadabilityMetrics,
+    SectionStatus
+} from '../lib/resumeAnalysis';
+
+// --- Interfaces ---
+interface NLPResult {
+    extractedSkills: string[];
+    softSkills: string[];
+    experienceYears: number;
+    similarityScore: number;
+    matchedSkills: string[];
+    missingSkills: string[];
+    keywordDensity: Record<string, number>;
 }
 
-const ScoreGauge = ({ score, label, color, icon: Icon, delay = 0 }: { score: number; label: string; color: string; icon: any; delay?: number }) => {
-    const data = [{ name: label, value: score, fill: color }];
-    return (
-        <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay, duration: 0.5, ease: "easeOut" }}
-            className="flex flex-col items-center justify-center p-6 bg-background-panel rounded-xl border border-border hover:border-gray-200 transition-all relative overflow-hidden group shadow-sm"
-        >
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Icon size={48} style={{ color }} />
-            </div>
+interface BulletImpactScore {
+    bullet: string;
+    rewritten: string;
+    score: number;
+}
 
-            <div style={{ width: 140, height: 140, position: 'relative' }} className="mx-auto z-10">
-                <ResponsiveContainer width="100%" height="100%">
-                    <RadialBarChart innerRadius="70%" outerRadius="100%" data={data} startAngle={90} endAngle={-270}>
-                        <RadialBar dataKey="value" cornerRadius={10} background={{ fill: '#F3F4F6' }} />
-                    </RadialBarChart>
-                </ResponsiveContainer>
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <motion.span
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: delay + 0.2 }}
-                        className="text-4xl font-bold text-accent"
-                    >
-                        {score}
-                    </motion.span>
-                    <span className="text-xs text-text-muted font-bold tracking-widest uppercase mt-0.5">Score</span>
-                </div>
+interface OpenAIResult {
+    atsScore: number;
+    qualityScore: number;
+    overallScore: number;
+    strengths: string[];
+    weaknesses: string[];
+    improvements: string[];
+    bulletImpactScores: BulletImpactScore[];
+    interviewQuestions?: any[];
+    coverLetter?: string;
+    careerRoadmap?: any;
+}
+
+interface AnalysisData {
+    _id: string;
+    resume: string;
+    jobDescriptionText?: string;
+    nlpResult: NLPResult;
+    openAIResult: OpenAIResult;
+    createdAt: string;
+}
+
+interface ResumeData {
+    _id: string;
+    title: string;
+    originalFilename: string;
+    rawText: string;
+    cleanedText: string;
+    createdAt: string;
+}
+
+// --- Components ---
+
+const AnimatedCounter = ({ value }: { value: number }) => {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        let start = 0;
+        const duration = 800;
+        const startTs = performance.now();
+        const step = (ts: number) => {
+            const prog = Math.min((ts - startTs) / duration, 1);
+            setCount(Math.floor(prog * value));
+            if (prog < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    }, [value]);
+    return <>{count}</>;
+};
+
+const CircularProgress = ({ score, colorClass, icon: Icon }: { score: number, colorClass: string, icon: any }) => {
+    const [offset, setOffset] = useState(251);
+    useEffect(() => {
+        setTimeout(() => setOffset(251 - (251 * Math.min(score, 100)) / 100), 100);
+    }, [score]);
+
+    return (
+        <div className="relative w-24 h-24 flex items-center justify-center">
+            <svg className="absolute inset-0 w-full h-full transform -rotate-90">
+                <circle cx="48" cy="48" r="40" className="stroke-gray-800" strokeWidth="8" fill="none" />
+                <circle cx="48" cy="48" r="40" className={`stroke-current ${colorClass} transition-all duration-1000 ease-out`} strokeWidth="8" fill="none" strokeDasharray="251" strokeDashoffset={offset} strokeLinecap="round" />
+            </svg>
+            <div className="absolute flex flex-col items-center">
+                <Icon size={16} className={`mb-1 ${colorClass}`} />
+                <span className="text-xl font-bold text-white leading-none"><AnimatedCounter value={score} /></span>
             </div>
-            <div className="flex items-center gap-2 mt-5 z-10 w-full justify-center border-t border-border pt-4">
-                <Icon size={16} style={{ color }} />
-                <p className="text-sm font-bold text-text-primary uppercase tracking-wider">{label}</p>
-            </div>
-        </motion.div>
+        </div>
     );
 };
 
+// --- Main Page ---
+
 export default function AnalysisPage() {
-    const { resumeId } = useParams<{ resumeId: string }>();
     const navigate = useNavigate();
-    const [analysis, setAnalysis] = useState<Analysis | null>(null);
+    const { id } = useParams<{ id: string }>();
+    const resumeId = useResumeStore(s => s.selectedResumeId) || id;
+
     const [loading, setLoading] = useState(true);
-    const [status, setStatus] = useState<string>('processing');
-    const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [analysis, setAnalysis] = useState<AnalysisData | null>(null);
+    const [resume, setResume] = useState<ResumeData | null>(null);
+    const [copiedBullet, setCopiedBullet] = useState<string | null>(null);
+    const [generatingDoc, setGeneratingDoc] = useState(false);
 
-    useEffect(() => {
+    // Derived states
+    const [sectionCompleteness, setSectionCompleteness] = useState(0);
+    const [quantifiedScore, setQuantifiedScore] = useState(0);
+    const [sectionStatuses, setSectionStatuses] = useState<SectionStatus[]>([]);
+    const [readability, setReadability] = useState<ReadabilityMetrics | null>(null);
+
+    const fetchData = async () => {
         if (!resumeId) return;
-
-        const loadAnalysis = async () => {
-            try {
-                // First check status
-                const { data: statusData } = await resumeApi.getStatus(resumeId);
-                const currentStatus = statusData.data.status as string;
-                setStatus(currentStatus);
-
-                if (currentStatus === 'analyzed') {
-                    const { data } = await analysisApi.getLatest(resumeId);
-                    setAnalysis(data.data.analysis);
-                    // Stop polling if we were
-                    if (pollingRef.current) clearInterval(pollingRef.current);
-                } else if (currentStatus === 'processing') {
-                    // Poll every 4 seconds until done
-                    if (!pollingRef.current) {
-                        pollingRef.current = setInterval(async () => {
-                            try {
-                                const { data: s } = await resumeApi.getStatus(resumeId);
-                                setStatus(s.data.status);
-                                if (s.data.status === 'analyzed') {
-                                    clearInterval(pollingRef.current!);
-                                    pollingRef.current = null;
-                                    const { data } = await analysisApi.getLatest(resumeId);
-                                    setAnalysis(data.data.analysis);
-                                }
-                            } catch { /* ignore polling errors */ }
-                        }, 4000);
-                    }
-                }
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setLoading(false);
+        try {
+            setLoading(true);
+            setError(null);
+            
+            // The backend lacks GET /resumes/:id, so we either get it from the store or fetch the bulk list to find it
+            if (!resumeId || resumeId === "undefined") {
+                throw new Error("Invalid Resume ID in URL. Please navigate from the dashboard.");
             }
-        };
 
-        loadAnalysis();
-        return () => { if (pollingRef.current) clearInterval(pollingRef.current); };
-    }, [resumeId]);
+            const [resAna, resResList] = await Promise.all([
+                api.get(`/analysis/${resumeId}/latest`).catch((e) => {
+                    console.error("Latest Analysis 404:", e);
+                    return { data: null };
+                }),
+                api.get('/resumes').catch((e) => {
+                    console.error("Resumes Fetch Error:", e);
+                    return { data: { resumes: [] } };
+                })
+            ]);
 
-    // Animation variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1 }
+            const aData = resAna.data?.data?.analysis || resAna.data?.analysis || resAna.data?.data || resAna.data;
+            const resumesArray = resResList.data?.data?.resumes || resResList.data?.resumes || resResList.data?.data || [];
+            const rData = resumesArray.find((r: any) => r._id === resumeId);
+
+            if (!aData || !aData.nlpResult) throw new Error("Analysis is incomplete or has not been generated yet. Please analyze your resume from the dashboard first.");
+            if (!rData) throw new Error("Could not locate the original resume document.");
+            
+            setAnalysis(aData);
+            setResume(rData);
+
+            // Compute Local Metrics
+            const text = rData.rawText || rData.cleanedText || '';
+            const bullets = aData.openAIResult?.bulletImpactScores?.map((b: any) => b.bullet) || [];
+
+            setSectionCompleteness(computeSectionCompleteness(text));
+            
+            const totalBullets = Math.max(1, bullets.length);
+            const qCount = countQuantifiedBullets(text);
+            const qRatio = Math.min(1, qCount / totalBullets);
+            setQuantifiedScore(Math.round(qRatio * 25));
+            
+            setSectionStatuses(checkResumeSections(text));
+            setReadability(computeReadability(text, bullets));
+
+        } catch (err: any) {
+            console.error('Fetch error:', err);
+            setError(err.response?.data?.message || err.message || 'Failed to load analysis.');
+        } finally {
+            setLoading(false);
         }
     };
 
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+    useEffect(() => {
+        if (!resumeId) navigate('/dashboard');
+        else fetchData();
+    }, [resumeId]);
+
+    const handleCopy = (text: string) => {
+        navigator.clipboard.writeText(text);
+        setCopiedBullet(text);
+        toast.success('Copied to clipboard');
+        setTimeout(() => setCopiedBullet(null), 2000);
     };
 
-    if (loading) return (
-        <div className="flex flex-col items-center justify-center h-[calc(100vh-100px)] gap-6">
-            <div className="relative w-20 h-20">
-                <div className="absolute inset-0 rounded-full border-t-2 border-primary animate-spin"></div>
-                <div className="absolute inset-2 rounded-full border-r-2 border-accent animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
-                <div className="absolute inset-4 flex items-center justify-center">
-                    <Sparkles className="text-primary animate-pulse" size={20} />
+    const handleDownloadDocx = async () => {
+        if (!resume || !analysis) return;
+        setGeneratingDoc(true);
+        try {
+            let optimizedText = resume.rawText || resume.cleanedText || '';
+            
+            // Replace all original bullets with rewritten ones
+            analysis.openAIResult?.bulletImpactScores?.forEach(b => {
+                if (b.rewritten && b.bullet && optimizedText.includes(b.bullet)) {
+                    optimizedText = optimizedText.replace(b.bullet, b.rewritten);
+                }
+            });
+
+            // Very basic DOCX generation from text
+            const doc = new Document({
+                sections: [{
+                    properties: {},
+                    children: optimizedText.split('\n').map(line => new Paragraph({
+                        children: [new TextRun(line)]
+                    }))
+                }]
+            });
+
+            const blob = await Packer.toBlob(doc);
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Optimized_${resume.originalFilename || 'Resume'}.docx`;
+            a.click();
+            URL.revokeObjectURL(url);
+            toast.success('Optimized resume downloaded!');
+        } catch (err) {
+            console.error(err);
+            toast.error('Failed to generate document');
+        } finally {
+            setGeneratingDoc(false);
+        }
+    };
+
+    const handleReanalyze = async () => {
+        try {
+            await api.post(`/resumes/${resumeId}/analyze`);
+            toast.success('Re-analysis queued. Check back shortly.');
+            navigate('/dashboard');
+        } catch (err) {
+            toast.error('Failed to queue analysis.');
+        }
+    };
+
+    if (loading) return <div className="p-10 flex justify-center"><div className="w-8 h-8 md:w-12 md:h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" /></div>;
+
+    if (error || !analysis || !resume) return (
+        <div className="p-10 text-center">
+            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-6 rounded-2xl max-w-lg mx-auto">
+                <AlertTriangle className="mx-auto mb-4 w-12 h-12" />
+                <h3 className="text-xl font-bold mb-2">Analysis Failed</h3>
+                <p className="text-sm mb-6">{error || 'Could not load analysis details. The resume might still be processing.'}</p>
+                <div className="flex gap-4 justify-center">
+                    <button onClick={() => navigate('/dashboard')} className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-xl transition-colors">Go to Dashboard</button>
+                    <button onClick={fetchData} className="px-4 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 rounded-xl transition-colors">Try Again</button>
                 </div>
             </div>
-            <p className="text-text-secondary font-medium animate-pulse">Running advanced AI analysis...</p>
         </div>
     );
 
-    if (!analysis) return (
-        <div className="card text-center max-w-lg mx-auto mt-20 p-12">
-            {status === 'processing' ? (
-                <>
-                    <div className="relative w-20 h-20 mx-auto mb-6">
-                        <div className="absolute inset-0 rounded-full border-t-2 border-primary animate-spin"></div>
-                        <div className="absolute inset-2 rounded-full border-r-2 border-accent animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <Clock className="text-primary" size={28} />
-                        </div>
-                    </div>
-                    <h2 className="text-2xl font-bold text-text-primary mb-2">AI Analysis Running</h2>
-                    <p className="text-text-secondary mb-4">Your resume is being processed in the background. This page will update automatically.</p>
-                    <div className="mt-4 space-y-2 text-sm text-text-muted">
-                        {['Extracting text & skills…', 'Running NLP analysis…', 'Generating AI insights…'].map((s, i) => (
-                            <motion.p key={s} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.6 }}>✦ {s}</motion.p>
-                        ))}
-                    </div>
-                </>
-            ) : status === 'error' ? (
-                <>
-                    <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center border border-red-500/20 mx-auto mb-6">
-                        <AlertTriangle size={40} className="text-red-500" />
-                    </div>
-                    <h2 className="text-2xl font-bold text-text-primary mb-2">Analysis Failed</h2>
-                    <p className="text-text-secondary mb-8">The AI worker encountered an error. Please try uploading again.</p>
-                    <button onClick={() => navigate('/upload')} className="btn-primary w-full justify-center py-3">
-                        Try Again
-                    </button>
-                </>
-            ) : (
-                <>
-                    <div className="w-20 h-20 bg-amber-500/10 rounded-full flex items-center justify-center border border-amber-500/20 mx-auto mb-6">
-                        <AlertTriangle size={40} className="text-amber-500" />
-                    </div>
-                    <h2 className="text-2xl font-bold text-text-primary mb-2">No Analysis Found</h2>
-                    <p className="text-text-secondary mb-8">We couldn't find any generated insights for this resume. Let's run a new analysis.</p>
-                    <button onClick={() => navigate('/upload')} className="btn-primary w-full justify-center py-3">
-                        Upload &amp; Analyze Resume
-                    </button>
-                </>
-            )}
-        </div>
-    );
+    const { openAIResult, nlpResult } = analysis;
+    const cats = categorizeSkills(nlpResult.extractedSkills);
 
-    const { nlpResult: nlp, openAIResult: ai } = analysis;
+    const timeAgo = (dateStr: string) => {
+        const h = Math.floor((Date.now() - new Date(dateStr).getTime()) / 3600000);
+        if (h < 1) return 'Just now';
+        if (h < 24) return `${h} hours ago`;
+        return `${Math.floor(h/24)} days ago`;
+    };
 
-    // Determine primary action focus
-    const weakestScore = Math.min(ai?.atsScore ?? 100, ai?.qualityScore ?? 100, nlp?.similarityScore || 100);
-    const actionFocus = weakestScore === ai?.atsScore ? "Formatting & Keywords" : weakestScore === ai?.qualityScore ? "Impact & Writing" : "Skill Alignment";
-    const primaryImprovement = ai?.improvements?.[0] || "Optimize your resume layout for standard ATS parsing.";
+    const getColor = (score: number) => score >= 70 ? 'text-emerald-500' : score >= 50 ? 'text-amber-500' : 'text-rose-500';
 
     return (
-        <div className="space-y-8 max-w-7xl mx-auto pb-12">
-
-            {/* Header Section */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-border">
-                <div>
-                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-primary/10 rounded-lg border border-primary/20">
-                            <Target className="text-primary" size={24} />
-                        </div>
-                        <h1 className="text-4xl font-extrabold text-text-primary tracking-tight">
-                            Intelligence Report
-                        </h1>
-                    </motion.div>
-                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="text-text-secondary text-lg ml-1">
-                        Deep dive into your resume's performance metrics
-                    </motion.p>
+        <div className="w-full h-full bg-gray-950 overflow-y-auto">
+            {/* Section 1 - Sticky Header */}
+            <div className="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-md border-b border-white/5 p-4 md:p-6 w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div className="flex items-center gap-4">
+                    <button onClick={() => navigate('/dashboard')} className="p-2 bg-gray-900 border border-white/10 rounded-xl hover:bg-gray-800 text-gray-400 transition-colors">
+                        <ArrowLeft size={18} />
+                    </button>
+                    <div>
+                        <h1 className="text-xl font-bold text-white flex items-center gap-2">Resume: <span className="text-amber-400 truncate max-w-[200px] md:max-w-md">{resume.originalFilename}</span></h1>
+                        <p className="text-xs text-gray-500">Analyzed {timeAgo(analysis.createdAt)}</p>
+                    </div>
                 </div>
-
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex gap-3">
-                    <button onClick={() => navigate(`/interview/${resumeId}`)} className="btn-secondary whitespace-nowrap">
-                        <MessageSquare size={18} /> Mock Interview
+                <div className="flex items-center gap-3">
+                    <button onClick={handleReanalyze} className="px-4 py-2 border border-white/10 hover:border-amber-500/50 hover:bg-amber-500/10 text-gray-300 rounded-xl text-sm font-semibold transition-all flex items-center gap-2">
+                        <RefreshCw size={14} /> Re-analyze
                     </button>
-                    <button onClick={() => navigate(`/cover-letter/${resumeId}`)} className="btn-primary whitespace-nowrap px-6">
-                        <FileText size={18} /> Generate Cover Letter
+                    <button onClick={handleDownloadDocx} disabled={generatingDoc} className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-black rounded-xl text-sm font-semibold transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                        {generatingDoc ? <RefreshCw size={14} className="animate-spin" /> : <Download size={14} />} Download Optimized
                     </button>
-                </motion.div>
+                </div>
             </div>
 
-            <motion.div variants={containerVariants} initial="hidden" animate="show" className="grid grid-cols-12 gap-6">
-
-                {/* Hero Summary & Action Item (Spans 12 or 8 cols) */}
-                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-8 space-y-6">
-                    {/* Executive Summary Card */}
-                    <div className="card relative overflow-hidden h-full flex flex-col justify-center border-t-2 border-t-primary">
-                        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-primary/5 rounded-full pointer-events-none"></div>
-                        <h2 className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
-                            <Sparkles size={14} /> Executive Summary
-                        </h2>
-                        <p className="text-2xl text-text-primary leading-relaxed font-light">
-                            {ai?.summary || "Your resume has been completely processed by our hybrid AI engine."}
-                        </p>
-                    </div>
-                </motion.div>
-
-                {/* Top Priority Action Card (Spans 12 or 4 cols) */}
-                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-4">
-                    <div className="card border-t-2 border-t-accent p-8 rounded-xl h-full flex flex-col relative overflow-hidden bg-background-panel">
-                        <div className="absolute top-4 right-4 p-3 bg-accent/10 rounded-full border border-accent/20">
-                            <Lightbulb size={24} className="text-accent" />
-                        </div>
-                        <h2 className="text-lg font-bold text-text-primary mb-2">Top Priority</h2>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 text-accent border border-accent/20 rounded-md text-xs font-bold mb-4 w-fit uppercase tracking-wider">
-                            Focus: {actionFocus}
-                        </div>
-                        <p className="text-text-secondary text-sm leading-relaxed mt-auto font-medium shadow-accent/5">
-                            "{primaryImprovement}"
-                        </p>
-                    </div>
-                </motion.div>
-
-                {/* The 4 Gauges */}
-                <motion.div variants={itemVariants} className="col-span-12">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <ScoreGauge score={ai?.overallScore ?? 0} label="Overall Score" color="#F59E0B" icon={Award} delay={0.1} />
-                        <ScoreGauge score={ai?.atsScore ?? 0} label="ATS Scannability" color="#111827" icon={FileText} delay={0.2} />
-                        <ScoreGauge score={ai?.qualityScore ?? 0} label="Writing Quality" color="#D97706" icon={Sparkles} delay={0.3} />
-                        <ScoreGauge score={Math.round(nlp?.similarityScore ?? 75)} label="Role Alignment" color="#1F2937" icon={Target} delay={0.4} />
-                    </div>
-                </motion.div>
-
-                {/* Strengths & Weaknesses (Split 6/6) */}
-                <motion.div variants={itemVariants} className="col-span-12 md:col-span-6">
-                    <div className="card h-full border-t-2 border-t-emerald-500">
-                        <h2 className="text-xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                            <div className="p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/20"><CheckCircle size={20} className="text-emerald-500" /></div>
-                            Core Strengths
-                        </h2>
-                        <ul className="space-y-4">
-                            {(ai?.strengths ?? []).map((s, i) => (
-                                <li key={i} className="flex items-start gap-4">
-                                    <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0 mt-0.5 border border-emerald-500/20">
-                                        <CheckCircle size={12} className="text-emerald-500" />
-                                    </div>
-                                    <span className="text-text-secondary text-sm leading-relaxed">{s}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="col-span-12 md:col-span-6">
-                    <div className="card h-full border-t-2 border-t-red-500">
-                        <h2 className="text-xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                            <div className="p-2 bg-red-500/10 rounded-lg border border-red-500/20"><XCircle size={20} className="text-red-500" /></div>
-                            Areas for Improvement
-                        </h2>
-                        <ul className="space-y-4">
-                            {(ai?.weaknesses ?? []).map((w, i) => (
-                                <li key={i} className="flex items-start gap-4">
-                                    <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5 border border-red-500/20">
-                                        <XCircle size={12} className="text-red-500" />
-                                    </div>
-                                    <span className="text-text-secondary text-sm leading-relaxed">{w}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </motion.div>
-
-                {/* Skills Analysis */}
-                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-8">
-                    <div className="card h-full">
-                        <h2 className="text-xl font-bold text-text-primary mb-8 flex items-center gap-3">
-                            <div className="p-2 bg-primary/10 rounded-lg border border-primary/20"><Map size={20} className="text-primary" /></div>
-                            Skills Topography
-                        </h2>
-
-                        <div className="space-y-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8 space-y-6 pb-24 text-gray-200">
+                
+                {/* Section 2 - Score Overview Strip */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    {[
+                        { label: 'ATS Score', score: openAIResult?.atsScore || 0, icon: Target },
+                        { label: 'Quality Score', score: openAIResult?.qualityScore || 0, icon: Star },
+                        { label: 'Overall Score', score: openAIResult?.overallScore || 0, icon: Award },
+                        { label: 'JD Match', score: nlpResult?.similarityScore || 0, icon: GitCompare }
+                    ].map((item, i) => {
+                        const col = getColor(item.score);
+                        const status = item.score >= 70 ? 'Excellent' : item.score >= 50 ? 'Good' : 'Needs Work';
+                        return (
+                            <motion.div key={item.label} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }} className="bg-gray-900 border border-white/10 rounded-2xl p-5 flex items-center gap-4">
+                                <CircularProgress score={item.score} colorClass={col} icon={item.icon} />
                                 <div>
-                                    <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-4 flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-primary"></span> Hard Skills
-                                    </p>
-                                    <div className="flex flex-wrap gap-2">
-                                        {nlp?.extractedSkills?.slice(0, 15).map(s => <span key={s} className="badge-skill">{s}</span>)}
-                                        {(nlp?.extractedSkills?.length ?? 0) > 15 && <span className="badge-soft">+{(nlp?.extractedSkills?.length ?? 0) - 15} more</span>}
+                                    <h3 className="text-sm font-medium text-gray-400">{item.label}</h3>
+                                    <p className={`text-xs mt-1 ${col}`}>{status}</p>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Section 3 - ATS Score Breakdown */}
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-gray-900 border border-white/10 rounded-2xl p-6 lg:col-span-1 flex flex-col">
+                        <h2 className="text-lg font-bold text-white mb-6">ATS Score Breakdown</h2>
+                        <div className="space-y-5 flex-1 flex flex-col justify-center">
+                            {[
+                                { label: 'Keyword Match', score: Math.round(((nlpResult?.matchedSkills?.length || 0) / Math.max(1, (nlpResult?.matchedSkills?.length || 0) + (nlpResult?.missingSkills?.length || 0))) * 25) },
+                                { label: 'Formatting', score: (openAIResult?.atsScore || 0) > 70 ? 22 : 17 },
+                                { label: 'Section Completeness', score: sectionCompleteness },
+                                { label: 'Quantified Impact', score: quantifiedScore },
+                            ].map(item => (
+                                <div key={item.label}>
+                                    <div className="flex justify-between text-sm mb-2">
+                                        <span className="text-gray-300">{item.label}</span>
+                                        <span className="text-amber-400 font-medium">{item.score}/25</span>
+                                    </div>
+                                    <div className="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                        <motion.div initial={{ width: 0 }} animate={{ width: `${(item.score / 25) * 100}%` }} transition={{ duration: 1, ease: 'easeOut' }} className="h-full bg-amber-500 rounded-full" />
                                     </div>
                                 </div>
+                            ))}
+                        </div>
+                    </motion.div>
 
-                                <div>
-                                    <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-4 flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-accent"></span> Soft Skills
-                                    </p>
-                                    <div className="flex flex-wrap gap-2">
-                                        {(nlp?.softSkills ?? []).map(s => <span key={s} className="badge-soft">{s}</span>)}
+                    {/* Section 4 - Resume Section Completeness Checker */}
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="bg-gray-900 border border-white/10 rounded-2xl p-6 lg:col-span-2">
+                        <div className="mb-6">
+                            <h2 className="text-lg font-bold text-white">Resume Sections</h2>
+                            <p className="text-sm text-gray-500">Recruiters scan for these in the first 6 seconds</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {sectionStatuses.map((s, i) => (
+                                <div key={i} className="bg-gray-950 border border-white/5 rounded-xl p-4 flex flex-col">
+                                    <h3 className="text-sm font-semibold text-gray-200 mb-2">{s.name}</h3>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        {s.status === 'present' ? <CheckCircle2 size={16} className="text-emerald-500" /> : s.status === 'weak' ? <AlertTriangle size={16} className="text-amber-500" /> : <XCircle size={16} className="text-rose-500" />}
+                                        <span className={`text-xs font-medium uppercase tracking-wider ${s.status === 'present' ? 'text-emerald-500' : s.status === 'weak' ? 'text-amber-500' : 'text-rose-500'}`}>
+                                            {s.status}
+                                        </span>
                                     </div>
+                                    <p className="text-xs text-gray-500 mt-auto">{s.tip}</p>
                                 </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Section 5 - Quantification Score */}
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="bg-gray-900 border border-white/10 rounded-2xl p-6">
+                    <div className="mb-6">
+                        <h2 className="text-lg font-bold text-white">Bullet Point Quantification</h2>
+                        <p className="text-sm text-gray-500">Top 10% of applicants quantify 80%+ of their bullets</p>
+                    </div>
+                    <div className="flex flex-col md:flex-row items-center gap-6 mb-6 p-5 bg-gray-950 border border-white/5 rounded-xl">
+                        <div className="flex-1 w-full">
+                            <div className="flex items-center justify-between text-sm mb-3">
+                                <span className="text-gray-300">Quantified: <span className="text-amber-400 font-bold">{Math.round((quantifiedScore / 25) * (openAIResult?.bulletImpactScores?.length || 1))}</span> / {openAIResult?.bulletImpactScores?.length || 1} bullets</span>
+                                <span className="font-bold text-amber-500">{Math.round(quantifiedScore * 4)}%</span>
                             </div>
-
-                            {(nlp?.matchedSkills?.length ?? 0) > 0 && nlp?.missingSkills && (
-                                <div className="p-6 bg-background-panel border border-border rounded-xl grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <p className="text-xs font-bold text-emerald-500 uppercase tracking-widest mb-3">Target Matches</p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {nlp.matchedSkills.map(s => <span key={s} className="badge-matched">{s}</span>)}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <p className="text-xs font-bold text-red-500 uppercase tracking-widest mb-3">Missing Keywords</p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {nlp.missingSkills.map(s => <span key={s} className="badge-missing border-dashed">{s}</span>)}
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
+                            <div className="w-full bg-gray-800 h-2.5 rounded-full overflow-hidden">
+                                <motion.div initial={{ width: 0 }} animate={{ width: `${Math.round(quantifiedScore * 4)}%` }} transition={{ duration: 1 }} className="h-full bg-amber-500 rounded-full" />
+                            </div>
+                        </div>
+                        <div className="flex-shrink-0 text-sm bg-amber-500/10 text-amber-400 border border-amber-500/20 px-4 py-2 rounded-lg flex items-center gap-2">
+                            <AlertTriangle size={16} /> Add metrics to reach 80% (top 10% of applicants)
                         </div>
                     </div>
                 </motion.div>
 
-                {/* Actionable Steps List */}
-                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-4">
-                    <div className="card h-full">
-                        <h2 className="text-xl font-bold text-text-primary mb-6">Action Plan</h2>
-                        <div className="space-y-4">
-                            {(ai?.improvements ?? []).slice(0, 4).map((imp, i) => (
-                                <div key={i} className="flex gap-4 group">
-                                    <div className="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center flex-shrink-0 text-sm font-bold text-text-secondary group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-colors">
-                                        {i + 1}
+                {/* Section 6 - Skills Panel */}
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-gray-900 border border-white/10 rounded-2xl p-6">
+                    <h2 className="text-lg font-bold text-white mb-6">Skills Overview</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="flex flex-col h-full border border-emerald-500/20 bg-emerald-500/5 rounded-xl p-5">
+                            <h3 className="text-sm font-semibold text-emerald-400 mb-4 flex items-center gap-2"><CheckCircle2 size={16} /> Matched Skills</h3>
+                            <div className="flex flex-wrap gap-2 mb-4 flex-1 content-start">
+                                {nlpResult?.matchedSkills?.length > 0 ? nlpResult.matchedSkills.map(s => (
+                                    <span key={s} className="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-lg text-xs font-medium">{s}</span>
+                                )) : <span className="text-xs text-gray-500">{analysis.jobDescriptionText ? 'No matches found against the JD.' : 'No Job Description provided to match against.'}</span>}
+                            </div>
+                            <div className="mt-auto pt-4 border-t border-emerald-500/10">
+                                <p className="text-xs text-gray-400 flex justify-between mb-2"><span>Match Ratio</span> {nlpResult?.matchedSkills?.length || 0}/{(nlpResult?.matchedSkills?.length || 0) + (nlpResult?.missingSkills?.length || 0)}</p>
+                                <div className="w-full h-1.5 bg-gray-900 rounded-full overflow-hidden"><div style={{ width: `${((nlpResult?.matchedSkills?.length || 0) / Math.max(1, (nlpResult?.matchedSkills?.length || 0) + (nlpResult?.missingSkills?.length || 0))) * 100}%` }} className="h-full bg-emerald-500" /></div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col h-full border border-rose-500/20 bg-rose-500/5 rounded-xl p-5">
+                            <h3 className="text-sm font-semibold text-rose-400 mb-4 flex items-center gap-2"><Target size={16} /> Missing Skills</h3>
+                            <div className="flex flex-wrap gap-2 mb-4 flex-1 content-start">
+                                {nlpResult?.missingSkills?.length > 0 ? nlpResult.missingSkills.map(s => (
+                                    <span key={s} className="px-2.5 py-1 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded-lg text-xs font-medium">{s}</span>
+                                )) : <span className="text-xs text-gray-500">{analysis.jobDescriptionText ? 'Perfect! No skills missing based on JD.' : 'No Job Description provided.'}</span>}
+                            </div>
+                            <div className="mt-auto pt-4 border-t border-rose-500/10">
+                                <p className="text-xs text-gray-400 flex justify-between mb-2"><span>Gap Identifier</span> {nlpResult?.missingSkills?.length || 0} skills to close</p>
+                                <div className="w-full h-1.5 bg-gray-900 rounded-full overflow-hidden"><div style={{ width: `${((nlpResult?.missingSkills?.length || 0) / Math.max(1, (nlpResult?.matchedSkills?.length || 0) + (nlpResult?.missingSkills?.length || 0))) * 100}%` }} className="h-full bg-rose-500" /></div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col h-full border border-amber-500/20 bg-amber-500/5 rounded-xl p-5">
+                            <h3 className="text-sm font-semibold text-amber-400 mb-4 flex items-center gap-2"><Award size={16} /> All Extracted Skills</h3>
+                            <div className="flex-1 space-y-4">
+                                {Object.entries(cats).map(([cat, skills]) => skills.length > 0 && (
+                                    <div key={cat}>
+                                        <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1.5">{cat}</p>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {skills.slice(0, 8).map(s => (
+                                                <span key={s} className="px-2 py-0.5 bg-amber-500/10 text-amber-300 border border-amber-500/20 rounded md text-[11px]">{s}</span>
+                                            ))}
+                                            {skills.length > 8 && <span className="px-2 py-0.5 text-[11px] text-gray-500">+{skills.length - 8} more</span>}
+                                        </div>
                                     </div>
-                                    <p className="text-sm text-text-secondary leading-relaxed group-hover:text-text-primary transition-colors pt-1">
-                                        {imp}
-                                    </p>
+                                ))}
+                                {nlpResult.extractedSkills.length === 0 && <span className="text-xs text-gray-500">No skills identified.</span>}
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* Section 7 - Keyword Density */}
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="bg-gray-900 border border-white/10 rounded-2xl p-6">
+                    <div className="mb-6">
+                        <h2 className="text-lg font-bold text-white">Keyword Density</h2>
+                        <p className="text-sm text-gray-500">How often key terms appear vs what the JD expects</p>
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                        {Object.entries(nlpResult.keywordDensity).sort((a,b) => b[1] - a[1]).map(([kw, count]) => {
+                            const cClass = count >= 5 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : count >= 2 ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+                            return (
+                                <div key={kw} title={`Appears ${count} times in your resume`} className={`px-3 py-1.5 rounded-xl border flex items-center gap-2 cursor-help transition-colors hover:bg-opacity-80 ${cClass}`}>
+                                    <span className="text-sm font-medium">{kw}</span>
+                                    <span className="text-xs opacity-70">×{count}</span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </motion.div>
+
+                {/* Section 8 - Bullet Point Optimizer */}
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="bg-gray-900 border border-white/10 rounded-2xl p-6">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
+                        <div>
+                            <h2 className="text-lg font-bold text-white">Bullet Point Optimizer</h2>
+                            <p className="text-sm text-gray-500">AI-suggested rewrites for maximum impact and quantifiable results</p>
+                        </div>
+                        <button onClick={handleDownloadDocx} disabled={generatingDoc} className="w-full md:w-auto px-5 py-2.5 bg-amber-500 hover:bg-amber-400 transition-colors text-black font-semibold rounded-xl flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(245,158,11,0.15)] disabled:opacity-50">
+                            <Sparkles size={16} /> Apply All Rewrites & Download
+                        </button>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {openAIResult?.bulletImpactScores?.filter(b => b.rewritten && b.bullet).map((b, i) => (
+                            <div key={i} className="bg-gray-950 border border-white/10 rounded-xl p-5 flex flex-col relative group">
+                                <div className="flex justify-between items-center mb-3">
+                                    <span className="text-xs font-semibold tracking-wider text-gray-500 uppercase">Original</span>
+                                    <span className="text-xs font-medium text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded">Impact: {b.score}/10</span>
+                                </div>
+                                <p className="text-sm text-gray-400 line-through mb-4 leading-relaxed">{b.bullet}</p>
+                                
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-900 border border-amber-500/30 text-amber-400 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full flex items-center gap-1 shadow-xl">
+                                    <Sparkles size={10} /> AI Improved
+                                </div>
+                                
+                                <div className="flex-1 bg-amber-500/5 -mx-5 -mb-5 p-5 mt-2 border-t border-amber-500/20 rounded-b-xl">
+                                    <div className="flex justify-between items-center mb-3">
+                                        <span className="text-xs font-semibold tracking-wider text-amber-500 uppercase">Rewritten</span>
+                                        <span className="text-xs font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded flex items-center gap-1">✨ Improved <Target size={10} /></span>
+                                    </div>
+                                    <p className="text-sm text-white leading-relaxed font-medium">{b.rewritten}</p>
+                                </div>
+                                
+                                <button onClick={() => handleCopy(b.rewritten)} className="absolute bottom-4 right-4 bg-gray-900 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-black transition-colors p-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 focus:opacity-100 flex items-center gap-1.5 text-xs font-semibold">
+                                    {copiedBullet === b.rewritten ? <Check size={14} /> : <Copy size={14} />} 
+                                    {copiedBullet === b.rewritten ? 'Copied' : 'Copy'}
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* Section 9 - Readability Analysis */}
+                {readability && (
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="bg-gray-900 border border-white/10 rounded-2xl p-6">
+                        <h2 className="text-lg font-bold text-white mb-6">Readability Analysis</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            {[
+                                { l: 'Grade Level', v: `Grade ${readability.fkGrade}`, ok: readability.fkGrade >= 10 && readability.fkGrade <= 13 },
+                                { l: 'Sentence Length', v: `${readability.avgSentenceLength} wds`, ok: readability.avgSentenceLength <= 20 },
+                                { l: 'Action Verbs', v: `${readability.actionVerbCount}/${readability.totalBullets}`, ok: (readability.actionVerbCount/Math.max(1, readability.totalBullets)) > 0.7 },
+                                { l: 'Passive Voice', v: `${readability.passiveBullets.length} detected`, ok: readability.passiveBullets.length === 0 }
+                            ].map(m => (
+                                <div key={m.l} className={`p-4 rounded-xl border ${m.ok ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-amber-500/10 border-amber-500/20'}`}>
+                                    <p className="text-xs text-gray-400 mb-1">{m.l}</p>
+                                    <p className={`text-xl font-bold ${m.ok ? 'text-emerald-400' : 'text-amber-400'}`}>{m.v}</p>
                                 </div>
                             ))}
                         </div>
-                        <button onClick={() => navigate(`/interview/${resumeId}`)} className="w-full mt-8 btn-secondary justify-center py-4 text-sm rounded-lg">
-                            Generate Full Career Roadmap &rarr;
+                        {readability.passiveBullets.length > 0 && (
+                            <div className="bg-gray-950 p-5 rounded-xl border border-white/5">
+                                <h3 className="text-sm font-semibold text-rose-400 mb-3 flex items-center gap-2"><AlertTriangle size={16} /> Passive Voice Detected</h3>
+                                <ul className="space-y-3">
+                                    {readability.passiveBullets.map((b, i) => (
+                                        <li key={i} className="flex flex-col md:flex-row md:items-center justify-between gap-3 text-sm text-gray-400 border-b border-white/5 pb-3 last:border-0 last:pb-0">
+                                            <span className="italic">"...{b.length > 80 ? b.substring(0, 80) + '...' : b}"</span>
+                                            <button onClick={() => navigate('/coach')} className="whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 bg-gray-900 border border-white/10 hover:border-amber-500/50 hover:text-amber-400 rounded-lg text-xs font-semibold transition-colors">
+                                                <MessageSquare size={12} /> Fix with AI
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </motion.div>
+                )}
+
+                {/* Section 10 - Strengths & Weaknesses */}
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-gray-900 border border-white/10 rounded-2xl p-6">
+                        <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2"><CheckCircle2 className="text-emerald-500" /> Key Strengths</h2>
+                        <div className="space-y-3">
+                            {openAIResult?.strengths?.map((s, i) => (
+                                <div key={i} className="p-4 bg-emerald-500/5 border-l-2 border-emerald-500 rounded-r-xl">
+                                    <p className="text-sm text-emerald-100">{s}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    
+                    <div className="bg-gray-900 border border-white/10 rounded-2xl p-6 flex flex-col">
+                        <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2"><AlertTriangle className="text-amber-500" /> Areas to Improve</h2>
+                        <div className="space-y-3 flex-1">
+                            {[...(openAIResult?.weaknesses || []), ...(openAIResult?.improvements || [])].slice(0, 5).map((w, i) => (
+                                <div key={i} className="flex items-start gap-3 p-3 bg-amber-500/5 border border-amber-500/10 rounded-xl">
+                                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-bold">{i+1}</span>
+                                    <p className="text-sm text-amber-100 mt-0.5">{w}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <button onClick={() => navigate('/career-path')} className="mt-6 w-full py-3 bg-gray-950 border border-white/5 hover:border-amber-500/30 text-amber-500 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2">
+                            Generate Full Career Roadmap <ArrowLeft className="rotate-180" size={16} />
                         </button>
                     </div>
                 </motion.div>
 
-                {/* Bullet Impact Rewrites */}
-                {(ai?.bulletImpactScores?.length ?? 0) > 0 && (
-                    <motion.div variants={itemVariants} className="col-span-12">
-                        <div className="card relative overflow-hidden">
-                            <h2 className="text-xl font-bold text-text-primary mb-2">Bullet Point Optimizer</h2>
-                            <p className="text-text-secondary text-sm mb-8">AI-suggested rewrites for maximum impact and quantifiable results.</p>
+                {/* Section 11 - JD Match View */}
+                {nlpResult.similarityScore && (
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }} className="bg-gray-900 border border-white/10 rounded-2xl p-6 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 blur-3xl -mr-20 -mt-20 pointer-events-none" />
+                        <div className="mb-8 text-center md:text-left">
+                            <h2 className="text-xl font-bold text-white">Job Description Match</h2>
+                            <p className="text-sm text-gray-400">Keywords present in your resume vs required by the JD</p>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-[1fr_200px_1fr] gap-8 items-center">
+                            <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-2xl p-6 h-full text-center">
+                                <h3 className="text-emerald-400 font-bold mb-4 flex items-center justify-center gap-2"><CheckCircle2 size={18} /> Matched Keywords</h3>
+                                <div className="flex flex-wrap gap-2 justify-center">
+                                    {nlpResult.matchedSkills.map(s => <span key={s} className="px-3 py-1 bg-emerald-500/10 text-emerald-300 rounded-lg text-sm">{s}</span>)}
+                                </div>
+                            </div>
+                            
+                            <div className="flex justify-center">
+                                <CircularProgress score={nlpResult.similarityScore} colorClass={getColor(nlpResult.similarityScore)} icon={GitCompare} />
+                            </div>
 
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                {ai!.bulletImpactScores.slice(0, 4).map((b, i) => (
-                                    <div key={i} className="flex flex-col bg-background-panel rounded-xl border border-border overflow-hidden">
-                                        <div className="p-5 border-b border-border bg-background-panel">
-                                            <div className="flex justify-between items-start gap-4 mb-2">
-                                                <span className="text-xs font-bold uppercase tracking-wider text-text-muted">Original</span>
-                                                <span className={`text-xs font-bold px-2.5 py-1 rounded-md border ${b.score >= 7 ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : b.score >= 4 ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' : 'bg-red-500/10 text-red-500 border-red-500/20'}`}>
-                                                    Score: {b.score}/10
-                                                </span>
-                                            </div>
-                                            <p className="text-sm text-text-secondary line-through decoration-red-500/50">{b.bullet}</p>
-                                        </div>
-                                        <div className="p-5 bg-primary/5 relative">
-                                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background-panel border border-border flex items-center justify-center">
-                                                <ArrowRight size={14} className="text-primary transform rotate-90 lg:rotate-0" />
-                                            </div>
-                                            <span className="block text-xs font-bold uppercase tracking-wider text-primary mb-2 mt-2 lg:mt-0">AI Rewritten</span>
-                                            <p className="text-sm text-text-primary font-medium leading-relaxed">{b.rewritten}</p>
-                                        </div>
-                                    </div>
-                                ))}
+                            <div className="bg-rose-500/5 border border-rose-500/10 rounded-2xl p-6 h-full text-center">
+                                <h3 className="text-rose-400 font-bold mb-4 flex items-center justify-center gap-2"><XCircle size={18} /> Missing Keywords</h3>
+                                <div className="flex flex-wrap gap-2 justify-center">
+                                    {nlpResult.missingSkills.map(s => <span key={s} className="px-3 py-1 bg-rose-500/10 text-rose-300 rounded-lg text-sm">{s}</span>)}
+                                </div>
                             </div>
                         </div>
                     </motion.div>
                 )}
-            </motion.div>
+            </div>
         </div>
     );
 }

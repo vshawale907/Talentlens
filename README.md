@@ -99,13 +99,24 @@ npm run dev            # starts on port 5000
 ### Python AI Service
 
 ```bash
+# 1. Navigate to the directory
 cd ai-service
+
+# 2. Create the virtual environment
 python -m venv venv
-venv\Scripts\activate          # Windows
-source venv/bin/activate       # macOS/Linux
+
+# 3. Activate the virtual environment
+.\venv\Scripts\activate
+
+# 4. Install dependencies
 pip install -r requirements.txt
-python -m spacy download en_core_web_sm
+
+# 5. Download the Spacy model directly (the corrected command)
+python -m pip install "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz"
+
+# 6. Start the FastAPI server
 uvicorn main:app --reload --port 8000
+
 ```
 
 ### Frontend (React + Vite)

@@ -135,7 +135,7 @@ export default function Layout() {
             </motion.aside>
 
             {/* ─── Main Content ────────────────────────────── */}
-            <main className="flex-1 overflow-y-auto bg-background">
+            <main className="flex-1 overflow-hidden p-0 bg-gray-950">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={location.pathname}
@@ -143,7 +143,7 @@ export default function Layout() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.25, ease: 'easeOut' }}
-                        className="min-h-full p-10"
+                        className="w-full h-full overflow-y-auto"
                     >
                         <Outlet />
                     </motion.div>
