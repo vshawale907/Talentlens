@@ -11,6 +11,7 @@ const QDRANT_URL = process.env.QDRANT_URL || 'http://localhost:6333';
 const QDRANT_API_KEY = process.env.QDRANT_API_KEY;
 exports.qdrantClient = new js_client_rest_1.QdrantClient({
     url: QDRANT_URL,
+    checkCompatibility: false,
     ...(QDRANT_API_KEY ? { apiKey: QDRANT_API_KEY } : {}),
 });
 // ─── Collection Names ────────────────────────────────────────────────────────

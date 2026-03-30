@@ -42,6 +42,7 @@ app.use((0, cors_1.default)({
         'http://localhost:5173',
         'http://127.0.0.1:3000',
         'http://127.0.0.1:5173',
+        'https://your-frontend.onrender.com'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],

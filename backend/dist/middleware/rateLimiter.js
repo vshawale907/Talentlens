@@ -16,8 +16,8 @@ const createLimiter = (windowMs, max, message) => (0, express_rate_limit_1.defau
     },
 });
 exports.rateLimiter = {
-    // General API: 200 requests per 15 minutes
-    general: createLimiter(15 * 60 * 1000, 200, 'Too many requests, please try again later.'),
+    // General API: 2000 requests per 15 minutes (increased for local dev/hot-reloads)
+    general: createLimiter(15 * 60 * 1000, 2000, 'Too many requests, please try again later.'),
     // Auth endpoints: 10 attempts per 15 minutes
     auth: createLimiter(15 * 60 * 1000, 10, 'Too many authentication attempts. Please try again after 15 minutes.'),
     // Forgot password: 5 attempts per hour (separate from auth to avoid blocking legitimate resets)

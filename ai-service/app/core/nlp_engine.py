@@ -56,6 +56,25 @@ ACTION_VERBS = {
     "automated", "collaborated", "contributed", "coordinated", "facilitated",
 }
 
+SKILL_ALIASES = {
+    "machine learning": ["ml", "machinelearning"],
+    "deep learning": ["dl", "deeplearning"],
+    "artificial intelligence": ["ai"],
+    "natural language processing": ["nlp"],
+    "amazon web services": ["aws"],
+    "google cloud platform": ["gcp"],
+    "javascript": ["js"],
+    "typescript": ["ts"],
+    "react": ["react.js", "reactjs", "react js"],
+    "nodejs": ["node.js", "node js", "node"],
+    "vue": ["vue.js", "vuejs", "vue js"],
+    "postgresql": ["postgres", "psql"],
+    "kubernetes": ["k8s"],
+    "ci/cd": ["ci", "cd", "ci-cd"],
+    "user interface": ["ui"],
+    "user experience": ["ux"],
+}
+
 # ─── NLP Engine (Singleton) ───────────────────────────────────────────────
 class NLPEngine:
     _instance: Optional["NLPEngine"] = None
@@ -97,13 +116,37 @@ class NLPEngine:
         text = re.sub(r"[^\w\s\-.,/#+]", " ", text)
         # Normalize whitespace
         text = re.sub(r"\s+", " ", text).strip().lower()
+        
+        # Replace aliases with canonical forms for TF-IDF accurate matching
+        for canonical, aliases in SKILL_ALIASES.items():
+            for alias in aliases:
+                esc_alias = re.escape(alias)
+                # Boundary aware replacement
+                text = re.sub(rf"(?:^|[^\w#+]){esc_alias}(?:$|[^\w#+])", f" {canonical} ", text)
+                
+        # Final whitespace normalization after alias replacement
+        text = re.sub(r"\s+", " ", text).strip()
         return text
 
     # ─── Skill Extraction ────────────────────────────────────────────────
     def extract_skills(self, text: str) -> tuple[list[str], list[str]]:
         text_lower = text.lower()
-        tech = sorted([s for s in TECH_SKILLS if s in text_lower])
-        soft = sorted([s for s in SOFT_SKILLS if s in text_lower])
+        def is_match(skill):
+            # Escape string and use lookaround to ensure it's not part of another word.
+            # We use [^\w#+] to not break things like c++ and c#
+            escaped = re.escape(skill)
+            if re.search(rf"(?:^|[^\w#+]){escaped}(?:$|[^\w#+])", text_lower):
+                return True
+            # Check aliases
+            aliases = SKILL_ALIASES.get(skill, [])
+            for alias in aliases:
+                esc_alias = re.escape(alias)
+                if re.search(rf"(?:^|[^\w#+]){esc_alias}(?:$|[^\w#+])", text_lower):
+                    return True
+            return False
+
+        tech = sorted([s for s in TECH_SKILLS if is_match(s)])
+        soft = sorted([s for s in SOFT_SKILLS if is_match(s)])
         return tech, soft
 
     # ─── Experience Year Detection ───────────────────────────────────────
@@ -121,18 +164,38 @@ class NLPEngine:
         if years_found:
             return max(years_found)
 
-        # Fallback: count date ranges (e.g., 2019-2023)
-        date_ranges = re.findall(r"(20\d{2})\s*[-–]\s*(20\d{2}|present|current)", text, re.IGNORECASE)
-        if date_ranges:
-            import datetime
-            current_year = datetime.datetime.now().year
-            total = 0
-            for start, end in date_ranges:
-                end_year = current_year if end.lower() in ("present", "current") else int(end)
-                total += max(0, end_year - int(start))
-            return min(total, 40)  # cap at 40 years
+        # Fallback: Count nuanced date ranges (e.g., "Jan '20 - Current")
+        import datetime
+        current_year = datetime.datetime.now().year
+        total = 0
 
-        return 0
+        months_regex = r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+        year_regex = r"(?:20\d{2}|['‘’]\d{2})"
+        date_expr = rf"(?:{months_regex}\s*)?{year_regex}"
+        
+        range_pattern = rf"({date_expr})\s*(?:[-–]|to|until)\s*({date_expr}|present|current|now)"
+        
+        def parse_year(s: str) -> int:
+            if not s: return 0
+            s_lower = s.lower()
+            if "present" in s_lower or "current" in s_lower or "now" in s_lower:
+                return current_year
+            m4 = re.search(r"\b(20\d{2})\b", s)
+            if m4: return int(m4.group(1))
+            m2 = re.search(r"['‘’](\d{2})\b", s)
+            if m2: return 2000 + int(m2.group(1))
+            return 0
+
+        for match in re.finditer(range_pattern, text, re.IGNORECASE):
+            start_str = match.group(1)
+            end_str = match.group(2)
+            start_y = parse_year(start_str)
+            end_y = parse_year(end_str)
+            if start_y > 1990 and end_y >= start_y:
+                diff = end_y - start_y
+                total += diff if diff > 0 else 1
+
+        return min(total, 40) if total > 0 else 0
 
     # ─── TF-IDF Cosine Similarity ────────────────────────────────────────
     def compute_similarity(self, resume_text: str, job_text: str) -> float:
@@ -188,7 +251,17 @@ class NLPEngine:
     # ─── Skill Gap Detection ─────────────────────────────────────────────
     def skill_gap(self, resume_skills: list[str], job_text: str) -> tuple[list[str], list[str]]:
         jd_lower = job_text.lower()
-        jd_tech_skills = [s for s in TECH_SKILLS if s in jd_lower]
+        
+        def is_in_text(skill, text):
+            escaped = re.escape(skill)
+            if re.search(rf"(?:^|[^\w#+]){escaped}(?:$|[^\w#+])", text): return True
+            aliases = SKILL_ALIASES.get(skill, [])
+            for alias in aliases:
+                esc_alias = re.escape(alias)
+                if re.search(rf"(?:^|[^\w#+]){esc_alias}(?:$|[^\w#+])", text): return True
+            return False
+
+        jd_tech_skills = [s for s in TECH_SKILLS if is_in_text(s, jd_lower)]
         resume_set = set(resume_skills)
         matched = [s for s in jd_tech_skills if s in resume_set]
         missing = [s for s in jd_tech_skills if s not in resume_set]

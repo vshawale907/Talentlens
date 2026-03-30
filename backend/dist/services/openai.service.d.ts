@@ -15,25 +15,18 @@ export interface ATSScoreResult {
     }>;
 }
 export declare const scoreResume: (resumeText: string, nlpData: NLPAnalysisResult, jobDescription?: string) => Promise<ATSScoreResult>;
+export interface InterviewQuestion {
+    id: number;
+    question: string;
+    type: "behavioral" | "technical" | "situational";
+    difficulty: "easy" | "medium" | "hard";
+    hint: string;
+    answer: string;
+}
 export interface InterviewQuestionsResult {
-    behavioural: Array<{
-        question: string;
-        category: string;
-        difficulty: string;
-        hint: string;
-    }>;
-    technical: Array<{
-        question: string;
-        category: string;
-        difficulty: string;
-        hint: string;
-    }>;
-    situational: Array<{
-        question: string;
-        category: string;
-        difficulty: string;
-        hint: string;
-    }>;
+    behavioural: InterviewQuestion[];
+    technical: InterviewQuestion[];
+    situational: InterviewQuestion[];
 }
 export declare const generateInterviewQuestions: (nlpData: NLPAnalysisResult, jobTitle: string, jobDescription?: string) => Promise<InterviewQuestionsResult>;
 export interface CoverLetterResult {

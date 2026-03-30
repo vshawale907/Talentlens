@@ -7,6 +7,7 @@ const rateLimiter_1 = require("../middleware/rateLimiter");
 const Analysis_model_1 = require("../models/Analysis.model");
 const openai_service_1 = require("../services/openai.service");
 const errorHandler_1 = require("../middleware/errorHandler");
+const redis_1 = require("../config/redis");
 const router = (0, express_1.Router)();
 router.use(auth_middleware_1.authenticate);
 // GET /api/v1/analysis/:resumeId/latest
@@ -42,14 +43,23 @@ router.post('/:resumeId/interview-questions', rateLimiter_1.rateLimiter.analysis
         if (!req.params.resumeId || req.params.resumeId === 'select') {
             throw new errorHandler_1.AppError('Please select a resume first', 400, 'INVALID_RESUME');
         }
-        const { jobTitle, jobDescription } = zod_1.z.object({
+        const { jobTitle, jobDescription, forceRegenerate } = zod_1.z.object({
             jobTitle: zod_1.z.string().min(1).max(200),
             jobDescription: zod_1.z.string().max(10000).optional(),
+            forceRegenerate: zod_1.z.boolean().optional(),
         }).parse(req.body);
+        const cacheKey = `interview:${req.params.resumeId}:${jobTitle}`;
+        if (!forceRegenerate) {
+            const cached = await redis_1.cache.get(cacheKey);
+            if (cached) {
+                return res.success({ questions: cached });
+            }
+        }
         const analysis = await Analysis_model_1.AnalysisModel.findOne({ resume: req.params.resumeId, user: req.user.id, isLatest: true });
         if (!analysis?.nlpResult)
             throw new errorHandler_1.AppError('Analyze your resume first', 400, 'NO_ANALYSIS');
         const questions = await (0, openai_service_1.generateInterviewQuestions)(analysis.nlpResult, jobTitle, jobDescription);
+        await redis_1.cache.set(cacheKey, questions, 3600); // Cache for 1 hour
         res.success({ questions });
     }
     catch (err) {

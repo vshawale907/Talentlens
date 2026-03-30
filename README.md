@@ -316,8 +316,6 @@ FRONTEND_URL=http://localhost:3000
 ADMIN_EMAIL=admin@talentlens.com
 LOG_LEVEL=debug
 
-# ── Dev Bypass (optional) ─────────────────────────────────
-MOCK_AI=false   # Set to true to skip real AI calls during UI development
 ```
 
 ---
@@ -388,7 +386,6 @@ MOCK_AI=false   # Set to true to skip real AI calls during UI development
 The `openai.service.ts` module implements a robust **Gemini → Groq → OpenAI** fallback chain. It:
 - Tries multiple model versions per provider (e.g., `gemini-2.0-flash` → `gemini-1.5-flash` → `gemini-pro`)
 - Differentiates between rate limits (temporary — retry) and quota/auth errors (permanent — skip provider)
-- Supports a `MOCK_AI=true` env flag for offline UI development
 
 ### Semantic Job Matching (Qdrant)
 - Resumes and job postings are embedded using **OpenAI `text-embedding-3-small`** (1536 dims), with a **Gemini `text-embedding-004`** fallback (768 dims, zero-padded to 1536)

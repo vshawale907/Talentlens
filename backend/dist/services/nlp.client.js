@@ -25,9 +25,20 @@ class NLPServiceClient {
             throw new errorHandler_1.AppError(`NLP service failed: ${err.response?.data?.detail || err.message}`, 502, 'NLP_SERVICE_ERROR');
         });
     }
-    async analyzeResume(payload) {
-        const { data } = await this.client.post('/analyze', payload);
-        return data;
+    async analyzeResume(payload, retries = 3) {
+        for (let i = 0; i < retries; i++) {
+            try {
+                const { data } = await this.client.post('/analyze', payload);
+                return data;
+            }
+            catch (err) {
+                if (i === retries - 1)
+                    throw err;
+                logger_1.logger.warn(`NLP Service attempt ${i + 1} failed, retrying in 2s...`);
+                await new Promise((res) => setTimeout(res, 2000));
+            }
+        }
+        throw new errorHandler_1.AppError('NLP service failed after retries', 502, 'NLP_SERVICE_ERROR');
     }
     async healthCheck() {
         try {

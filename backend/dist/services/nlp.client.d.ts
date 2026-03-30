@@ -14,7 +14,7 @@ export interface NLPAnalysisResult {
 declare class NLPServiceClient {
     private client;
     constructor();
-    analyzeResume(payload: NLPAnalysisRequest): Promise<NLPAnalysisResult>;
+    analyzeResume(payload: NLPAnalysisRequest, retries?: number): Promise<NLPAnalysisResult>;
     healthCheck(): Promise<boolean>;
 }
 export declare const nlpClient: NLPServiceClient;

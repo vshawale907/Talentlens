@@ -119,6 +119,11 @@ export default function AnalysisPage() {
     const [resume, setResume] = useState<ResumeData | null>(null);
     const [copiedBullet, setCopiedBullet] = useState<string | null>(null);
     const [generatingDoc, setGeneratingDoc] = useState(false);
+    const [expandedSkills, setExpandedSkills] = useState<Record<string, boolean>>({});
+
+    const toggleSkillCategory = (cat: string) => {
+        setExpandedSkills(prev => ({ ...prev, [cat]: !prev[cat] }));
+    };
 
     // Derived states
     const [sectionCompleteness, setSectionCompleteness] = useState(0);
@@ -418,17 +423,31 @@ export default function AnalysisPage() {
                         <div className="flex flex-col h-full border border-amber-500/20 bg-amber-500/5 rounded-xl p-5">
                             <h3 className="text-sm font-semibold text-amber-400 mb-4 flex items-center gap-2"><Award size={16} /> All Extracted Skills</h3>
                             <div className="flex-1 space-y-4">
-                                {Object.entries(cats).map(([cat, skills]) => skills.length > 0 && (
-                                    <div key={cat}>
-                                        <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1.5">{cat}</p>
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {skills.slice(0, 8).map(s => (
-                                                <span key={s} className="px-2 py-0.5 bg-amber-500/10 text-amber-300 border border-amber-500/20 rounded md text-[11px]">{s}</span>
-                                            ))}
-                                            {skills.length > 8 && <span className="px-2 py-0.5 text-[11px] text-gray-500">+{skills.length - 8} more</span>}
+                                {Object.entries(cats).map(([cat, skills]) => {
+                                    const isExpanded = expandedSkills[cat] || false;
+                                    const displayedSkills = isExpanded ? skills : skills.slice(0, 8);
+                                    
+                                    return skills.length > 0 && (
+                                        <div key={cat}>
+                                            <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1.5">{cat}</p>
+                                            <div className="flex flex-wrap gap-1.5">
+                                                {displayedSkills.map(s => (
+                                                    <span key={s} className="px-2 py-0.5 bg-amber-500/10 text-amber-300 border border-amber-500/20 rounded md text-[11px]">{s}</span>
+                                                ))}
+                                                {!isExpanded && skills.length > 8 && (
+                                                    <button onClick={() => toggleSkillCategory(cat)} className="px-2 py-0.5 text-[11px] text-amber-500/70 hover:text-amber-400 cursor-pointer transition-colors bg-amber-500/5 hover:bg-amber-500/10 border border-amber-500/10 rounded">
+                                                        +{skills.length - 8} more
+                                                    </button>
+                                                )}
+                                                {isExpanded && skills.length > 8 && (
+                                                    <button onClick={() => toggleSkillCategory(cat)} className="px-2 py-0.5 text-[11px] text-amber-500/70 hover:text-amber-400 cursor-pointer transition-colors bg-amber-500/5 hover:bg-amber-500/10 border border-amber-500/10 rounded">
+                                                        Show less
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                                 {nlpResult.extractedSkills.length === 0 && <span className="text-xs text-gray-500">No skills identified.</span>}
                             </div>
                         </div>

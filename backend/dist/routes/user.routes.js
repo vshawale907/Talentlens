@@ -25,7 +25,7 @@ router.get('/analytics', async (req, res, next) => {
                 .sort({ createdAt: -1 })
                 .limit(5)
                 .populate('resume', 'title createdAt')
-                .select('nlpResult.similarityScore openAIResult.atsScore openAIResult.overallScore createdAt')
+                .select('nlpResult.similarityScore nlpResult.extractedSkills openAIResult.atsScore openAIResult.overallScore createdAt')
                 .lean(),
         ]);
         if (!user)
