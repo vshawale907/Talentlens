@@ -3,6 +3,11 @@ import { z } from 'zod';
 
 dotenv.config();
 
+// Dynamically select the correct MongoDB URI based on the environment
+process.env.MONGO_URI = process.env.NODE_ENV === 'production' 
+    ? process.env.MONGO_URI_CLOUD 
+    : process.env.MONGO_URI_LOCAL;
+
 const envSchema = z.object({
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
     PORT: z.string().transform(Number).default('5000'),

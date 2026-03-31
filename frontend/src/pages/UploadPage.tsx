@@ -81,100 +81,112 @@ export default function UploadPage() {
 
 
     return (
-        <div className="max-w-3xl mx-auto space-y-6">
+        <div className="max-w-3xl mx-auto space-y-6 pt-8 pb-12 px-4 sm:px-0">
             <div>
-                <h1 className="text-4xl font-bold text-text-primary">Upload Resume</h1>
-                <p className="text-text-secondary mt-1">Upload your PDF or DOCX resume to get AI-powered insights</p>
+                <h1 className="text-4xl font-bold text-white tracking-tight">Upload Resume</h1>
+                <p className="text-white/50 mt-1.5 text-base">Upload your PDF or DOCX resume to get AI-powered insights</p>
             </div>
 
             <AnimatePresence mode="wait">
                 {step === 'upload' && (
-                    <motion.div key="upload" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-4">
+                    <motion.div key="upload" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-6">
                         {/* Dropzone */}
-                        <div {...getRootProps()} className={`border-2 border-dashed rounded-xl p-14 text-center cursor-pointer transition-all duration-200
-              ${isDragActive ? 'border-accent bg-accent-subtle' : file ? 'border-success bg-success-light' : 'border-border bg-background-panel hover:border-accent/50 hover:bg-accent-subtle/40'}`}>
+                        <div {...getRootProps()} className={`border-2 border-dashed rounded-xl p-14 text-center cursor-pointer transition-all duration-200 group
+              ${isDragActive ? 'border-accent bg-accent/10' : file ? 'border-emerald-500/50 bg-emerald-500/10' : 'border-white/10 bg-gray-900/50 hover:border-accent/40 hover:bg-gray-800'}`}>
                             <input {...getInputProps()} />
                             {file ? (
                                 <div className="flex flex-col items-center gap-3">
                                     <CheckCircle size={40} className="text-emerald-400" />
                                     <div>
-                                        <p className="text-text-primary font-medium">{file.name}</p>
-                                        <p className="text-text-secondary text-sm">{(file.size / 1024).toFixed(0)} KB · {file.type.includes('pdf') ? 'PDF' : 'DOCX'}</p>
+                                        <p className="text-white font-medium text-lg">{file.name}</p>
+                                        <p className="text-white/50 text-sm mt-0.5">{(file.size / 1024).toFixed(0)} KB · {file.type.includes('pdf') ? 'PDF' : 'DOCX'}</p>
                                     </div>
-                                    <button onClick={(e) => { e.stopPropagation(); setFile(null); }} className="text-text-muted hover:text-red-400 transition-colors">
-                                        <X size={18} />
+                                    <button onClick={(e) => { e.stopPropagation(); setFile(null); }} className="mt-2 text-white/40 hover:text-red-400 p-2 rounded-full hover:bg-white/5 transition-all">
+                                        <X size={20} />
                                     </button>
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center gap-3">
-                                    <div className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center mb-1">
-                                        <Upload size={28} className="text-white" />
+                                    <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center mb-1 group-hover:bg-accent/30 transition-colors">
+                                        <Upload size={28} className="text-accent" />
                                     </div>
                                     <div>
-                                        <p className="text-text-primary font-medium">{isDragActive ? 'Drop it here!' : 'Drop your resume here'}</p>
-                                        <p className="text-text-secondary text-sm mt-1">PDF or DOCX · Max 10 MB</p>
+                                        <p className="text-white font-medium text-lg">{isDragActive ? 'Drop it here!' : 'Drop your resume here'}</p>
+                                        <p className="text-white/40 text-sm mt-1">PDF or DOCX · Max 10 MB</p>
                                     </div>
-                                    <span className="btn-secondary text-sm mt-2">Browse Files</span>
+                                    <span className="px-5 py-2.5 rounded-lg bg-white/5 text-white/70 text-sm mt-3 border border-white/10 group-hover:bg-white/10 transition-colors">Browse Files</span>
                                 </div>
                             )}
                         </div>
 
-                        {/* Title */}
-                        {file && (
-                            <div>
-                                <label className="block text-sm font-medium text-text-secondary mb-1.5">Resume Title</label>
-                                <div className="relative">
-                                    <FileText size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
-                                    <input value={title} onChange={(e) => setTitle(e.target.value)}
-                                        className="input-field pl-9" placeholder="e.g. Senior Engineer Application" />
-                                </div>
-                            </div>
-                        )}
+                        <div className="space-y-5 bg-gray-900/40 p-6 rounded-xl border border-white/5">
+                            {/* Title */}
+                            {file && (
+                                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}>
+                                    <label className="block text-sm font-medium text-white/70 mb-2">Resume Title</label>
+                                    <div className="relative">
+                                        <FileText size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                                        <input value={title} onChange={(e) => setTitle(e.target.value)}
+                                            className="w-full bg-gray-950 border border-white/10 rounded-xl pl-11 pr-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all duration-200" placeholder="e.g. Senior Engineer Application" />
+                                    </div>
+                                </motion.div>
+                            )}
 
-                        {/* Job Description */}
-                        <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-1.5">
-                                <span className="flex items-center gap-2"><Briefcase size={14} /> Job Description <span className="text-text-muted font-normal">(optional — improves matching)</span></span>
-                            </label>
-                            <textarea value={jobDescription} onChange={(e) => setJobDescription(e.target.value)} rows={5}
-                                className="input-field resize-none" placeholder="Paste the target job description here for tailored ATS scoring and skill gap analysis..." />
+                            {/* Job Description */}
+                            <div>
+                                <label className="block text-sm font-medium text-white/70 mb-2">
+                                    <span className="flex items-center gap-2">
+                                        <Briefcase size={16} className="text-accent" /> 
+                                        Target Job Description 
+                                        <span className="text-white/30 font-normal text-xs ml-1">(Optional but recommended)</span>
+                                    </span>
+                                </label>
+                                <textarea value={jobDescription} onChange={(e) => setJobDescription(e.target.value)} rows={6}
+                                    className="w-full bg-gray-950 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all duration-200 resize-none leading-relaxed" placeholder="Paste the exact job description you are applying for. Our AI will analyze your skill gaps and tailor the ATS scoring to this role..." />
+                            </div>
                         </div>
 
-                        <button onClick={handleSubmit} disabled={!file || isUploading} className="btn-primary w-full justify-center">
-                            <Upload size={18} /> Analyze Resume
+                        <button onClick={handleSubmit} disabled={!file || isUploading} className="btn-accent w-full justify-center py-4 text-lg mt-2 shadow-lg shadow-accent/20">
+                            <Upload size={20} /> {isUploading ? 'Preparing...' : 'Analyze Resume'}
                         </button>
                     </motion.div>
                 )}
 
                 {step === 'analyzing' && (
-                    <motion.div key="analyzing" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="card p-16 text-center">
-                        <Loader2 size={48} className="text-primary animate-spin mx-auto mb-6" />
-                        <h2 className="text-xl font-bold text-text-primary mb-2">Analyzing Your Resume</h2>
-                        <p className="text-text-secondary">Running NLP extraction + AI scoring…</p>
-                        <div className="mt-6 space-y-2 text-sm text-text-muted">
-                            {['Extracting text & cleaning…', 'Running NLP skill extraction…', 'Computing semantic similarity…', 'Generating AI insights…'].map((s, i) => (
-                                <motion.p key={s} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.8 }}>{s}</motion.p>
+                    <motion.div key="analyzing" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-gray-900 border border-white/10 rounded-2xl p-16 text-center shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-white/5 overflow-hidden">
+                            <motion.div className="h-full bg-accent" initial={{ x: '-100%' }} animate={{ x: '100%' }} transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }} />
+                        </div>
+                        <Loader2 size={56} className="text-accent animate-spin mx-auto mb-6" />
+                        <h2 className="text-2xl font-bold text-white mb-2">Analyzing Your Resume</h2>
+                        <p className="text-white/50">Running deep AI insights & semantic extraction...</p>
+                        <div className="mt-8 space-y-3 text-sm text-white/40">
+                            {['Extracting text & formatting...', 'Running NLP skill extraction...', 'Computing semantic similarity...', 'Generating AI insights...'].map((s, i) => (
+                                <motion.p key={s} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.9 }}>{s}</motion.p>
                             ))}
                         </div>
                     </motion.div>
                 )}
 
                 {step === 'done' && (
-                    <motion.div key="done" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="card p-16 text-center">
-                        <CheckCircle size={48} className="text-emerald-500 mx-auto mb-4" />
-                        <h2 className="text-xl font-bold text-text-primary">Analysis Complete!</h2>
-                        <p className="text-text-secondary mt-2">Redirecting to results…</p>
+                    <motion.div key="done" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-gray-900 border border-emerald-500/20 rounded-2xl p-16 text-center shadow-2xl glow-gold">
+                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 15 }}>
+                            <CheckCircle size={64} className="text-emerald-500 mx-auto mb-6 drop-shadow-lg" />
+                        </motion.div>
+                        <h2 className="text-2xl font-bold text-white">Analysis Complete!</h2>
+                        <p className="text-white/60 mt-2">Redirecting you to your results dashboard...</p>
                     </motion.div>
                 )}
 
                 {step === 'error' && (
-                    <motion.div key="error" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="card p-12 text-center flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-6">
-                            <AlertCircle size={32} className="text-red-500" />
+                    <motion.div key="error" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-gray-900 border border-red-500/20 rounded-2xl p-16 text-center shadow-2xl flex flex-col items-center">
+                        <div className="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-6 relative">
+                            <div className="absolute inset-0 rounded-full animate-ping bg-red-500/20 opacity-75"></div>
+                            <AlertCircle size={36} className="text-red-500 relative z-10" />
                         </div>
-                        <h2 className="text-xl font-bold text-text-primary mb-2">Upload Failed</h2>
-                        <p className="text-text-secondary mb-6">{errorMsg}</p>
-                        <button onClick={() => setStep('upload')} className="btn-primary mx-auto">Try Again</button>
+                        <h2 className="text-2xl font-bold text-white mb-3">Upload Failed</h2>
+                        <p className="text-red-400/80 mb-8 max-w-sm text-center leading-relaxed">{errorMsg}</p>
+                        <button onClick={() => setStep('upload')} className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl border border-white/10 transition-colors font-medium">Try Again</button>
                     </motion.div>
                 )}
             </AnimatePresence>

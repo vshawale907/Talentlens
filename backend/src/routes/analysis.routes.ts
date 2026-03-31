@@ -54,10 +54,14 @@ router.post('/:resumeId/interview-questions', rateLimiter.analysis, async (req: 
             }
         }
 
-        const analysis = await AnalysisModel.findOne({ resume: req.params.resumeId, user: req.user!.id, isLatest: true });
+        const analysis = await AnalysisModel.findOne({ resume: req.params.resumeId, user: req.user!.id, isLatest: true })
+            .populate('resume', 'cleanedText text');
         if (!analysis?.nlpResult) throw new AppError('Analyze your resume first', 400, 'NO_ANALYSIS');
 
-        const questions = await generateInterviewQuestions(analysis.nlpResult, jobTitle, jobDescription);
+        const resumeText = (analysis.resume as { cleanedText?: string, text?: string })?.cleanedText || 
+                          (analysis.resume as { text?: string })?.text || '';
+
+        const questions = await generateInterviewQuestions(resumeText, analysis.nlpResult, jobTitle, jobDescription);
         await cache.set(cacheKey, questions, 3600); // Cache for 1 hour
 
         res.success({ questions });

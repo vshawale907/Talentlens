@@ -46,7 +46,7 @@ export default function LoginPage() {
                         <span className="text-accent">Get Hired.</span>
                     </h2>
                     <p className="text-white/50 text-base leading-relaxed">
-                        AI-powered resume analysis that gives you the competitive edge — ATS scoring, skill gaps & actionable improvements in seconds.
+                        AI-powered resume analysis that gives you the competitive edge ATS scoring, skill gaps & actionable improvements in seconds.
                     </p>
                 </div>
 

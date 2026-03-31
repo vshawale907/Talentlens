@@ -1,7 +1,7 @@
 export declare const config: {
-    NODE_ENV: "development" | "production" | "test";
-    PORT: number;
     MONGO_URI: string;
+    NODE_ENV: "production" | "development" | "test";
+    PORT: number;
     REDIS_URL: string;
     JWT_SECRET: string;
     JWT_EXPIRES_IN: string;

@@ -290,18 +290,27 @@ export interface InterviewQuestionsResult {
 }
 
 export const generateInterviewQuestions = async (
+    resumeText: string,
     nlpData: NLPAnalysisResult,
     jobTitle: string,
     jobDescription?: string
 ): Promise<InterviewQuestionsResult> => {
-    const SYSTEM = `You are an expert technical interviewer. Generate EXACTLY 10 interview questions for a ${sanitizeInput(jobTitle)} candidate. For EACH question, provide a complete, detailed model answer of at least 80 words using STAR format for behavioral questions and step-by-step explanation for technical questions. Return ONLY valid JSON array, no markdown.`;
+    const SYSTEM = `You are an expert technical and behavioral interviewer. Generate EXACTLY 10 highly personalized interview questions for the ${sanitizeInput(jobTitle)} role. The questions MUST be strictly tailored to the candidate's actual experience, projects, and skills found in their resume. For EACH question, provide a complete, detailed model answer of at least 80 words using STAR format for behavioral questions and step-by-step explanation for technical questions. Return ONLY valid JSON array, no markdown.`;
 
     const USER = `
-Generate EXACTLY 10 interview questions (4 behavioral, 4 technical, 2 situational) for:
+Generate EXACTLY 10 interview questions (4 behavioral, 4 technical, 2 situational) tailored to:
 - Role: ${sanitizeInput(jobTitle)}
+- Candidate Experience: ${nlpData.experienceYears} years
 - Candidate Skills: ${nlpData.extractedSkills.join(', ')}
-- Experience: ${nlpData.experienceYears} years
-${jobDescription ? `- Job Context: ${sanitizeInput(jobDescription.slice(0, 1000))}` : ''}
+
+Candidate's Resume Context:
+${sanitizeInput(resumeText.slice(0, 2500))}
+
+${jobDescription ? `Target Job Context:\n${sanitizeInput(jobDescription.slice(0, 1500))}\n` : ''}
+CRITICAL RULES:
+1. Technical questions MUST directly probe the Candidate Skills and projects listed in their Resume Context. Do NOT ask about technologies they do not know unless specifically required by the Target Job Context.
+2. Behavioral and Situational questions MUST align with their Experience level (${nlpData.experienceYears} years) and ask them to draw upon situations they likely faced.
+3. Ensure the difficulty dynamically matches their actual experience level (e.g. junior vs senior).
 
 JSON schema MUST be exactly:
 {
