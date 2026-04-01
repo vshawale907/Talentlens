@@ -8,13 +8,25 @@ import { initQdrantCollections } from './config/qdrant';
 
 const bootstrap = async (): Promise<void> => {
     try {
-        // Connect to MongoDB
-        await connectDB();
-        logger.info('✅ MongoDB connected');
+        // 1. Connect to MongoDB
+        try {
+            await connectDB();
+            logger.info('✅ MongoDB connected');
+        } catch (dbErr: any) {
+            logger.error('❌ MONGODB CONNECTION FAILED! Check your Atlas Whitelist (0.0.0.0/0) and credentials.');
+            logger.error(`Error Logic: ${dbErr.message}`);
+            throw dbErr; // Still throw to prevent starting in broken state
+        }
 
-        // Connect to Redis
-        await connectRedis();
-        logger.info('✅ Redis connected');
+        // 2. Connect to Redis
+        try {
+            await connectRedis();
+            logger.info('✅ Redis connected');
+        } catch (redisErr: any) {
+            logger.error('❌ REDIS CONNECTION FAILED! Check your REDIS_URL variable format.');
+            logger.error(`Error Logic: ${redisErr.message}`);
+            throw redisErr;
+        }
 
         // Start background workers
         startResumeWorker();
