@@ -14,9 +14,27 @@ const bootstrap = async (): Promise<void> => {
             logger.info(`🚀 Server running on port ${PORT} [production]`);
         });
 
-        // 3. BACKGROUND SERVICES
+        // 2. CONNECT TO DATABASES + BACKGROUND SERVICES (non-blocking)
         (async () => {
-             // Start background workers
+            // Connect to MongoDB
+            try {
+                await connectDB();
+                logger.info('✅ MongoDB connected');
+            } catch (dbErr: any) {
+                logger.error('❌ MONGODB CONNECTION FAILED! Check Atlas Whitelist (0.0.0.0/0).');
+                logger.error(`Error: ${dbErr.message}`);
+            }
+
+            // Connect to Redis
+            try {
+                await connectRedis();
+                logger.info('✅ Redis connected');
+            } catch (redisErr: any) {
+                logger.error('❌ REDIS CONNECTION FAILED! Check REDIS_URL format.');
+                logger.error(`Error: ${redisErr.message}`);
+            }
+
+            // Start background workers
             startResumeWorker();
             logger.info('✅ Resume processing worker started');
 
