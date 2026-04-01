@@ -6,8 +6,8 @@ dotenv.config();
 // Dynamically select the correct MongoDB URI based on the environment
 // If a direct MONGO_URI is provided (e.g. in Railway), we prioritize it.
 if (!process.env.MONGO_URI) {
-    process.env.MONGO_URI = process.env.NODE_ENV === 'production' 
-        ? process.env.MONGO_URI_CLOUD 
+    process.env.MONGO_URI = process.env.NODE_ENV === 'production'
+        ? process.env.MONGO_URI_CLOUD
         : process.env.MONGO_URI_LOCAL;
 }
 

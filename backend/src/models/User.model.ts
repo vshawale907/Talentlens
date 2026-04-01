@@ -77,8 +77,6 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Indexes
-UserSchema.index({ role: 1 });
-UserSchema.index({ role: 1 });
 UserSchema.index({ subscriptionTier: 1 });
 UserSchema.index({ stripeCustomerId: 1 });
 
