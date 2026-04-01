@@ -195,3 +195,20 @@
 {"level":"debug","message":"[Qdrant] Collection 'resumes' already exists.","timestamp":"2026-03-31 13:55:26"}
 {"level":"info","message":"✅ Qdrant collections initialized","timestamp":"2026-03-31 13:55:26"}
 {"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-31 13:55:26"}
+{"level":"info","message":"Mongoose connected","timestamp":"2026-03-31 13:55:42"}
+{"level":"info","message":"✅ MongoDB connected","timestamp":"2026-03-31 13:55:42"}
+{"level":"info","message":"Redis connecting...","timestamp":"2026-03-31 13:55:42"}
+{"level":"info","message":"Redis ready","timestamp":"2026-03-31 13:55:42"}
+{"level":"info","message":"✅ Redis connected","timestamp":"2026-03-31 13:55:42"}
+{"level":"info","message":"[Worker] Resume processing worker started.","timestamp":"2026-03-31 13:55:42"}
+{"level":"info","message":"✅ Resume processing worker started","timestamp":"2026-03-31 13:55:42"}
+{"level":"debug","message":"NLP Service → GET /health","timestamp":"2026-03-31 13:55:42"}
+{"level":"info","message":"✅ Python NLP Service is healthy","timestamp":"2026-03-31 13:55:42"}
+{"level":"debug","message":"[Qdrant] Collection 'jobs' already exists.","timestamp":"2026-03-31 13:55:43"}
+{"level":"debug","message":"[Qdrant] Collection 'resumes' already exists.","timestamp":"2026-03-31 13:55:43"}
+{"level":"info","message":"✅ Qdrant collections initialized","timestamp":"2026-03-31 13:55:43"}
+{"level":"info","message":"🚀 Server running on port 5000 [development]","timestamp":"2026-03-31 13:55:43"}
+{"level":"http","message":"::1 - - [31/Mar/2026:08:28:05 +0000] \"GET /api/v1/chat/sessions HTTP/1.1\" 200 98 \"http://localhost:3000/chat\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-31 13:58:05"}
+{"level":"http","message":"::1 - - [31/Mar/2026:08:28:05 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 200 - \"http://localhost:3000/chat\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-31 13:58:05"}
+{"level":"http","message":"::1 - - [31/Mar/2026:08:28:05 +0000] \"GET /api/v1/chat/sessions HTTP/1.1\" 200 98 \"http://localhost:3000/chat\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-31 13:58:05"}
+{"level":"http","message":"::1 - - [31/Mar/2026:08:28:05 +0000] \"GET /api/v1/resumes?page=1&limit=10 HTTP/1.1\" 200 - \"http://localhost:3000/chat\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\"","timestamp":"2026-03-31 13:58:05"}
