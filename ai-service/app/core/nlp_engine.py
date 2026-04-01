@@ -10,9 +10,9 @@ import nltk
 # Ensure NLTK data available
 try:
     nltk.data.find('tokenizers/punkt')
+    nltk.data.find('corpora/stopwords')
 except LookupError:
-    nltk.download('punkt', quiet=True)
-    nltk.download('stopwords', quiet=True)
+    logger.error("NLTK data not found in NLTK_DATA path. Ensure it is downloaded in the Dockerfile.")
 
 # ─── Skill Dictionaries ────────────────────────────────────────────────────
 TECH_SKILLS = {
@@ -219,8 +219,8 @@ class NLPEngine:
         try:
             stops = set(stopwords.words("english"))
         except LookupError:
-            nltk.download("stopwords", quiet=True)
-            stops = set(stopwords.words("english"))
+            logger.error("NLTK stopwords not found. This should be handled in the Dockerfile.")
+            stops = set() # Fallback to empty to avoid crash
 
         meaningful = [t for t in tokens if t not in stops and len(t) > 2]
         counter = Counter(meaningful)
