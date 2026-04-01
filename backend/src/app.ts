@@ -14,7 +14,7 @@ import { apiResponseMiddleware } from './middleware/apiResponse';
 import authRoutes from './routes/auth.routes';
 import resumeRoutes from './routes/resume.routes';
 import analysisRoutes from './routes/analysis.routes';
-import jobRoutes from './routes/job.routes';
+// import jobRoutes from './routes/job.routes';
 import userRoutes from './routes/user.routes';
 import adminRoutes from './routes/admin.routes';
 import subscriptionRoutes from './routes/subscription.routes';
@@ -36,14 +36,22 @@ app.use(helmet({
 }));
 
 app.use(cors({
-    origin: [
-        config.FRONTEND_URL,
-        'http://localhost:3000',
-        'http://localhost:5173',
-        'http://127.0.0.1:3000',
-        'http://127.0.0.1:5173',
-        'https://your-frontend.onrender.com'
-    ],
+    origin: (origin, callback) => {
+        const allowedOrigins = [
+            config.FRONTEND_URL,
+            'http://localhost:3000',
+            'http://localhost:5173',
+            'http://127.0.0.1:3000',
+            'http://127.0.0.1:5173',
+        ];
+        
+        // Allow Vercel preview deployments and production domain
+        if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -74,7 +82,7 @@ app.get('/health', (_req, res) => {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/resumes', resumeRoutes);
 app.use('/api/v1/analysis', analysisRoutes);
-app.use('/api/v1/jobs', jobRoutes);
+// app.use('/api/v1/jobs', jobRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/subscriptions', subscriptionRoutes);

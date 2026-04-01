@@ -46,11 +46,23 @@ router.post('/:resumeId/interview-questions', rateLimiter.analysis, async (req: 
         }).parse(req.body);
 
         const cacheKey = `interview:${req.params.resumeId}:${jobTitle}`;
+        let previousQuestions: string[] = [];
         
         if (!forceRegenerate) {
             const cached = await cache.get(cacheKey);
             if (cached) {
                 return res.success({ questions: cached });
+            }
+        } else {
+            // When regenerating, fetch the old questions to send to the AI as "banned" questions
+            const cached: any = await cache.get(cacheKey);
+            if (cached) {
+                const parts = [
+                    ...(cached.behavioural || []),
+                    ...(cached.technical || []),
+                    ...(cached.situational || [])
+                ];
+                previousQuestions = parts.map((q: any) => q.question).filter(Boolean);
             }
         }
 
@@ -61,7 +73,7 @@ router.post('/:resumeId/interview-questions', rateLimiter.analysis, async (req: 
         const resumeText = (analysis.resume as { cleanedText?: string, text?: string })?.cleanedText || 
                           (analysis.resume as { text?: string })?.text || '';
 
-        const questions = await generateInterviewQuestions(resumeText, analysis.nlpResult, jobTitle, jobDescription);
+        const questions = await generateInterviewQuestions(resumeText, analysis.nlpResult, jobTitle, jobDescription, previousQuestions);
         await cache.set(cacheKey, questions, 3600); // Cache for 1 hour
 
         res.success({ questions });

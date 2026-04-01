@@ -63,10 +63,13 @@ export function checkResumeSections(rawText: string): SectionStatus[] {
         let index = -1;
         
         for (const k of section.keywords) {
-            const idx = textBase.indexOf(k);
-            if (idx !== -1 && (index === -1 || idx < index)) {
-                index = idx;
-                foundKeyword = k;
+            const regex = new RegExp(`\\b${k}\\b`, 'i');
+            const match = textBase.match(regex);
+            if (match && match.index !== undefined) {
+                if (index === -1 || match.index < index) {
+                    index = match.index;
+                    foundKeyword = k;
+                }
             }
         }
 

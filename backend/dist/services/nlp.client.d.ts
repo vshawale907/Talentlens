@@ -10,6 +10,8 @@ export interface NLPAnalysisResult {
     matchedSkills: string[];
     missingSkills: string[];
     keywordDensity: Record<string, number>;
+    quantificationScore: number;
+    bulletCount: number;
 }
 declare class NLPServiceClient {
     private client;

@@ -8,6 +8,8 @@ export interface INLPResult {
     matchedSkills: string[];
     missingSkills: string[];
     keywordDensity: Record<string, number>;
+    quantificationScore: number;
+    bulletCount: number;
 }
 
 export interface IOpenAIResult {
@@ -53,6 +55,8 @@ const NLPResultSchema = new Schema<INLPResult>(
         matchedSkills: [String],
         missingSkills: [String],
         keywordDensity: { type: Map, of: Number },
+        quantificationScore: Number,
+        bulletCount: Number,
     },
     { _id: false }
 );

@@ -5,13 +5,11 @@ import { rateLimiter } from '../middleware/rateLimiter';
 import { ChatSessionModel } from '../models/ChatSession.model';
 import { AnalysisModel } from '../models/Analysis.model';
 import { ResumeModel } from '../models/Resume.model';
-import { chatWithCoach, chatWithCoachStructured, CoachingMode } from '../services/openai.service';
+import { chatWithCoachStructured, CoachingMode } from '../services/openai.service';
 import { NotFoundError } from '../middleware/errorHandler';
 
 const router = Router();
 router.use(authenticate);
-
-const COACHING_MODES: CoachingMode[] = ['general', 'resume_review', 'skill_gap', 'interview_prep', 'career_guidance', 'bullet_rewrite', 'interview_sim'];
 
 // POST /api/v1/chat/sessions - create new session
 router.post('/sessions', async (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -42,10 +40,12 @@ router.get('/sessions', async (req: AuthRequest, res: Response, next: NextFuncti
 // POST /api/v1/chat/sessions/:id/message - send a message (supports structured coaching modes)
 router.post('/sessions/:id/message', rateLimiter.chat, async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-        const { message, mode, bulletText } = z.object({
+        const { message, mode, bulletText, targetRole, jobPosting } = z.object({
             message: z.string().min(1).max(4000),
-            mode: z.enum(['general', 'resume_review', 'skill_gap', 'interview_prep', 'career_guidance', 'bullet_rewrite', 'interview_sim']).optional().default('general'),
+            mode: z.enum(['general', 'resume_review', 'skill_gap', 'interview_prep', 'career_guidance', 'bullet_rewrite', 'interview_sim', 'job_rag_coach']).optional().default('general'),
             bulletText: z.string().max(500).optional(),
+            targetRole: z.string().max(200).optional(),
+            jobPosting: z.string().max(10000).optional(),
         }).parse(req.body);
 
         const session = await ChatSessionModel.findOne({ _id: req.params.id, user: req.user!.id });
@@ -69,18 +69,10 @@ router.post('/sessions/:id/message', rateLimiter.chat, async (req: AuthRequest, 
         // Last 10 messages for context window
         const historyForAI = session.messages.slice(-10).map((m) => ({ role: m.role, content: m.content }));
 
-        let aiReply: string;
-        let structured = null;
-
-        if (mode && COACHING_MODES.includes(mode) && mode !== 'general') {
-            // Structured coaching mode — returns rich JSON response
-            const result = await chatWithCoachStructured(historyForAI, mode, resumeText, nlpData, bulletText);
-            structured = result;
-            aiReply = result.feedback; // Store plain text in history for session continuity
-        } else {
-            // General free-form chat — plain text
-            aiReply = await chatWithCoach(historyForAI, resumeText, nlpData);
-        }
+        // All modes are now structured in the elite coach architecture
+        const result = await chatWithCoachStructured(historyForAI, mode as CoachingMode, resumeText, nlpData, bulletText, targetRole, jobPosting);
+        const structured = result;
+        const aiReply = result.feedback; // Store plain text in history for session continuity
 
         // Add AI reply to session messages
         session.messages.push({ role: 'assistant', content: aiReply, timestamp: new Date() });

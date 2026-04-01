@@ -12,7 +12,7 @@ import AnalysisPage from './pages/AnalysisPage';
 import InterviewCoachPage from './pages/InterviewCoachPage';
 import CoverLetterPage from './pages/CoverLetterPage';
 import ChatCoachPage from './pages/ChatCoachPage';
-import JobMatcherPage from './pages/JobMatcherPage';
+// import removed
 import AdminPage from './pages/AdminPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
@@ -75,7 +75,7 @@ const AnimatedRoutes = () => {
                     <Route path="/interview/:resumeId" element={<InterviewCoachPage />} />
                     <Route path="/cover-letter/:resumeId" element={<CoverLetterPage />} />
                     <Route path="/chat" element={<ChatCoachPage />} />
-                    <Route path="/jobs" element={<JobMatcherPage />} />
+
 
                     {/* Admin only */}
                     <Route element={<AdminRoute />}>

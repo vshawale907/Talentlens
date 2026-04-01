@@ -1,4 +1,4 @@
-# 🎯 TalentLens — AI-Powered Smart Resume Analyzer & Job Matcher
+# 🎯 TalentLens — AI-Powered Smart Resume Analyzer
 
 A **production-ready SaaS** built with a TypeScript/Node.js backend, Python FastAPI NLP microservice, and a React frontend. TalentLens gives job seekers deep resume analysis, semantic job matching, career coaching, and AI-driven content generation — powered by a **multi-provider AI fallback chain** (Gemini → Groq → OpenAI).
 
@@ -17,7 +17,7 @@ A **production-ready SaaS** built with a TypeScript/Node.js backend, Python Fast
 | **Interview Coach** | Behavioral / Technical / Situational questions |
 | **Cover Letter Generator** | Role-tailored cover letter in seconds |
 | **AI Chat Resume Coach** | Multi-turn career coaching (context-aware) |
-| **Semantic Job Matcher** | Vector similarity search via Qdrant |
+
 | **Career Roadmap** | AI-generated skill path for target roles |
 | **Analytics Dashboard** | Recharts score history & upload trends |
 | **Admin Dashboard** | User management, platform stats |

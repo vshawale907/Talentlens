@@ -32,3 +32,5 @@ class AnalyzeResponse(BaseModel):
     missingSkills: list[str]
     keywordDensity: dict[str, float]
     actionVerbs: list[str]
+    quantificationScore: float  # Percentage of bullets with metrics
+    bulletCount: int

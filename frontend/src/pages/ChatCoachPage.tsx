@@ -8,12 +8,15 @@ import {
 import { chatApi, resumeApi } from '../lib/api';
 import { useResumeStore } from '../stores/resumeStore';
 
-type CoachingMode = 'general' | 'resume_review' | 'skill_gap' | 'interview_prep' | 'career_guidance' | 'bullet_rewrite' | 'interview_sim';
+type CoachingMode = 'general' | 'resume_review' | 'skill_gap' | 'interview_prep' | 'career_guidance' | 'bullet_rewrite' | 'interview_sim' | 'job_rag_coach';
 
 interface StructuredResponse {
     feedback: string;
     improvements: string[];
     example: string;
+    confidence: number;
+    reasoning: string;
+    quickWin: string;
     mode: CoachingMode;
 }
 
@@ -75,41 +78,79 @@ const COACHING_MODES: { mode: CoachingMode; label: string; icon: typeof FileText
         prompt: 'Start a mock interview with me. Ask me one challenging question based on my resume, and after I answer, give me detailed feedback.',
         color: 'text-cyan-400',
     },
+    {
+        mode: 'job_rag_coach',
+        label: 'Job Post RAG',
+        icon: Target,
+        desc: 'Match against a specific JD',
+        prompt: 'I have a specific job description. I want you to tailor your coaching directly to this role.',
+        color: 'text-indigo-400',
+    },
 ];
 
 function StructuredCard({ data, onCopy }: { data: StructuredResponse; onCopy: (text: string) => void }) {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
-        const text = `${data.feedback}\n\nKey Improvements:\n${data.improvements.map(i => `• ${i}`).join('\n')}\n\nExample:\n${data.example}`;
+        const text = `${data.feedback}\n\nKey Improvements:\n${data.improvements.map(i => `• ${i}`).join('\n')}\n\nQuick Win: ${data.quickWin}\n\nExample:\n${data.example}`;
         onCopy(text);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
 
+    const confColor = data.confidence >= 8 ? 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20' 
+        : data.confidence >= 6 ? 'text-amber-400 bg-amber-400/10 border-amber-400/20' 
+        : 'text-rose-400 bg-rose-400/10 border-rose-400/20';
+
     return (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-            className="bg-background-panel border border-border rounded-2xl overflow-hidden shadow-md w-full max-w-[85%]">
-            {/* Feedback */}
-            <div className="px-5 pt-5 pb-4 border-b border-border/50">
-                <div className="flex items-start gap-2 mb-2">
-                    <Sparkles size={15} className="text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Coach Feedback</span>
+            className="bg-gray-800/60 border border-white/10 rounded-2xl overflow-hidden shadow-md w-full max-w-[85%]">
+            
+            {/* Header: Feedback + Confidence Badge */}
+            <div className="px-5 pt-5 pb-4 border-b border-white/10">
+                <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                        <Sparkles size={14} className="text-amber-400 flex-shrink-0" />
+                        <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">Coach Feedback</span>
+                    </div>
+                    {data.confidence && (
+                        <div className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${confColor}`}>
+                            Confidence: {data.confidence}/10
+                        </div>
+                    )}
                 </div>
-                <p className="text-sm text-text-primary leading-relaxed">{data.feedback}</p>
+                <p className="text-[15px] text-gray-200 leading-relaxed">{data.feedback}</p>
+                {data.reasoning && (
+                    <p className="mt-2 text-xs text-gray-400 italic">" {data.reasoning} "</p>
+                )}
             </div>
 
+            {/* Quick Win Block */}
+            {data.quickWin && (
+                <div className="px-5 py-4 border-b border-white/10 bg-gradient-to-r from-amber-500/10 to-transparent">
+                    <div className="flex items-start gap-3">
+                        <div className="mt-0.5 w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                            <span className="text-amber-500 font-bold text-sm">!</span>
+                        </div>
+                        <div>
+                            <span className="text-xs font-bold text-amber-500 uppercase tracking-widest block mb-1">Quick Win (Do this right now)</span>
+                            <span className="text-sm text-gray-200">{data.quickWin}</span>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Improvements */}
-            {data.improvements.length > 0 && (
-                <div className="px-5 py-4 border-b border-border/50">
+            {data.improvements?.length > 0 && (
+                <div className="px-5 py-4 border-b border-white/10">
                     <div className="flex items-center gap-2 mb-3">
-                        <CheckCircle size={15} className="text-emerald-400 flex-shrink-0" />
+                        <CheckCircle size={14} className="text-emerald-400 flex-shrink-0" />
                         <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Action Items</span>
                     </div>
                     <ul className="space-y-2">
                         {data.improvements.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2.5 text-sm text-text-secondary">
-                                <ChevronRight size={14} className="text-primary mt-0.5 flex-shrink-0" />
+                            <li key={i} className="flex items-start gap-2.5 text-sm text-gray-300">
+                                <ChevronRight size={13} className="text-amber-400/70 mt-0.5 flex-shrink-0" />
                                 <span>{item}</span>
                             </li>
                         ))}
@@ -121,10 +162,10 @@ function StructuredCard({ data, onCopy }: { data: StructuredResponse; onCopy: (t
             {data.example && (
                 <div className="px-5 py-4">
                     <div className="flex items-center gap-2 mb-2">
-                        <Lightbulb size={15} className="text-amber-400 flex-shrink-0" />
+                        <Lightbulb size={14} className="text-amber-400 flex-shrink-0" />
                         <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">Example / Rewrite</span>
                     </div>
-                    <div className="bg-background rounded-xl border border-border/60 px-4 py-3 text-sm text-text-primary font-mono leading-relaxed whitespace-pre-wrap">
+                    <div className="bg-gray-950/60 rounded-xl border border-white/10 px-4 py-3 text-sm text-gray-200 font-mono leading-relaxed whitespace-pre-wrap">
                         {data.example}
                     </div>
                 </div>
@@ -133,7 +174,7 @@ function StructuredCard({ data, onCopy }: { data: StructuredResponse; onCopy: (t
             {/* Copy button */}
             <div className="px-5 pb-4 flex justify-end">
                 <button onClick={handleCopy}
-                    className="flex items-center gap-1.5 text-xs text-text-muted hover:text-primary transition-colors py-1 px-2 rounded-lg hover:bg-primary/10">
+                    className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-amber-400 transition-colors py-1 px-2 rounded-lg hover:bg-white/5">
                     {copied ? <><Check size={12} className="text-emerald-400" /> Copied</> : <><Copy size={12} /> Copy response</>}
                 </button>
             </div>
@@ -165,14 +206,14 @@ export default function ChatCoachPage() {
 
     useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, loading]);
 
-    const newSession = async () => {
+    const newSession = async (startMode: CoachingMode = 'general') => {
         try {
             const { data } = await chatApi.createSession(selectedResumeId || undefined);
             const s = data.data.session;
             setSessions((prev) => [s, ...prev]);
             setActiveSession(s._id);
             setMessages([]);
-            setActiveMode('general');
+            setActiveMode(startMode);
         } catch (e) { console.error(e); }
     };
 
@@ -207,8 +248,7 @@ export default function ChatCoachPage() {
             setShowBulletModal(true);
             return;
         }
-        
-        // Changing modes clears chat by creating a new session
+
         try {
             const { data } = await chatApi.createSession(selectedResumeId || undefined);
             const s = data.data.session;
@@ -238,63 +278,67 @@ export default function ChatCoachPage() {
     const copyText = (text: string) => navigator.clipboard.writeText(text);
 
     return (
-        <div className="flex h-[calc(100vh-9rem)] gap-4 max-w-7xl mx-auto">
+        <div className="flex h-full overflow-hidden bg-gray-950">
 
             {/* ── Sessions Sidebar ── */}
-            <div className="w-64 flex-shrink-0 flex flex-col gap-3">
-                <div className="card !p-4 flex-1 flex flex-col gap-3 overflow-hidden">
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-xs font-bold uppercase tracking-widest text-text-muted flex items-center gap-1.5">
-                            <Bot size={13} className="text-primary" /> Sessions
-                        </h2>
-                        <button onClick={newSession} title="New Chat"
-                            className="p-1.5 rounded-lg text-primary hover:bg-primary/10 transition-colors">
-                            <Plus size={16} />
-                        </button>
+            <div className="w-60 flex-shrink-0 border-r border-white/5 flex flex-col bg-gray-900">
+                {/* Sidebar Header */}
+                <div className="flex items-center justify-between px-4 py-4 border-b border-white/5">
+                    <div className="flex items-center gap-2">
+                        <Bot size={16} className="text-amber-500" />
+                        <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Sessions</span>
                     </div>
-                    <div className="flex-1 overflow-y-auto space-y-1 pr-0.5">
-                        {sessions.length === 0 && <p className="text-text-muted text-xs px-1 italic">No sessions yet</p>}
-                        {sessions.map((s) => (
-                            <button key={s._id} onClick={() => { setActiveSession(s._id); setMessages([]); }}
-                                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs transition-all ${activeSession === s._id
-                                    ? 'bg-primary/10 text-primary border border-primary/20 font-semibold'
-                                    : 'text-text-secondary hover:bg-slate-800 hover:text-text-primary border border-transparent'}`}>
-                                <span className="truncate flex-1">{s.title ?? 'Session'}</span>
-                                <button onClick={(e) => deleteSession(s._id, e)}
-                                    className="text-text-muted hover:text-red-400 transition-colors ml-1 p-0.5 rounded flex-shrink-0">
-                                    <Trash2 size={12} />
-                                </button>
+                    <button onClick={newSession} title="New Chat"
+                        className="p-1.5 rounded-lg text-gray-400 hover:text-amber-400 hover:bg-white/5 transition-colors">
+                        <Plus size={16} />
+                    </button>
+                </div>
+
+                {/* Session List */}
+                <div className="flex-1 overflow-y-auto p-3 space-y-1">
+                    {sessions.length === 0 && (
+                        <p className="text-gray-600 text-xs px-2 py-3 italic text-center">No sessions yet</p>
+                    )}
+                    {sessions.map((s) => (
+                        <button key={s._id} onClick={() => { setActiveSession(s._id); setMessages([]); }}
+                            className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs transition-all ${activeSession === s._id
+                                ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 font-semibold'
+                                : 'text-gray-400 hover:bg-white/5 hover:text-gray-200 border border-transparent'}`}>
+                            <span className="truncate flex-1">{s.title ?? 'Session'}</span>
+                            <button onClick={(e) => deleteSession(s._id, e)}
+                                className="text-gray-600 hover:text-rose-400 transition-colors ml-1 p-0.5 rounded flex-shrink-0">
+                                <Trash2 size={12} />
                             </button>
-                        ))}
-                    </div>
+                        </button>
+                    ))}
                 </div>
             </div>
 
             {/* ── Main Chat Area ── */}
-            <div className="flex-1 flex flex-col gap-3 min-w-0">
+            <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
                 {!activeSession ? (
                     /* Welcome Screen */
                     <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }}
-                        className="card flex-1 flex flex-col items-center justify-center gap-8 text-center relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
+                        className="flex-1 flex flex-col items-center justify-center gap-8 text-center p-8 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-b from-amber-500/5 via-transparent to-transparent pointer-events-none" />
                         <div className="relative z-10 space-y-4">
-                            <div className="w-20 h-20 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto shadow-[0_0_40px_-10px] shadow-primary/40">
-                                <Bot size={40} className="text-primary" />
+                            <div className="w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto shadow-[0_0_40px_-10px] shadow-amber-500/30">
+                                <Bot size={40} className="text-amber-500" />
                             </div>
-                            <h1 className="text-2xl font-extrabold text-text-primary">AI Career Coach</h1>
-                            <p className="text-text-secondary text-sm max-w-xs mx-auto leading-relaxed">
+                            <h1 className="text-2xl font-extrabold text-white">AI Career Coach</h1>
+                            <p className="text-gray-400 text-sm max-w-xs mx-auto leading-relaxed">
                                 Context-aware career coaching powered by your resume. Get personalized advice, interview prep, and career strategies.
                             </p>
                         </div>
 
                         {resumes.length > 0 && (
                             <div className="relative z-10 w-full max-w-xs text-left">
-                                <label className="block text-xs font-bold text-text-muted uppercase tracking-wider mb-2">
+                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
                                     Link Resume Context (Recommended)
                                 </label>
                                 <select value={selectedResumeId} onChange={(e) => setSelectedResumeId(e.target.value)}
-                                    className="input-field text-sm bg-slate-900 border-slate-700">
+                                    className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-amber-500/50 transition-all text-sm appearance-none">
                                     <option value="">General coaching (no resume)</option>
                                     {resumes.map((r: any) => (
                                         <option key={r._id} value={r._id}>{r.originalFilename || r.title || 'Resume'}</option>
@@ -303,61 +347,68 @@ export default function ChatCoachPage() {
                             </div>
                         )}
 
-                        <button onClick={newSession} className="btn-primary px-8 py-3 shadow-lg shadow-primary/20 hover:shadow-primary/40 relative z-10">
-                            <Plus size={18} className="mr-2" /> Start Coaching Session
+                        <button onClick={newSession}
+                            className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-3 rounded-xl flex items-center gap-2 transition-colors shadow-[0_0_20px_rgba(245,158,11,0.2)] relative z-10">
+                            <Plus size={18} /> Start Coaching Session
                         </button>
 
-                        <div className="relative z-10 grid grid-cols-3 gap-3 w-full max-w-2xl">
-                            {COACHING_MODES.slice(0, 6).map((m) => (
-                                <div key={m.mode} className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-background-panel border border-border/50 opacity-60">
-                                    <m.icon size={18} className={m.color} />
-                                    <span className="text-xs text-text-muted font-medium">{m.label}</span>
-                                </div>
+                        <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-3xl mt-6">
+                            {COACHING_MODES.slice(0, 8).map((m) => (
+                                <button key={m.mode} 
+                                    onClick={async () => {
+                                        await newSession(m.mode);
+                                    }}
+                                    className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-gray-900 border border-white/5 hover:border-amber-500/30 hover:bg-amber-500/5 transition-all group">
+                                    <m.icon size={20} className={`${m.color} group-hover:scale-110 transition-transform`} />
+                                    <span className="text-xs text-gray-400 font-medium group-hover:text-gray-200 text-center">{m.label}</span>
+                                </button>
                             ))}
                         </div>
                     </motion.div>
                 ) : (
                     <>
-                        {/* Quick Action Bar */}
-                        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none flex-shrink-0">
-                            <button
-                                onClick={() => setActiveMode('general')}
-                                className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${activeMode === 'general'
-                                    ? 'bg-primary/15 border-primary/30 text-primary'
-                                    : 'bg-background-panel border-border text-text-secondary hover:border-primary/30 hover:text-primary'}`}>
-                                <Bot size={13} /> General
-                            </button>
-                            {COACHING_MODES.map((m) => (
-                                <button key={m.mode}
-                                    onClick={() => triggerMode(m)}
-                                    className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all whitespace-nowrap ${activeMode === m.mode
-                                        ? 'bg-primary/15 border-primary/30 text-primary'
-                                        : 'bg-background-panel border-border text-text-secondary hover:border-primary/30 hover:text-text-primary'}`}>
-                                    <m.icon size={13} className={activeMode === m.mode ? 'text-primary' : m.color} />
-                                    {m.label}
+                        {/* Quick Mode Tabs */}
+                        <div className="flex-shrink-0 border-b border-white/5 bg-gray-900/50 px-4 py-2.5">
+                            <div className="flex gap-2 overflow-x-auto scrollbar-none">
+                                <button
+                                    onClick={() => setActiveMode('general')}
+                                    className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${activeMode === 'general'
+                                        ? 'bg-amber-500/15 border-amber-500/30 text-amber-400'
+                                        : 'bg-transparent border-white/10 text-gray-400 hover:border-white/20 hover:text-gray-200'}`}>
+                                    <Bot size={12} /> General
                                 </button>
-                            ))}
+                                {COACHING_MODES.map((m) => (
+                                    <button key={m.mode}
+                                        onClick={() => triggerMode(m)}
+                                        className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all whitespace-nowrap ${activeMode === m.mode
+                                            ? 'bg-amber-500/15 border-amber-500/30 text-amber-400'
+                                            : 'bg-transparent border-white/10 text-gray-400 hover:border-white/20 hover:text-gray-200'}`}>
+                                        <m.icon size={12} className={activeMode === m.mode ? 'text-amber-400' : m.color} />
+                                        {m.label}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Messages */}
-                        <div className="card flex-1 overflow-y-auto !p-4 space-y-5 min-h-0">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-5 min-h-0">
                             {messages.length === 0 && !loading && (
-                                <div className="flex flex-col items-center justify-center h-full gap-4 text-center py-12">
-                                    <div className="w-14 h-14 rounded-2xl bg-background-panel border border-border flex items-center justify-center">
-                                        <Bot size={26} className="text-primary/60" />
+                                <div className="flex flex-col items-center justify-center h-full gap-5 text-center py-12">
+                                    <div className="w-14 h-14 rounded-2xl bg-gray-900 border border-white/10 flex items-center justify-center">
+                                        <Bot size={26} className="text-amber-500/50" />
                                     </div>
                                     <div>
-                                        <p className="text-text-secondary text-sm font-medium">Choose a coaching mode above or ask me anything</p>
-                                        <p className="text-text-muted text-xs mt-1">Your resume data is loaded as context</p>
+                                        <p className="text-gray-300 text-sm font-medium">Choose a coaching mode above or ask me anything</p>
+                                        <p className="text-gray-600 text-xs mt-1">Your resume data is loaded as context</p>
                                     </div>
                                     <div className="grid grid-cols-2 gap-2 max-w-sm w-full mt-2">
                                         {COACHING_MODES.slice(0, 4).map((m) => (
                                             <button key={m.mode} onClick={() => triggerMode(m)}
-                                                className="flex items-center gap-2 p-2.5 rounded-xl bg-background-panel border border-border hover:border-primary/30 hover:bg-primary/5 text-left transition-all group">
+                                                className="flex items-center gap-2 p-2.5 rounded-xl bg-gray-900 border border-white/10 hover:border-amber-500/30 hover:bg-amber-500/5 text-left transition-all">
                                                 <m.icon size={14} className={m.color} />
                                                 <div>
-                                                    <p className="text-xs font-semibold text-text-primary">{m.label}</p>
-                                                    <p className="text-xs text-text-muted">{m.desc}</p>
+                                                    <p className="text-xs font-semibold text-gray-200">{m.label}</p>
+                                                    <p className="text-xs text-gray-600">{m.desc}</p>
                                                 </div>
                                             </button>
                                         ))}
@@ -371,10 +422,10 @@ export default function ChatCoachPage() {
                                         transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                                         className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                                         {/* Avatar */}
-                                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 border ${msg.role === 'assistant'
-                                            ? 'bg-background-panel border-border text-primary'
-                                            : 'bg-primary border-primary text-white'}`}>
-                                            {msg.role === 'assistant' ? <Bot size={18} /> : <User size={18} />}
+                                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 border ${msg.role === 'assistant'
+                                            ? 'bg-gray-900 border-white/10 text-amber-500'
+                                            : 'bg-amber-500 border-amber-500 text-black'}`}>
+                                            {msg.role === 'assistant' ? <Bot size={16} /> : <User size={16} />}
                                         </div>
 
                                         {/* Content */}
@@ -383,8 +434,8 @@ export default function ChatCoachPage() {
                                         ) : (
                                             <div className={`max-w-[78%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm
                                                 ${msg.role === 'assistant'
-                                                    ? 'bg-background-panel border border-border text-text-primary rounded-tl-sm'
-                                                    : 'bg-primary text-white rounded-tr-sm'}`}>
+                                                    ? 'bg-gray-800/70 border border-white/10 text-gray-200 rounded-tl-sm'
+                                                    : 'bg-amber-500 text-black font-medium rounded-tr-sm'}`}>
                                                 <p className="whitespace-pre-wrap">{msg.content}</p>
                                             </div>
                                         )}
@@ -394,32 +445,32 @@ export default function ChatCoachPage() {
 
                             {loading && (
                                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
-                                    <div className="w-9 h-9 rounded-xl bg-background-panel border border-border flex items-center justify-center">
-                                        <Bot size={18} className="text-primary" />
+                                    <div className="w-8 h-8 rounded-xl bg-gray-900 border border-white/10 flex items-center justify-center">
+                                        <Bot size={16} className="text-amber-500" />
                                     </div>
-                                    <div className="bg-background-panel border border-border rounded-2xl rounded-tl-sm px-5 py-3.5 flex items-center gap-2">
-                                        <Loader2 size={15} className="animate-spin text-primary" />
-                                        <span className="text-xs text-text-muted">Coaching…</span>
+                                    <div className="bg-gray-800/70 border border-white/10 rounded-2xl rounded-tl-sm px-5 py-3.5 flex items-center gap-2">
+                                        <Loader2 size={14} className="animate-spin text-amber-500" />
+                                        <span className="text-xs text-gray-400">Coaching…</span>
                                     </div>
                                 </motion.div>
                             )}
                             <div ref={bottomRef} />
                         </div>
 
-                        {/* Input */}
-                        <div className="flex-shrink-0 card !p-3">
+                        {/* Input Bar */}
+                        <div className="flex-shrink-0 border-t border-white/5 bg-gray-900/60 p-3">
                             {activeMode !== 'general' && (
                                 <div className="flex items-center gap-2 mb-2 px-1">
                                     {(() => {
                                         const mc = COACHING_MODES.find(m => m.mode === activeMode);
                                         return mc ? (
                                             <>
-                                                <mc.icon size={12} className={mc.color} />
-                                                <span className="text-xs text-text-muted">{mc.label} mode active</span>
+                                                <mc.icon size={11} className={mc.color} />
+                                                <span className="text-xs text-gray-500">{mc.label} mode active</span>
                                             </>
                                         ) : null;
                                     })()}
-                                    <button onClick={() => setActiveMode('general')} className="text-xs text-primary hover:underline ml-auto">
+                                    <button onClick={() => setActiveMode('general')} className="text-xs text-amber-400 hover:underline ml-auto">
                                         Switch to General
                                     </button>
                                 </div>
@@ -430,14 +481,14 @@ export default function ChatCoachPage() {
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
-                                    className="input-field flex-1 py-3 px-4 bg-background border-border text-sm"
+                                    className="flex-1 bg-gray-800 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-amber-500/50 transition-all"
                                     placeholder={activeMode === 'bullet_rewrite'
                                         ? 'Paste a resume bullet point to rewrite…'
                                         : 'Ask your career coach anything…'}
                                 />
                                 <button onClick={() => sendMessage()} disabled={loading || !input.trim()}
-                                    className="btn-primary px-4 py-3 rounded-xl disabled:opacity-50 active:scale-95 transition-transform">
-                                    {loading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
+                                    className="bg-amber-500 hover:bg-amber-400 text-black px-4 py-2.5 rounded-xl disabled:opacity-40 active:scale-95 transition-all flex items-center justify-center">
+                                    {loading ? <Loader2 size={17} className="animate-spin" /> : <Send size={17} />}
                                 </button>
                             </div>
                         </div>
@@ -449,22 +500,22 @@ export default function ChatCoachPage() {
             <AnimatePresence>
                 {showBulletModal && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
                         onClick={() => setShowBulletModal(false)}>
                         <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
-                            className="card w-full max-w-md !p-6 space-y-4"
+                            className="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl"
                             onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center">
                                     <Pencil size={18} className="text-pink-400" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-text-primary">Resume Bullet Rewriter</h3>
-                                    <p className="text-xs text-text-muted">AI will rewrite it with metrics & impact</p>
+                                    <h3 className="font-bold text-white">Resume Bullet Rewriter</h3>
+                                    <p className="text-xs text-gray-500">AI will rewrite it with metrics & impact</p>
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-text-secondary mb-2">
+                                <label className="block text-sm font-medium text-gray-400 mb-2">
                                     Paste your resume bullet point
                                 </label>
                                 <textarea
@@ -472,16 +523,16 @@ export default function ChatCoachPage() {
                                     onChange={(e) => setBulletInput(e.target.value)}
                                     rows={3}
                                     placeholder='e.g. "Worked on backend API for the team"'
-                                    className="input-field resize-none bg-background-panel w-full"
+                                    className="w-full bg-gray-950 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-amber-500/50 transition-all resize-none"
                                     autoFocus
                                 />
                             </div>
                             <div className="flex gap-3">
                                 <button onClick={() => setShowBulletModal(false)}
-                                    className="btn-secondary flex-1">Cancel</button>
+                                    className="flex-1 py-2.5 rounded-xl bg-gray-800 border border-white/10 text-gray-300 hover:text-white font-semibold text-sm transition-colors">Cancel</button>
                                 <button onClick={submitBulletRewrite} disabled={!bulletInput.trim()}
-                                    className="btn-primary flex-1">
-                                    <Sparkles size={15} className="mr-1" /> Rewrite It
+                                    className="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-colors disabled:opacity-40 flex items-center justify-center gap-2">
+                                    <Sparkles size={14} /> Rewrite It
                                 </button>
                             </div>
                         </motion.div>

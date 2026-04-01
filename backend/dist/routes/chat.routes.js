@@ -11,7 +11,6 @@ const openai_service_1 = require("../services/openai.service");
 const errorHandler_1 = require("../middleware/errorHandler");
 const router = (0, express_1.Router)();
 router.use(auth_middleware_1.authenticate);
-const COACHING_MODES = ['general', 'resume_review', 'skill_gap', 'interview_prep', 'career_guidance', 'bullet_rewrite', 'interview_sim'];
 // POST /api/v1/chat/sessions - create new session
 router.post('/sessions', async (req, res, next) => {
     try {
@@ -45,10 +44,12 @@ router.get('/sessions', async (req, res, next) => {
 // POST /api/v1/chat/sessions/:id/message - send a message (supports structured coaching modes)
 router.post('/sessions/:id/message', rateLimiter_1.rateLimiter.chat, async (req, res, next) => {
     try {
-        const { message, mode, bulletText } = zod_1.z.object({
+        const { message, mode, bulletText, targetRole, jobPosting } = zod_1.z.object({
             message: zod_1.z.string().min(1).max(4000),
-            mode: zod_1.z.enum(['general', 'resume_review', 'skill_gap', 'interview_prep', 'career_guidance', 'bullet_rewrite', 'interview_sim']).optional().default('general'),
+            mode: zod_1.z.enum(['general', 'resume_review', 'skill_gap', 'interview_prep', 'career_guidance', 'bullet_rewrite', 'interview_sim', 'job_rag_coach']).optional().default('general'),
             bulletText: zod_1.z.string().max(500).optional(),
+            targetRole: zod_1.z.string().max(200).optional(),
+            jobPosting: zod_1.z.string().max(10000).optional(),
         }).parse(req.body);
         const session = await ChatSession_model_1.ChatSessionModel.findOne({ _id: req.params.id, user: req.user.id });
         if (!session)
@@ -68,18 +69,10 @@ router.post('/sessions/:id/message', rateLimiter_1.rateLimiter.chat, async (req,
         session.messages.push({ role: 'user', content: message, timestamp: new Date() });
         // Last 10 messages for context window
         const historyForAI = session.messages.slice(-10).map((m) => ({ role: m.role, content: m.content }));
-        let aiReply;
-        let structured = null;
-        if (mode && COACHING_MODES.includes(mode) && mode !== 'general') {
-            // Structured coaching mode — returns rich JSON response
-            const result = await (0, openai_service_1.chatWithCoachStructured)(historyForAI, mode, resumeText, nlpData, bulletText);
-            structured = result;
-            aiReply = result.feedback; // Store plain text in history for session continuity
-        }
-        else {
-            // General free-form chat — plain text
-            aiReply = await (0, openai_service_1.chatWithCoach)(historyForAI, resumeText, nlpData);
-        }
+        // All modes are now structured in the elite coach architecture
+        const result = await (0, openai_service_1.chatWithCoachStructured)(historyForAI, mode, resumeText, nlpData, bulletText, targetRole, jobPosting);
+        const structured = result;
+        const aiReply = result.feedback; // Store plain text in history for session continuity
         // Add AI reply to session messages
         session.messages.push({ role: 'assistant', content: aiReply, timestamp: new Date() });
         // Auto-title the session from first user message

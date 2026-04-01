@@ -1,0 +1,26 @@
+2026-04-01 18:07:36.750 | INFO     | main:lifespan:20 - 🚀 AI Microservice starting up...
+2026-04-01 18:07:36.750 | INFO     | app.core.nlp_engine:__init__:83 - Loading spaCy model en_core_web_sm...
+2026-04-01 18:07:37.230 | INFO     | app.core.nlp_engine:__init__:97 - NLP Engine initialized successfully.
+2026-04-01 18:07:37.233 | INFO     | main:lifespan:23 - ✅ spaCy model loaded: core_web_sm
+2026-04-01 18:09:04.155 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=20 | similarity=0.0%
+2026-04-01 18:09:55.795 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=19 | similarity=0.0%
+2026-04-01 18:31:22.388 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=19 | similarity=0.0%
+2026-04-01 18:31:44.512 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=22 | similarity=0.0%
+2026-04-01 18:38:05.101 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=18 | similarity=0.0%
+2026-04-01 18:38:20.352 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=18 | similarity=0.0%
+2026-04-01 18:38:34.521 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=20 | similarity=0.0%
+2026-04-01 18:39:02.084 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=22 | similarity=0.0%
+2026-04-01 18:51:26.309 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=18 | similarity=0.0%
+2026-04-01 18:51:49.275 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=18 | similarity=0.0%
+2026-04-01 18:52:00.705 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=22 | similarity=0.0%
+2026-04-01 19:01:24.001 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=7 | similarity=20.72%
+2026-04-01 19:01:25.824 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=1 | similarity=14.56%
+2026-04-01 19:04:55.708 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=7 | similarity=20.72%
+2026-04-01 19:04:57.732 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=1 | similarity=14.56%
+2026-04-01 19:12:19.064 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=7 | similarity=20.72%
+2026-04-01 19:12:20.875 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=1 | similarity=14.56%
+2026-04-01 19:23:52.093 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=20 | similarity=0.0%
+2026-04-01 19:24:12.995 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=20 | similarity=0.0%
+2026-04-01 19:24:26.044 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=18 | similarity=0.0%
+2026-04-01 19:24:44.776 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=18 | similarity=0.0%
+2026-04-01 19:24:57.426 | INFO     | app.routes.analyze:analyze_resume:32 - Analysis complete | skills=20 | similarity=0.0%

@@ -1,0 +1,90 @@
+=== Analyzing Strong Resume ===
+19:12:19 [[34mdebug[39m]: [34mNLP Service → POST /analyze[39m
+19:12:19 [[33mwarn[39m]: [33m[AI] Gemini (gemini-2.0-flash) FAILED. Reason: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod. Latency: 238ms[39m
+19:12:19 [[33mwarn[39m]: [33m[AI] Gemini (gemini-1.5-flash) FAILED. Reason: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod. Latency: 274ms[39m
+19:12:19 [[33mwarn[39m]: [33m[AI] Gemini (gemini-pro) FAILED. Reason: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod. Latency: 158ms[39m
+19:12:20 [[32minfo[39m]: [32m[AI] Groq (llama-3.3-70b-versatile) SUCCESS. Latency: 1125ms[39m
+{
+  "atsScore": 90,
+  "qualityScore": 95,
+  "overallScore": 92,
+  "strengths": [
+    "Strong technical skills match with the job description",
+    "Impressive quantification of achievements in the bullets"
+  ],
+  "weaknesses": [
+    "Lack of soft skills listed",
+    "Only 3 years of experience at a single company"
+  ],
+  "improvements": [
+    "Add relevant soft skills to the resume",
+    "Consider adding more diverse experience or projects"
+  ],
+  "summary": "This resume has a strong chance of passing FAANG screening due to its technical skills and quantifiable achievements.",
+  "bulletImpactScores": [
+    {
+      "bullet": "Reduced API latency by 40% by rewriting cache layer, saving $200K/year",
+      "score": 9,
+      "rewritten": "Improved API latency by 40% through targeted cache layer optimization, yielding $200K annual cost savings"
+    },
+    {
+      "bullet": "Led migration of 5 microservices to Kubernetes, cutting deploy time from 2hrs to 8min",
+      "score": 9,
+      "rewritten": "Spearheaded the migration of 5 microservices to Kubernetes, achieving an 87.5% reduction in deployment time from 2 hours to 8 minutes"
+    },
+    {
+      "bullet": "Built fraud detection model with 94% precision, blocking $2M in fraudulent transactions",
+      "score": 10,
+      "rewritten": "Developed and deployed a high-precision fraud detection model, achieving 94% accuracy and preventing $2M in fraudulent transactions annually"
+    }
+  ]
+}
+
+
+=== Analyzing Weak Resume ===
+19:12:20 [[34mdebug[39m]: [34mNLP Service → POST /analyze[39m
+19:12:21 [[33mwarn[39m]: [33m[AI] Gemini (gemini-2.0-flash) FAILED. Reason: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod. Latency: 132ms[39m
+19:12:21 [[33mwarn[39m]: [33m[AI] Gemini (gemini-1.5-flash) FAILED. Reason: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod. Latency: 295ms[39m
+19:12:21 [[33mwarn[39m]: [33m[AI] Gemini (gemini-pro) FAILED. Reason: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod. Latency: 120ms[39m
+19:12:22 [[32minfo[39m]: [32m[AI] Groq (llama-3.3-70b-versatile) SUCCESS. Latency: 1367ms[39m
+{
+  "atsScore": 50,
+  "qualityScore": 40,
+  "overallScore": 44,
+  "strengths": [
+    "Mentions Python as a skill"
+  ],
+  "weaknesses": [
+    "Lacks specific technical skills required by the job description (Kubernetes, cloud provider experience, database experience)",
+    "Uses weak responsibility language in most bullets (e.g., 'Helped with', 'Worked on', 'Assisted')",
+    "No quantifiable metrics or impact statements in any bullets"
+  ],
+  "improvements": [
+    "Add specific technical skills required by the job description to the resume",
+    "Rewrite bullets to use impact language and include quantifiable metrics (e.g., 'Improved application performance by 30% through optimization')",
+    "Include relevant cloud provider experience (AWS/GCP) and database experience (PostgreSQL/Redis) in the resume"
+  ],
+  "summary": "This resume has virtually no chance of passing FAANG-level screening due to its lack of specific technical skills and weak bullet points.",
+  "bulletImpactScores": [
+    {
+      "bullet": "Responsible for backend development",
+      "score": 2,
+      "rewritten": "Spearheaded backend development, resulting in a 25% increase in application scalability"
+    },
+    {
+      "bullet": "Helped with database migrations",
+      "score": 1,
+      "rewritten": "Executed database migrations, reducing migration time by 40% and increasing data integrity by 95%"
+    },
+    {
+      "bullet": "Worked on improving application performance",
+      "score": 1,
+      "rewritten": "Improved application performance by 30% through targeted optimization, resulting in a 20% increase in user engagement"
+    },
+    {
+      "bullet": "Assisted team with deployment processes",
+      "score": 1,
+      "rewritten": "Streamlined deployment processes, reducing deployment time by 50% and increasing team productivity by 15%"
+    }
+  ]
+}

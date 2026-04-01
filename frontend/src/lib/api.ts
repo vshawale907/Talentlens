@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useAuthStore } from '../stores/authStore';
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 export const api = axios.create({
-    baseURL: '/api/v1',
+    baseURL: `${API_URL}/api/v1`,
     headers: { 'Content-Type': 'application/json' },
     timeout: 120000, // 2 minutes for AI operations
 });
@@ -77,11 +79,6 @@ export const analysisApi = {
     }) => api.post(`/analysis/custom-cover-letter`, data),
 };
 
-export const jobApi = {
-    search: (q: string, page = 1) => api.get('/jobs', { params: { q, page } }),
-    getById: (id: string) => api.get(`/jobs/${id}`),
-    getMatches: (resumeId: string) => api.get(`/jobs/match/${resumeId}`),
-};
 
 export const chatApi = {
     createSession: (resumeId?: string) => api.post('/chat/sessions', { resumeId }),

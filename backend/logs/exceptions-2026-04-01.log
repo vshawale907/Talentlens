@@ -1,0 +1,352 @@
+2026-04-01 18:42:37 [error]: Error: ⨯ Unable to compile TypeScript:
+src/services/openai.service.ts(244,21): error TS1005: ',' expected.
+src/services/openai.service.ts(244,25): error TS1005: ',' expected.
+src/services/openai.service.ts(244,29): error TS1005: ',' expected.
+src/services/openai.service.ts(244,32): error TS1005: ',' expected.
+src/services/openai.service.ts(244,38): error TS1005: ',' expected.
+src/services/openai.service.ts(244,42): error TS1005: ',' expected.
+src/services/openai.service.ts(244,53): error TS1005: ')' expected.
+src/services/openai.service.ts(244,62): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,68): error TS1128: Declaration or statement expected.
+src/services/openai.service.ts(244,70): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,78): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,82): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,89): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,99): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,109): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,112): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,114): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,120): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(244,133): error TS1003: Identifier expected.
+src/services/openai.service.ts(245,1): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(245,6): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(245,11): error TS1228: A type predicate is only allowed in return type position for functions and methods.
+src/services/openai.service.ts(245,14): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(245,17): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(245,25): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(245,27): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(245,58): error TS1005: ';' expected.
+src/services/openai.service.ts(245,69): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(245,72): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(245,81): error TS1003: Identifier expected.
+src/services/openai.service.ts(246,1): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(246,5): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(246,22): error TS1005: ';' expected.
+src/services/openai.service.ts(246,28): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(246,33): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(246,42): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(246,46): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(246,65): error TS1005: ';' expected.
+src/services/openai.service.ts(246,69): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(246,73): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(246,84): error TS1435: Unknown keyword or identifier. Did you mean 'out side'?
+src/services/openai.service.ts(246,97): error TS1003: Identifier expected.
+src/services/openai.service.ts(248,1): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(248,8): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(248,28): error TS1005: ',' expected.
+src/services/openai.service.ts(248,33): error TS1005: ',' expected.
+src/services/openai.service.ts(248,40): error TS1005: ',' expected.
+src/services/openai.service.ts(248,45): error TS1005: ';' expected.
+src/services/openai.service.ts(249,22): error TS1109: Expression expected.
+src/services/openai.service.ts(249,24): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(249,27): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(249,37): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(249,44): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(249,64): error TS1005: ';' expected.
+src/services/openai.service.ts(249,72): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(249,98): error TS1005: ';' expected.
+src/services/openai.service.ts(249,106): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(249,117): error TS1005: ';' expected.
+src/services/openai.service.ts(249,141): error TS1005: ';' expected.
+src/services/openai.service.ts(249,149): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(249,156): error TS1109: Expression expected.
+src/services/openai.service.ts(249,164): error TS1005: ';' expected.
+src/services/openai.service.ts(250,1): error TS1003: Identifier expected.
+src/services/openai.service.ts(250,24): error TS1005: ';' expected.
+src/services/openai.service.ts(251,16): error TS1005: ';' expected.
+src/services/openai.service.ts(251,44): error TS1005: ';' expected.
+src/services/openai.service.ts(251,58): error TS1005: ';' expected.
+src/services/openai.service.ts(252,4): error TS1003: Identifier expected.
+src/services/openai.service.ts(252,9): error TS1005: ';' expected.
+src/services/openai.service.ts(252,22): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(252,27): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(252,36): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(252,39): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(252,58): error TS1005: ',' expected.
+src/services/openai.service.ts(252,66): error TS1005: ',' expected.
+src/services/openai.service.ts(252,95): error TS1005: ';' expected.
+src/services/openai.service.ts(252,97): error TS1005: ';' expected.
+src/services/openai.service.ts(252,105): error TS1005: '(' expected.
+src/services/openai.service.ts(252,111): error TS1005: ';' expected.
+src/services/openai.service.ts(252,120): error TS1005: ';' expected.
+src/services/openai.service.ts(252,128): error TS1005: ')' expected.
+src/services/openai.service.ts(253,4): error TS1003: Identifier expected.
+src/services/openai.service.ts(253,9): error TS1005: ';' expected.
+src/services/openai.service.ts(253,16): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,25): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,29): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,33): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,41): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,44): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,58): error TS1005: ',' expected.
+src/services/openai.service.ts(253,66): error TS1005: ',' expected.
+src/services/openai.service.ts(253,101): error TS1005: ';' expected.
+src/services/openai.service.ts(253,113): error TS1005: ';' expected.
+src/services/openai.service.ts(253,126): error TS1005: ';' expected.
+src/services/openai.service.ts(253,135): error TS1005: ';' expected.
+src/services/openai.service.ts(253,142): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,146): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,170): error TS1005: ';' expected.
+src/services/openai.service.ts(253,177): error TS1005: ';' expected.
+src/services/openai.service.ts(253,182): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,192): error TS1109: Expression expected.
+src/services/openai.service.ts(253,195): error TS1005: '(' expected.
+src/services/openai.service.ts(253,199): error TS1005: ')' expected.
+src/services/openai.service.ts(253,206): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,211): error TS1228: A type predicate is only allowed in return type position for functions and methods.
+src/services/openai.service.ts(253,214): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(253,232): error TS1109: Expression expected.
+src/services/openai.service.ts(253,234): error TS1005: ';' expected.
+src/services/openai.service.ts(253,238): error TS1435: Unknown keyword or identifier. Did you mean 'for matting'?
+src/services/openai.service.ts(253,249): error TS1228: A type predicate is only allowed in return type position for functions and methods.
+src/services/openai.service.ts(254,1): error TS1003: Identifier expected.
+src/services/openai.service.ts(254,28): error TS1005: ';' expected.
+src/services/openai.service.ts(255,16): error TS1005: ';' expected.
+src/services/openai.service.ts(255,35): error TS1005: ';' expected.
+src/services/openai.service.ts(255,50): error TS1005: ';' expected.
+src/services/openai.service.ts(256,4): error TS1003: Identifier expected.
+src/services/openai.service.ts(256,14): error TS1005: ';' expected.
+src/services/openai.service.ts(256,38): error TS1005: ';' expected.
+src/services/openai.service.ts(256,50): error TS1005: ')' expected.
+src/services/openai.service.ts(256,79): error TS1109: Expression expected.
+src/services/openai.service.ts(256,80): error TS1109: Expression expected.
+src/services/openai.service.ts(256,81): error TS1128: Declaration or statement expected.
+src/services/openai.service.ts(256,83): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(256,86): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(256,95): error TS1109: Expression expected.
+src/services/openai.service.ts(256,110): error TS1005: ';' expected.
+src/services/openai.service.ts(256,115): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(256,118): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(256,133): error TS1005: ';' expected.
+src/services/openai.service.ts(256,142): error TS1109: Expression expected.
+src/services/openai.service.ts(256,150): error TS1005: ';' expected.
+src/services/openai.service.ts(256,157): error TS1005: ';' expected.
+src/services/openai.service.ts(256,162): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(256,172): error TS1109: Expression expected.
+src/services/openai.service.ts(256,175): error TS1005: '(' expected.
+src/services/openai.service.ts(256,183): error TS1005: ')' expected.
+src/services/openai.service.ts(256,195): error TS1005: ';' expected.
+src/services/openai.service.ts(256,203): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(256,207): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(256,214): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(256,240): error TS1005: ',' expected.
+src/services/openai.service.ts(256,252): error TS1005: ',' expected.
+src/services/openai.service.ts(256,255): error TS1005: ',' expected.
+src/services/openai.service.ts(256,261): error TS1005: ',' expected.
+src/services/openai.service.ts(256,267): error TS1005: ',' expected.
+src/services/openai.service.ts(257,4): error TS1003: Identifier expected.
+src/services/openai.service.ts(257,15): error TS1005: ';' expected.
+src/services/openai.service.ts(257,45): error TS1005: ';' expected.
+src/services/openai.service.ts(257,49): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(257,56): error TS1435: Unknown keyword or identifier. Did you mean 'string'?
+src/services/openai.service.ts(258,1): error TS1003: Identifier expected.
+src/services/openai.service.ts(258,20): error TS1109: Expression expected.
+src/services/openai.service.ts(258,74): error TS1003: Identifier expected.
+src/services/openai.service.ts(260,1): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,6): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,14): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,18): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,28): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,33): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,43): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,46): error TS1435: Unknown keyword or identifier. Did you mean 'let'?
+src/services/openai.service.ts(260,52): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,56): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,65): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,89): error TS1005: ';' expected.
+src/services/openai.service.ts(260,94): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,98): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,103): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,106): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,117): error TS1005: ';' expected.
+src/services/openai.service.ts(260,117): error TS1434: Unexpected keyword or identifier.
+src/services/openai.service.ts(260,143): error TS1002: Unterminated string literal.
+
+    at Object.<anonymous> (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\services\openai.service.ts:1:7)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1692:14)
+    at Module._compile (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\RUSHIK~1\AppData\Local\Temp\ts-node-dev-hook-2909094893116577.js:69:33)
+    at node:internal/modules/cjs/loader:1824:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\RUSHIK~1\AppData\Local\Temp\ts-node-dev-hook-2909094893116577.js:114:20)
+    at require.extensions.<computed> (C:\Users\RUSHIK~1\AppData\Local\Temp\ts-node-dev-hook-2909094893116577.js:71:20)
+    at Object.nodeDevHook [as .ts] (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1427:32)
+    at Module._load (node:internal/modules/cjs/loader:1250:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1449:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (C:\Users\Rushikesh\OneDrive\Desktop\ai-resume analyzer\backend\src\services\resume.service.ts:14:1)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1692:14)
+{
+  "error": {},
+  "exception": true,
+  "date": "Wed Apr 01 2026 18:42:37 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 23948,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.4.0",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "src/server.ts"
+    ],
+    "memoryUsage": {
+      "rss": 114372608,
+      "heapTotal": 63225856,
+      "heapUsed": 40274720,
+      "external": 21933645,
+      "arrayBuffers": 18558438
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 344313.671
+  },
+  "trace": [
+    {
+      "column": 7,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\services\\openai.service.ts",
+      "function": null,
+      "line": 1,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": null,
+      "line": 1692,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 25,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\source-map-support\\source-map-support.js",
+      "function": "Module._compile",
+      "line": 568,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 33,
+      "file": "C:\\Users\\RUSHIK~1\\AppData\\Local\\Temp\\ts-node-dev-hook-2909094893116577.js",
+      "function": "Module.m._compile",
+      "line": 69,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": null,
+      "line": 1824,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\RUSHIK~1\\AppData\\Local\\Temp\\ts-node-dev-hook-2909094893116577.js",
+      "function": "require.extensions..jsx.require.extensions..js",
+      "line": 114,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\RUSHIK~1\\AppData\\Local\\Temp\\ts-node-dev-hook-2909094893116577.js",
+      "function": "require.extensions.<computed>",
+      "line": 71,
+      "method": "<computed>",
+      "native": false
+    },
+    {
+      "column": 13,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\node_modules\\ts-node-dev\\lib\\hook.js",
+      "function": "Object.nodeDevHook [as .ts]",
+      "line": 63,
+      "method": "ts]",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1427,
+      "method": "load",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._load",
+      "line": 1250,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 235,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1449,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 135,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 1,
+      "file": "C:\\Users\\Rushikesh\\OneDrive\\Desktop\\ai-resume analyzer\\backend\\src\\services\\resume.service.ts",
+      "function": null,
+      "line": 14,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": null,
+      "line": 1692,
+      "method": null,
+      "native": false
+    }
+  ]
+}

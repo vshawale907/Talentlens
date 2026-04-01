@@ -7,6 +7,8 @@ export interface INLPResult {
     matchedSkills: string[];
     missingSkills: string[];
     keywordDensity: Record<string, number>;
+    quantificationScore: number;
+    bulletCount: number;
 }
 export interface IOpenAIResult {
     atsScore: number;

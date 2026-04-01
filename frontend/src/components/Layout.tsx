@@ -12,7 +12,6 @@ const navItems = [
     { to: '/interview/select', icon: MessageSquare,  label: 'Interview Coach'},
     { to: '/cover-letter/select', icon: FileText,    label: 'Cover Letter'  },
     { to: '/chat',           icon: Bot,              label: 'AI Coach Chat'  },
-    { to: '/jobs',           icon: Briefcase,        label: 'Job Matcher'    },
 ];
 
 export default function Layout() {

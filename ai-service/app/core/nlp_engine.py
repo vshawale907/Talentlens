@@ -248,6 +248,26 @@ class NLPEngine:
                     seen.add(norm)
         return entities
 
+    # ─── Quantification Analysis ─────────────────────────────────────────
+    def calculate_quantification(self, text: str) -> tuple[float, int]:
+        # Identify bullet points or lines that look like achievements
+        lines = [l.strip() for l in text.split('\n') if len(l.strip()) > 15]
+        if not lines:
+            return 0.0, 0
+        
+        # Regex for metrics: percentages, currency, large numbers, "X out of Y"
+        # We look for \d+ followed by letters (to skip just dates) or preceded by symbols
+        metric_pattern = r"(?:\d+(?:\.\d+)?%|\$\d+(?:\.\d+)?[kmbt]?|\d+\s*(?:units|users|customers|hours|days|weeks|months|years|percent|people)|\b\d{2,}\b|\b(?:thousand|million|billion)\b|(?:\d+/\d+))"
+        
+        quantified_count = 0
+        for line in lines:
+            # Heuristic: if it has a metric it's quantified
+            if re.search(metric_pattern, line, re.IGNORECASE):
+                quantified_count += 1
+        
+        score = round((quantified_count / len(lines)) * 100, 2)
+        return score, len(lines)
+
     # ─── Skill Gap Detection ─────────────────────────────────────────────
     def skill_gap(self, resume_skills: list[str], job_text: str) -> tuple[list[str], list[str]]:
         jd_lower = job_text.lower()
@@ -274,6 +294,7 @@ class NLPEngine:
         experience_years = self.extract_experience_years(resume_text)
         keyword_density = self.keyword_density(cleaned_resume)
         action_verbs = self.detect_action_verbs(resume_text)
+        quantification_score, bullet_count = self.calculate_quantification(resume_text)
 
         similarity_score = 0.0
         matched_skills: list[str] = []
@@ -292,4 +313,6 @@ class NLPEngine:
             "missingSkills": missing_skills,
             "keywordDensity": keyword_density,
             "actionVerbs": action_verbs,
+            "quantificationScore": quantification_score,
+            "bulletCount": bullet_count,
         }

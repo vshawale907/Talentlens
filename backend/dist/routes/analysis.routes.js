@@ -49,16 +49,32 @@ router.post('/:resumeId/interview-questions', rateLimiter_1.rateLimiter.analysis
             forceRegenerate: zod_1.z.boolean().optional(),
         }).parse(req.body);
         const cacheKey = `interview:${req.params.resumeId}:${jobTitle}`;
+        let previousQuestions = [];
         if (!forceRegenerate) {
             const cached = await redis_1.cache.get(cacheKey);
             if (cached) {
                 return res.success({ questions: cached });
             }
         }
-        const analysis = await Analysis_model_1.AnalysisModel.findOne({ resume: req.params.resumeId, user: req.user.id, isLatest: true });
+        else {
+            // When regenerating, fetch the old questions to send to the AI as "banned" questions
+            const cached = await redis_1.cache.get(cacheKey);
+            if (cached) {
+                const parts = [
+                    ...(cached.behavioural || []),
+                    ...(cached.technical || []),
+                    ...(cached.situational || [])
+                ];
+                previousQuestions = parts.map((q) => q.question).filter(Boolean);
+            }
+        }
+        const analysis = await Analysis_model_1.AnalysisModel.findOne({ resume: req.params.resumeId, user: req.user.id, isLatest: true })
+            .populate('resume', 'cleanedText text');
         if (!analysis?.nlpResult)
             throw new errorHandler_1.AppError('Analyze your resume first', 400, 'NO_ANALYSIS');
-        const questions = await (0, openai_service_1.generateInterviewQuestions)(analysis.nlpResult, jobTitle, jobDescription);
+        const resumeText = analysis.resume?.cleanedText ||
+            analysis.resume?.text || '';
+        const questions = await (0, openai_service_1.generateInterviewQuestions)(resumeText, analysis.nlpResult, jobTitle, jobDescription, previousQuestions);
         await redis_1.cache.set(cacheKey, questions, 3600); // Cache for 1 hour
         res.success({ questions });
     }

@@ -29,6 +29,8 @@ interface NLPResult {
     matchedSkills: string[];
     missingSkills: string[];
     keywordDensity: Record<string, number>;
+    quantificationScore?: number;
+    bulletCount?: number;
 }
 
 interface BulletImpactScore {
@@ -44,6 +46,7 @@ interface OpenAIResult {
     strengths: string[];
     weaknesses: string[];
     improvements: string[];
+    summary?: string;
     bulletImpactScores: BulletImpactScore[];
     interviewQuestions?: any[];
     coverLetter?: string;
@@ -167,14 +170,25 @@ export default function AnalysisPage() {
             const text = rData.rawText || rData.cleanedText || '';
             const bullets = aData.openAIResult?.bulletImpactScores?.map((b: any) => b.bullet) || [];
 
-            setSectionCompleteness(computeSectionCompleteness(text));
+            const statuses = checkResumeSections(text);
+            setSectionStatuses(statuses);
             
-            const totalBullets = Math.max(1, bullets.length);
-            const qCount = countQuantifiedBullets(text);
-            const qRatio = Math.min(1, qCount / totalBullets);
-            setQuantifiedScore(Math.round(qRatio * 25));
+            let sScore = 0;
+            statuses.forEach(s => {
+                if (s.status === 'present') sScore += 1;
+                else if (s.status === 'weak') sScore += 0.5;
+            });
+            setSectionCompleteness(Math.round((sScore / statuses.length) * 25));
             
-            setSectionStatuses(checkResumeSections(text));
+            if (typeof aData.nlpResult?.quantificationScore === 'number') {
+                setQuantifiedScore(Math.round((aData.nlpResult.quantificationScore / 100) * 25));
+            } else {
+                const totalBullets = Math.max(1, bullets.length);
+                const qCount = countQuantifiedBullets(text);
+                const qRatio = Math.min(1, qCount / totalBullets);
+                setQuantifiedScore(Math.round(qRatio * 25));
+            }
+
             setReadability(computeReadability(text, bullets));
 
         } catch (err: any) {
@@ -321,14 +335,27 @@ export default function AnalysisPage() {
                     })}
                 </div>
 
+                {/* FAANG Verdict Banner */}
+                {openAIResult?.summary && (
+                    <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.15 }} className="bg-gradient-to-r from-gray-900 via-gray-900 to-rose-950/30 border border-white/10 rounded-2xl p-6 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 blur-3xl -mr-10 -mt-10 pointer-events-none" />
+                        <h2 className="text-[11px] font-bold text-rose-400 tracking-widest uppercase mb-3 flex items-center gap-2"><Target size={14} /> Executive AI Verdict</h2>
+                        <p className="text-lg md:text-xl text-gray-200 font-medium leading-relaxed italic border-l-2 border-rose-500/50 pl-4">
+                            "{openAIResult.summary}"
+                        </p>
+                    </motion.div>
+                )}
+
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Section 3 - ATS Score Breakdown */}
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-gray-900 border border-white/10 rounded-2xl p-6 lg:col-span-1 flex flex-col">
                         <h2 className="text-lg font-bold text-white mb-6">ATS Score Breakdown</h2>
                         <div className="space-y-5 flex-1 flex flex-col justify-center">
                             {[
-                                { label: 'Keyword Match', score: Math.round(((nlpResult?.matchedSkills?.length || 0) / Math.max(1, (nlpResult?.matchedSkills?.length || 0) + (nlpResult?.missingSkills?.length || 0))) * 25) },
-                                { label: 'Formatting', score: (openAIResult?.atsScore || 0) > 70 ? 22 : 17 },
+                                { label: 'Keyword Match', score: analysis.jobDescriptionText 
+                                    ? Math.round(((nlpResult?.matchedSkills?.length || 0) / Math.max(1, (nlpResult?.matchedSkills?.length || 0) + (nlpResult?.missingSkills?.length || 0))) * 25)
+                                    : Math.min(25, Math.round(((nlpResult?.extractedSkills?.length || 0) / 15) * 25)) },
+                                { label: 'Formatting', score: Math.min(25, Math.round(((openAIResult?.atsScore || 0) / 100) * 25)) },
                                 { label: 'Section Completeness', score: sectionCompleteness },
                                 { label: 'Quantified Impact', score: quantifiedScore },
                             ].map(item => (
@@ -553,7 +580,7 @@ export default function AnalysisPage() {
                 {/* Section 10 - Strengths & Weaknesses */}
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-gray-900 border border-white/10 rounded-2xl p-6">
-                        <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2"><CheckCircle2 className="text-emerald-500" /> Key Strengths</h2>
+                        <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2"><CheckCircle2 className="text-emerald-500" /> Positive Signals</h2>
                         <div className="space-y-3">
                             {openAIResult?.strengths?.map((s, i) => (
                                 <div key={i} className="p-4 bg-emerald-500/5 border-l-2 border-emerald-500 rounded-r-xl">
@@ -563,19 +590,27 @@ export default function AnalysisPage() {
                         </div>
                     </div>
                     
-                    <div className="bg-gray-900 border border-white/10 rounded-2xl p-6 flex flex-col">
-                        <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2"><AlertTriangle className="text-amber-500" /> Areas to Improve</h2>
-                        <div className="space-y-3 flex-1">
-                            {[...(openAIResult?.weaknesses || []), ...(openAIResult?.improvements || [])].slice(0, 5).map((w, i) => (
-                                <div key={i} className="flex items-start gap-3 p-3 bg-amber-500/5 border border-amber-500/10 rounded-xl">
-                                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-bold">{i+1}</span>
-                                    <p className="text-sm text-amber-100 mt-0.5">{w}</p>
+                    <div className="bg-gray-900 border border-rose-500/20 rounded-2xl p-6 flex flex-col relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 blur-3xl -mr-10 -mt-10 pointer-events-none" />
+                        <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2"><AlertTriangle className="text-rose-500" /> Critical FAANG Deductions</h2>
+                        <div className="space-y-3 flex-1 mb-6">
+                            {(openAIResult?.weaknesses || []).map((w, i) => (
+                                <div key={i} className="flex items-start gap-3 p-3 bg-rose-500/5 border border-rose-500/10 rounded-xl">
+                                    <span className="flex-shrink-0 mt-0.5"><XCircle size={16} className="text-rose-500" /></span>
+                                    <p className="text-sm text-rose-200">{w}</p>
                                 </div>
                             ))}
                         </div>
-                        <button onClick={() => navigate('/career-path')} className="mt-6 w-full py-3 bg-gray-950 border border-white/5 hover:border-amber-500/30 text-amber-500 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2">
-                            Generate Full Career Roadmap <ArrowLeft className="rotate-180" size={16} />
-                        </button>
+                        
+                        <h3 className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-3 border-t border-white/5 pt-4">Required Fixes</h3>
+                        <div className="space-y-3">
+                            {(openAIResult?.improvements || []).map((imp, i) => (
+                                <div key={i} className="flex items-center gap-3 p-3 bg-amber-500/5 border border-amber-500/10 rounded-xl">
+                                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-bold">{i+1}</span>
+                                    <p className="text-sm text-amber-100">{imp}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </motion.div>
 

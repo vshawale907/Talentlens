@@ -43,6 +43,8 @@ const NLPResultSchema = new mongoose_1.Schema({
     matchedSkills: [String],
     missingSkills: [String],
     keywordDensity: { type: Map, of: Number },
+    quantificationScore: Number,
+    bulletCount: Number,
 }, { _id: false });
 const BulletImpactSchema = new mongoose_1.Schema({ bullet: String, score: Number, rewritten: String }, { _id: false });
 const InterviewQuestionSchema = new mongoose_1.Schema({ question: String, category: String, difficulty: String }, { _id: false });
