@@ -27,8 +27,9 @@ RUN mkdir -p uploads logs && chown -R nodejs:nodejs uploads logs
 
 USER nodejs
 
+# Railway will ignore EXPOSE and use dynamic PORT
 EXPOSE 5000
-HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:5000/health || exit 1
+
+# Note: Healthcheck is managed by Railway via railway.json to handle dynamic ports
 
 CMD ["node", "dist/server.js"]
