@@ -35,8 +35,17 @@ const bootstrap = async (): Promise<void> => {
             }
 
             // Start background workers
-            startResumeWorker();
-            logger.info('✅ Resume processing worker started');
+            try {
+                const { isRedisConnected } = await import('./config/redis');
+                if (isRedisConnected()) {
+                    startResumeWorker();
+                    logger.info('✅ Resume processing worker started');
+                } else {
+                    logger.warn('⚠️  Redis not connected. Resume processing worker skipped.');
+                }
+            } catch (workerErr: any) {
+                logger.error(`❌ Background worker failed to start: ${workerErr.message}`);
+            }
 
             // Ping AI Service Health
             try {

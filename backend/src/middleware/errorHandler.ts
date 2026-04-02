@@ -112,13 +112,12 @@ export const errorHandler = (
         return;
     }
 
-    // Python NLP service connection errors
-    if ((err as NodeJS.ErrnoException).code === 'ECONNREFUSED' ||
-        err.message?.includes('ECONNREFUSED') || err.message?.includes('fetch failed')) {
-        res.status(502).json({
+    // Redis connection errors
+    if (err.message?.includes('Redis') || err.message?.includes('ETIMEDOUT')) {
+        res.status(503).json({
             success: false,
-            message: 'NLP service is unavailable. Analysis will use AI fallback.',
-            code: 'NLP_UNAVAILABLE',
+            message: 'Caching service is temporarily unavailable. Core features should still work.',
+            code: 'REDIS_ERROR',
         });
         return;
     }
