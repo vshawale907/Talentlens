@@ -126,8 +126,9 @@ export const errorHandler = (
     // Generic 500
     res.status(500).json({
         success: false,
-        message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong. Please try again.',
+        // TEMPORARILY EXPOSING THIS FOR DIAGNOSTICS - REVERT ONCE THE BUG IS FOUND
+        message: err.message || 'Something went wrong. Please try again.',
         code: 'INTERNAL_ERROR',
-        ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined,
     });
 };

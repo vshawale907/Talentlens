@@ -29,19 +29,27 @@ interface AuthResponse {
 }
 
 const generateTokens = (user: IUser): TokenPair => {
-    const payload = { id: user._id.toString(), email: user.email, role: user.role };
+    try {
+        const payload = { id: user._id.toString(), email: user.email, role: user.role };
 
-    const accessToken = jwt.sign(payload, config.JWT_SECRET as jwt.Secret, {
-        expiresIn: config.JWT_EXPIRES_IN,
-    } as jwt.SignOptions);
+        if (!config.JWT_SECRET) throw new Error('JWT_SECRET is missing in environment variables');
+        if (!config.JWT_REFRESH_SECRET) throw new Error('JWT_REFRESH_SECRET is missing in environment variables');
 
-    const refreshToken = jwt.sign(
-        { id: user._id.toString() },
-        config.JWT_REFRESH_SECRET as jwt.Secret,
-        { expiresIn: config.JWT_REFRESH_EXPIRES_IN } as jwt.SignOptions
-    );
+        const accessToken = jwt.sign(payload, config.JWT_SECRET as jwt.Secret, {
+            expiresIn: config.JWT_EXPIRES_IN,
+        } as jwt.SignOptions);
 
-    return { accessToken, refreshToken };
+        const refreshToken = jwt.sign(
+            { id: user._id.toString() },
+            config.JWT_REFRESH_SECRET as jwt.Secret,
+            { expiresIn: config.JWT_REFRESH_EXPIRES_IN } as jwt.SignOptions
+        );
+
+        return { accessToken, refreshToken };
+    } catch (err: any) {
+        logger.error(`[generateTokens] Failed to sign JWT: ${err.message}`);
+        throw err;
+    }
 };
 
 export const authService = {
@@ -63,8 +71,20 @@ export const authService = {
     },
 
     login: async (input: LoginInput): Promise<AuthResponse> => {
-        const user = await UserModel.findOne({ email: input.email.toLowerCase() }).select('+password');
-        if (!user) throw new UnauthorizedError('Invalid email or password');
+        logger.debug(`Login attempt for: ${input.email}`);
+        
+        let user;
+        try {
+            user = await UserModel.findOne({ email: input.email.toLowerCase() }).select('+password');
+        } catch (dbErr: any) {
+            logger.error(`[authService.login] Database query failed: ${dbErr.message}`);
+            throw new AppError(`Database error: Please check if MongoDB is connected.`, 500, 'DB_ERROR');
+        }
+
+        if (!user) {
+            logger.warn(`Login failed: User not found [${input.email}]`);
+            throw new UnauthorizedError('Invalid email or password');
+        }
         if (!user.isActive) throw new UnauthorizedError('Account is deactivated. Contact support.');
 
         const isMatch = await user.comparePassword(input.password);

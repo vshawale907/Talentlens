@@ -46,10 +46,13 @@ app.use(cors({
         ];
         
         // Allow Vercel preview deployments and production domain
-        if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+        const isAllowed = !origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app');
+        
+        if (isAllowed) {
             callback(null, true);
         } else {
-            callback(new Error('Not allowed by CORS'));
+            logger.error(`CORS REJECTED: Origin [${origin}] not in allowed list: ${allowedOrigins.join(', ')}`);
+            callback(new Error(`Not allowed by CORS: ${origin}`));
         }
     },
     credentials: true,
