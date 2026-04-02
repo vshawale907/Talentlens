@@ -288,7 +288,7 @@ export default function ChatCoachPage() {
                         <Bot size={16} className="text-amber-500" />
                         <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Sessions</span>
                     </div>
-                    <button onClick={newSession} title="New Chat"
+                    <button onClick={() => newSession()} title="New Chat"
                         className="p-1.5 rounded-lg text-gray-400 hover:text-amber-400 hover:bg-white/5 transition-colors">
                         <Plus size={16} />
                     </button>
@@ -347,7 +347,7 @@ export default function ChatCoachPage() {
                             </div>
                         )}
 
-                        <button onClick={newSession}
+                        <button onClick={() => newSession()}
                             className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-3 rounded-xl flex items-center gap-2 transition-colors shadow-[0_0_20px_rgba(245,158,11,0.2)] relative z-10">
                             <Plus size={18} /> Start Coaching Session
                         </button>
